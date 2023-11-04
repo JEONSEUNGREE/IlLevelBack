@@ -1,0 +1,19 @@
+rootProject.name = 'TripPenguin'
+
+include 'application:tp-back-internal-app'
+findProject(':application:tp-back-internal-app')?.name = 'tp-back-internal-app'
+
+include 'application:tp-batch-app'
+findProject(':application:tp-batch-app')?.name = 'tp-batch-app'
+
+include 'domain:tp-user-domain'
+findProject(':domain:tp-user-domain')?.name = 'tp-user-domain'
+
+include 'domain:tp-reserve-domain'
+findProject(':domain:tp-reserve-domain')?.name = 'tp-reserve-domain'
+
+include 'system:tp-web-system'
+findProject(':system:tp-web-system')?.name = 'tp-web-system'
+
+include 'core:tp-base-core'
+findProject(':core:tp-base-core')?.name = 'tp-base-core'
