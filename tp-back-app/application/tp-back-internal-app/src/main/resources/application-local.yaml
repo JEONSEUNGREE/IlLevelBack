@@ -1,0 +1,24 @@
+server:
+  port: 3000
+
+
+# local docker run
+# docker run --name tp-back-app -d -it -e MYSQL_ROOT_PASSWORD=1234 -p 3308:3306 mysql
+#  docker exec -it tp-back-app /bin/bash
+#  mysql -u root -p
+# create user 'tp-back-app'@'localhost' identified by '1234'
+# 모든 디비 권한 부여
+# grant all privileges on *.* to 'tp-back-app'@'localhost';
+# create schema `tp-back-app`
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3308/tp-back-app?characterEncoding=UTF-8&serverTimezone=UTC
+    username: tp-back-app
+    password: 1234
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update

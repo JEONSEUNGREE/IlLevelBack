@@ -1,0 +1,29 @@
+spring:
+  profiles:
+    active: ${profile}
+    include:
+      -  ${spring.profiles.active}-user-domain
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+---
+spring:
+  config:
+    activate:
+      on-profile: common

@@ -7,7 +7,7 @@
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-configuration-processor/3.0.12/cb32914b28b5597f6f4352c3751f55b6ce460281/spring-boot-configuration-processor-3.0.12.jar" />
         </processorPath>
-        <module name="TripPenguin.application.tp-back-internal-app.main" />
+        <module name="com.trip.penguin.TripPenguin.application.tp-back-internal-app.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="17" />
