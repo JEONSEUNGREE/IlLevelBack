@@ -3,5 +3,8 @@
   <component name="JpaBuddyIdeaProjectConfig">
     <option name="defaultUnitInitialized" value="true" />
     <option name="renamerInitialized" value="true" />
+    <option name="reverseEngineeringLastDbConnectionId" value="80899387-f4b5-43d7-8814-072260dc2331__tp-back-app" />
+    <option name="reLastEntityCreationPackage" value="domain/tp-rdb-domain/src/main/java/com/trip/penguin/domain/user" />
+    <option name="newEntityIdStrategy" value="Auto" />
   </component>
 </project>
