@@ -31,8 +31,8 @@ allprojects {
 
 project('application:tp-back-internal-app') {
     dependencies {
-        implementation project(':domain:tp-user-domain')
-        testCompileOnly project(':domain:tp-user-domain')
+        implementation project(':domain:tp-rdb-domain')
+        testCompileOnly project(':domain:tp-rdb-domain')
 
         testCompileOnly project(':system:tp-web-system')
         implementation project(':system:tp-web-system')
@@ -54,16 +54,7 @@ project('application:tp-batch-app') {
 }
 
 
-project('domain:tp-user-domain') {
-    dependencies {
-        implementation project(':core:tp-base-core')
-        testCompileOnly project(':core:tp-base-core')
-
-        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    }
-}
-
-project('domain:tp-reserve-domain') {
+project('domain:tp-rdb-domain') {
     dependencies {
         implementation project(':core:tp-base-core')
         testCompileOnly project(':core:tp-base-core')

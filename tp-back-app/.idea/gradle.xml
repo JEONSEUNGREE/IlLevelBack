@@ -16,8 +16,7 @@
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/core/tp-base-core" />
             <option value="$PROJECT_DIR$/domain" />
-            <option value="$PROJECT_DIR$/domain/tp-reserve-domain" />
-            <option value="$PROJECT_DIR$/domain/tp-user-domain" />
+            <option value="$PROJECT_DIR$/domain/tp-rdb-domain" />
             <option value="$PROJECT_DIR$/system" />
             <option value="$PROJECT_DIR$/system/tp-web-system" />
           </set>
