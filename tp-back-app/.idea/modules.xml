@@ -21,6 +21,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/TripPenguin.domain.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/TripPenguin.domain.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/TripPenguin.domain.main.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/TripPenguin.domain.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/TripPenguin.domain.test.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/TripPenguin.domain.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/tp-rdb-domain/TripPenguin.domain.tp-rdb-domain.main.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/tp-rdb-domain/TripPenguin.domain.tp-rdb-domain.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/tp-reserve-domain/TripPenguin.domain.tp-reserve-domain.main.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/tp-reserve-domain/TripPenguin.domain.tp-reserve-domain.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/tp-reserve-domain/TripPenguin.domain.tp-reserve-domain.test.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/tp-reserve-domain/TripPenguin.domain.tp-reserve-domain.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/tp-user-domain/TripPenguin.domain.tp-user-domain.main.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/tp-user-domain/TripPenguin.domain.tp-user-domain.main.iml" />

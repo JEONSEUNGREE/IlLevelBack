@@ -26,7 +26,10 @@ allprojects {
         mavenCentral()
     }
 
-    dependencies {}
+    dependencies {
+        implementation 'org.projectlombok:lombok:1.18.28'
+        testCompileOnly 'org.projectlombok:lombok:1.18.28'
+    }
 }
 
 project('application:tp-back-internal-app') {
