@@ -46,6 +46,9 @@ public class UserMS {
     @Column(name = "user_role", nullable = false)
     private String userRole;
 
+    @Column(name = "off_yn", nullable = false)
+    private String offYn;
+
     @Column(name = "created_date", nullable = false)
     private LocalDateTime createdDate;
 
