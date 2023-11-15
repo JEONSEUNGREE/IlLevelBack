@@ -16,6 +16,7 @@ public class BadgeConditionMS {
 
     @Id
     @Column(name = "bg_cdt_Id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

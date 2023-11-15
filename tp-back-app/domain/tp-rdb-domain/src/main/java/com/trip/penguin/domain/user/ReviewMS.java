@@ -25,6 +25,10 @@ public class ReviewMS {
     @JoinColumn(name = "user_id", nullable = false)
     private UserMS userMS;
 
+    @ManyToOne
+    @JoinColumn(name = "book_id", nullable = false)
+    private BookingMS bookingMS;
+
     @Column(name = "re_title", nullable = false, length = 100)
     private String reTitle;
 

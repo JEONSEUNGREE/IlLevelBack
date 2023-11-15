@@ -1,11 +1,11 @@
 package com.trip.penguin.domain.admin;
 
+import com.trip.penguin.domain.user.UserMS;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDate;
 
 @Entity
@@ -17,10 +17,12 @@ import java.time.LocalDate;
 public class CsMS {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-//    @JoinColumn(name = "user_id", nullable = false)
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserMS userMS;
 
     @Column(name = "csq_title", nullable = false, length = 100)
     private String csqTitle;
