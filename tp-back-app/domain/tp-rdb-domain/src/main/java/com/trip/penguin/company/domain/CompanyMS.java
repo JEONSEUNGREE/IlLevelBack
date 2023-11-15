@@ -1,7 +1,10 @@
-package com.trip.penguin.domain.company;
+package com.trip.penguin.company.domain;
 
+import com.trip.penguin.room.domain.RoomMS;
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "COMPANY_MS", schema = "tp-back-app")
@@ -11,6 +14,9 @@ public class CompanyMS {
     @Column(name = "com_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @OneToMany(mappedBy = "com", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<RoomMS> companyList = new ArrayList<>();
 
     @Column(name = "com_email", nullable = false)
     private String comEmail;

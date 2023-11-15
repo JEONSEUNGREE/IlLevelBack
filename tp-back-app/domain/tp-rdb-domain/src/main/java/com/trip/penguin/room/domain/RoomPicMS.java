@@ -1,4 +1,4 @@
-package com.trip.penguin.domain.room;
+package com.trip.penguin.room.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

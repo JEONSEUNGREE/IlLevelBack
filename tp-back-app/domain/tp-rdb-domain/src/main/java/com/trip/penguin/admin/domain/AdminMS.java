@@ -1,4 +1,4 @@
-package com.trip.penguin.domain.admin;
+package com.trip.penguin.admin.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,9 +15,9 @@ import lombok.NoArgsConstructor;
 public class AdminMS {
 
     @Id
-    @Column(name = "admin_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String adminId;
+    @Column(name = "admin_id", nullable = false)
+    private Long id;
 
     @Column(name = "admin_email", nullable = false)
     private String adminEmail;

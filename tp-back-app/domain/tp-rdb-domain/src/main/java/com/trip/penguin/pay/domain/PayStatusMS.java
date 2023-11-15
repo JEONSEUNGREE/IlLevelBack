@@ -1,6 +1,6 @@
-package com.trip.penguin.domain.pay;
+package com.trip.penguin.pay.domain;
 
-import com.trip.penguin.domain.user.BookingMS;
+import com.trip.penguin.booking.domain.BookingMS;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

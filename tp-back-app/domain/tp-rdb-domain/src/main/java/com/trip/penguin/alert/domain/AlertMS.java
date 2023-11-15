@@ -1,6 +1,6 @@
-package com.trip.penguin.domain.alert;
+package com.trip.penguin.alert.domain;
 
-import com.trip.penguin.domain.user.UserMS;
+import com.trip.penguin.user.domain.UserMS;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

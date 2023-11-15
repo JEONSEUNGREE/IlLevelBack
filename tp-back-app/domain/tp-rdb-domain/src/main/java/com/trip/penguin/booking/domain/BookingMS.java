@@ -1,7 +1,8 @@
-package com.trip.penguin.domain.user;
+package com.trip.penguin.booking.domain;
 
-import com.trip.penguin.domain.pay.PayStatusMS;
-import com.trip.penguin.domain.room.RoomMS;
+import com.trip.penguin.pay.domain.PayStatusMS;
+import com.trip.penguin.room.domain.RoomMS;
+import com.trip.penguin.room.domain.RoomPicMS;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +10,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "BOOKING_MS", schema = "tp-back-app")
@@ -24,6 +25,9 @@ public class BookingMS {
     @Column(name = "book_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @OneToMany(mappedBy = "bookingMs", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PayStatusMS> payStatusList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "roomId", nullable = false)

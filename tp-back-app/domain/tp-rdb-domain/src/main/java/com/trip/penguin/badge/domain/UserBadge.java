@@ -1,6 +1,7 @@
-package com.trip.penguin.domain.user;
+package com.trip.penguin.badge.domain;
 
-import com.trip.penguin.domain.badge.BadgeMS;
+import com.trip.penguin.badge.domain.BadgeMS;
+import com.trip.penguin.user.domain.UserMS;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

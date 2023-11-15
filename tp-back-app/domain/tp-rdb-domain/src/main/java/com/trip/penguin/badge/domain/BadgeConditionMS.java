@@ -1,4 +1,4 @@
-package com.trip.penguin.domain.badge;
+package com.trip.penguin.badge.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

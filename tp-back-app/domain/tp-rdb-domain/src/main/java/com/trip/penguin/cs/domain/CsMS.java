@@ -1,6 +1,6 @@
-package com.trip.penguin.domain.admin;
+package com.trip.penguin.cs.domain;
 
-import com.trip.penguin.domain.user.UserMS;
+import com.trip.penguin.user.domain.UserMS;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,6 +18,7 @@ public class CsMS {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cs_id", nullable = false)
     private Long id;
 
     @ManyToOne

@@ -1,5 +1,6 @@
-package com.trip.penguin.domain.user;
+package com.trip.penguin.follow.domain;
 
+import com.trip.penguin.user.domain.UserMS;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,12 +15,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FollowMS {
 
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "follow_id")
+    private Long id;
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private UserMS userMS;
 
     @Column(name = "follower_id", nullable = false)
-    private String followerId;
+    private Long followerId;
 
 }

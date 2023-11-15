@@ -1,6 +1,7 @@
-package com.trip.penguin.domain.user;
+package com.trip.penguin.wish.domain;
 
-import com.trip.penguin.domain.company.CompanyMS;
+import com.trip.penguin.company.domain.CompanyMS;
+import com.trip.penguin.user.domain.UserMS;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +23,7 @@ public class WishlistMS {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private UserMS user;
+    private UserMS userMS;
 
     @ManyToOne
     @JoinColumn(name = "com_id", nullable = false)
