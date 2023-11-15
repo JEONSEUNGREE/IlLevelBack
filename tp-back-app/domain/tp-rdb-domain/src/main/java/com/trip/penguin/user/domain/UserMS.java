@@ -14,6 +14,7 @@ import java.util.List;
 @Entity
 @Table(name = "USER_MS", schema = "tp-back-app")
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
