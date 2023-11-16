@@ -71,10 +71,12 @@ project('domain:tp-rdb-domain') {
 
 project('system:tp-web-system') {
     dependencies {
-//        implementation project('core:tp-base-core')
-//        testCompileOnly project('core:tp-base-core')
+        implementation project(':core:tp-base-core')
+        testCompileOnly project(':core:tp-base-core')
 
         implementation 'org.springframework.boot:spring-boot-starter-web'
+        // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
+        implementation 'org.springframework.boot:spring-boot-starter-security:3.1.5'
     }
 }
 
