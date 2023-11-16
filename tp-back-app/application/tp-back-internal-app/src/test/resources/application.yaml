@@ -1,0 +1,29 @@
+spring:
+  profiles:
+    active: local
+    include:
+      - ${spring.profiles.active}-tp-web-system
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+---
+spring:
+  config:
+    activate:
+      on-profile: common
