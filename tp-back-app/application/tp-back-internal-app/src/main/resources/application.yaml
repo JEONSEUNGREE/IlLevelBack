@@ -2,7 +2,7 @@ spring:
   profiles:
     active: ${profile}
     include:
-      -  ${spring.profiles.active}-user-domain
+      -  ${spring.profiles.active}-tp-web-system
 
 ---
 spring:

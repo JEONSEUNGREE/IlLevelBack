@@ -1,0 +1,9 @@
+file:
+  resource:
+    room-path: /tp-penguin-app/image/room/**
+    user-path: /tp-penguin-app/image/user/**
+    company-path: /tp-penguin-app/image/company/**
+  request:
+    room-path: file:///tp-penguin-app/image/room/
+    user-path: file:///tp-penguin-app/image/user/
+    company-path: file:///tp-penguin-app/image/company/
