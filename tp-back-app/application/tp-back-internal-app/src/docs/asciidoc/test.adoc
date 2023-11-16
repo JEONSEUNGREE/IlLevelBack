@@ -1,0 +1,2 @@
+== RestDocsTestController
+operation::recommand-room/sample[snippets="http-request,http-response"]
