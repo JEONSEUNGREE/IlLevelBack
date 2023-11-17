@@ -5,8 +5,6 @@ import com.trip.penguin.follow.service.FollowService;
 import com.trip.penguin.user.domain.UserMS;
 import com.trip.penguin.user.service.UserService;
 import jakarta.persistence.EntityManager;
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -83,8 +81,8 @@ public class UserCRUDTest {
     @DisplayName("회원 정보 수정 테스트")
     @Test
     void updateTest() {
-        // given
 
+        // given
         /* 회원 정보 가입 */
         UserMS afterCommitUser = userService.signUpUser(beforeCommitUser);
 
@@ -103,16 +101,17 @@ public class UserCRUDTest {
         em.clear();
 
         // then
+        /* 회원 조회 */
+        UserMS updateConfirmUser = userService.getUser(afterCommitUser).orElseThrow(IllegalArgumentException::new);
         /* 회원 검증 */
         assertEquals(afterCommitUser.getUserEmail(), "test@email.com");
-        assertEquals(updateUser.getUserEmail(), "change@change.com");
+        assertEquals(updateConfirmUser.getUserEmail(), "change@change.com");
     }
 
-    @DisplayName("회원 탈 테스트")
+    @DisplayName("회원 탈퇴 테스트")
     @Test
     void deleteTest() {
         // given
-
         /* 회원 가입 */
         UserMS afterCommitUser = userService.signUpUser(beforeCommitUser);
 
@@ -129,7 +128,7 @@ public class UserCRUDTest {
         em.clear();
 
         // then
-        /* 회원 삭제 여부 */
+        /* 회원 탈퇴 여부 */
         assertFalse(userService.getUser(afterCommitUser).isPresent());
 
     }
