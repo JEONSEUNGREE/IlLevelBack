@@ -5,10 +5,7 @@ import com.trip.penguin.company.domain.CompanyMS;
 import com.trip.penguin.pay.domain.PayStatusMS;
 import com.trip.penguin.review.domain.ReviewMS;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,6 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "ROOM_MS", schema = "tp-back-app")
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -73,4 +71,9 @@ public class RoomMS {
 
     @Column(name = "modified_date", nullable = false)
     private LocalDateTime modifiedDate;
+
+    public void setCompanyInfo(CompanyMS companyInfo) {
+        this.com = companyInfo;
+        this.comName = companyInfo.getCom_nm();
+    }
 }
