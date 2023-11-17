@@ -3,6 +3,7 @@ package com.trip.penguin.company.domain;
 import com.trip.penguin.room.domain.RoomMS;
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,9 +41,9 @@ public class CompanyMS {
     private String userRole;
 
     @Column(name = "created_date", nullable = false)
-    private LocalDate createdDate;
+    private LocalDateTime createdDate;
 
     @Column(name = "modified_date", nullable = false)
-    private LocalDate modifiedDate;
+    private LocalDateTime modifiedDate;
 
 }

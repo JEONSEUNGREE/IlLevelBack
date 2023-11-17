@@ -1,23 +1,41 @@
 package com.trip.penguin.room.domain;
 
+import com.trip.penguin.booking.domain.BookingMS;
 import com.trip.penguin.company.domain.CompanyMS;
+import com.trip.penguin.pay.domain.PayStatusMS;
+import com.trip.penguin.review.domain.ReviewMS;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "ROOM_MS", schema = "tp-back-app")
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class RoomMS {
 
     @Id
-    @Column(name = "roomId", nullable = false)
+    @Column(name = "room_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToMany(mappedBy = "roomMs", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RoomPicMS> roomPicList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "roomMS", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ReviewMS> reviewList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<BookingMS> bookingList = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "com_id", nullable = false)
@@ -32,11 +50,14 @@ public class RoomMS {
     @Column(name = "sell_prc", nullable = false)
     private Integer sellPrc;
 
+    @Column(name = "sold_out", nullable = false)
+    private String soldOutYn;
+
     @Column(name = "check_in", nullable = false)
-    private LocalDate checkIn;
+    private LocalDateTime checkIn;
 
     @Column(name = "check_out", nullable = false)
-    private LocalDate checkOut;
+    private LocalDateTime checkOut;
 
     @Column(name = "room_desc")
     private String roomDesc;
@@ -48,8 +69,8 @@ public class RoomMS {
     private Integer maxCount;
 
     @Column(name = "created_date", nullable = false)
-    private LocalDate createdDate;
+    private LocalDateTime createdDate;
 
     @Column(name = "modified_date", nullable = false)
-    private LocalDate modifiedDate;
+    private LocalDateTime modifiedDate;
 }
