@@ -56,6 +56,9 @@ dependencies {
     testCompileOnly project(':system:tp-web-system')
     implementation project(':system:tp-web-system')
 
+    implementation project(':core:tp-base-core')
+    testCompileOnly project(':core:tp-base-core')
+
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.28'
     implementation 'org.springframework.boot:spring-boot-starter-test'

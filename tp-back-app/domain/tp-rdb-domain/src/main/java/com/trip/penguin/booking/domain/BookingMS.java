@@ -3,6 +3,7 @@ package com.trip.penguin.booking.domain;
 import com.trip.penguin.pay.domain.PayStatusMS;
 import com.trip.penguin.room.domain.RoomMS;
 import com.trip.penguin.room.domain.RoomPicMS;
+import com.trip.penguin.user.domain.UserMS;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +32,12 @@ public class BookingMS {
     private List<PayStatusMS> payStatusList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "roomId", nullable = false)
+    @JoinColumn(name = "room_id", nullable = false)
     private RoomMS room;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserMS userMS;
 
     @Column(name = "book_nm", nullable = false)
     private String bookNm;
@@ -55,9 +61,9 @@ public class BookingMS {
     private Integer couponYn;
 
     @Column(name = "create_date", nullable = false)
-    private LocalDate createDate;
+    private LocalDateTime createDate;
 
     @Column(name = "modified_date", nullable = false)
-    private LocalDate modifiedDate;
+    private LocalDateTime modifiedDate;
 
 }

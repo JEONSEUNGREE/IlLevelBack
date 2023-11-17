@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "CS_MS", schema = "tp-back-app")
@@ -32,7 +33,10 @@ public class CsMS {
     private String csqContent;
 
     @Column(name = "created_date", nullable = false)
-    private LocalDate createdDate;
+    private LocalDateTime createdDate;
+
+    @Column(name = "modified_date", nullable = false)
+    private LocalDateTime modifiedDate;
 
     @Column(name = "csq_status", nullable = false)
     private Integer csqStatus;

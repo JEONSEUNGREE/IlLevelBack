@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "ADMIN_MS", schema = "tp-back-app")
 @Getter
@@ -27,4 +29,10 @@ public class AdminMS {
 
     @Column(name = "admin_nm", nullable = false)
     private String adminNm;
+
+    @Column(name = "created_date", nullable = false)
+    private LocalDateTime createdDate;
+
+    @Column(name = "modified_date", nullable = false)
+    private LocalDateTime modifiedDate;
 }

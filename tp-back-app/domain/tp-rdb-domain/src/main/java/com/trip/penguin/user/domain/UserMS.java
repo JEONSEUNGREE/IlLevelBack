@@ -1,6 +1,7 @@
 package com.trip.penguin.user.domain;
 import com.trip.penguin.alert.domain.AlertMS;
 import com.trip.penguin.badge.domain.UserBadge;
+import com.trip.penguin.booking.domain.BookingMS;
 import com.trip.penguin.cs.domain.CsMS;
 import com.trip.penguin.follow.domain.FollowMS;
 import com.trip.penguin.wish.domain.WishlistMS;
@@ -25,7 +26,6 @@ public class UserMS {
     @Column(name = "user_id", nullable = false)
     private Long id;
 
-
     @OneToMany(mappedBy = "userMS", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<FollowMS> followList = new ArrayList<>();
 
@@ -40,6 +40,9 @@ public class UserMS {
 
     @OneToMany(mappedBy = "userMs", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<AlertMS> alertList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "userMS", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<BookingMS> bookingList = new ArrayList<>();
 
     @Column(name = "user_first", nullable = false)
     private String userFirst;

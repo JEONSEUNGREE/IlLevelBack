@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "ROOM_PIC_MS", schema = "tp-back-app")
@@ -28,9 +29,9 @@ public class RoomPicMS {
     private Integer picSeq;
 
     @Column(name = "created_date", nullable = false)
-    private LocalDate createdDate;
+    private LocalDateTime createdDate;
 
     @Column(name = "modified_date", nullable = false)
-    private LocalDate modifiedDate;
+    private LocalDateTime modifiedDate;
 
 }

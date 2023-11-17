@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "PAY_STATUS_MS", schema = "tp-back-app")
@@ -26,9 +27,9 @@ public class PayStatusMS {
     private Integer bookStatus;
 
     @Column(name = "create_date")
-    private LocalDate createDate;
+    private LocalDateTime createDate;
 
     @Column(name = "modified_date", nullable = false)
-    private LocalDate modifiedDate;
+    private LocalDateTime modifiedDate;
 
 }
