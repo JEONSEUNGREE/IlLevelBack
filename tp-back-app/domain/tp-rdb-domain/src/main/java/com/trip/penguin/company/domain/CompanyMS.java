@@ -2,6 +2,8 @@ package com.trip.penguin.company.domain;
 
 import com.trip.penguin.room.domain.RoomMS;
 import jakarta.persistence.*;
+import lombok.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -9,6 +11,11 @@ import java.util.List;
 
 @Entity
 @Table(name = "COMPANY_MS", schema = "tp-back-app")
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CompanyMS {
 
     @Id
@@ -19,14 +26,14 @@ public class CompanyMS {
     @OneToMany(mappedBy = "com", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<RoomMS> companyList = new ArrayList<>();
 
+    @Column(name = "com_nm", nullable = false)
+    private String com_nm;
+
     @Column(name = "com_email", nullable = false)
     private String comEmail;
 
     @Column(name = "com_pwd", nullable = false)
     private String comPwd;
-
-    @Column(name = "accom_nm", nullable = false)
-    private String accomNm;
 
     @Column(name = "com_img", nullable = false)
     private String comImg;
