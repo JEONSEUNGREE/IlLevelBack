@@ -42,7 +42,7 @@ public class CompanyMS {
     private String comAddress;
 
     @Column(name = "com_approval", nullable = false)
-    private Integer comApproval;
+    private String comApproval;
 
     @Column(name = "user_role", nullable = false)
     private String userRole;

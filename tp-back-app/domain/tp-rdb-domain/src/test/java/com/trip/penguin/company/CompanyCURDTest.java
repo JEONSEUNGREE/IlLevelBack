@@ -3,6 +3,7 @@ package com.trip.penguin.company;
 
 import com.trip.penguin.company.domain.CompanyMS;
 import com.trip.penguin.company.service.CompanyService;
+import com.trip.penguin.constant.CommonConstant;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -44,7 +45,7 @@ public class CompanyCURDTest {
                 .comPwd("testPwd")
                 .comImg("defaultImg")
                 .comAddress("location")
-                .comApproval(0)
+                .comApproval(CommonConstant.N.name())
                 .userRole("ROLE_COM")
                 .createdDate(LocalDateTime.now())
                 .modifiedDate(LocalDateTime.now())
