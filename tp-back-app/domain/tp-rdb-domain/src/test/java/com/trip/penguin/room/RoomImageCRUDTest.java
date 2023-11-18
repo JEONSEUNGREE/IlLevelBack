@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,6 +19,8 @@ import com.trip.penguin.company.domain.CompanyMS;
 import com.trip.penguin.company.service.CompanyService;
 import com.trip.penguin.constant.CommonConstant;
 import com.trip.penguin.room.domain.RoomMS;
+import com.trip.penguin.room.domain.RoomPicMS;
+import com.trip.penguin.room.service.RoomPicService;
 import com.trip.penguin.room.service.RoomService;
 
 import jakarta.persistence.EntityManager;
@@ -26,9 +29,11 @@ import jakarta.persistence.EntityManager;
 @DataJpaTest(properties = "classpath:application.yaml")
 @ComponentScan(value = "com.trip.penguin")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class RoomCRUDTest {
+public class RoomImageCRUDTest {
 
 	private final RoomService roomService;
+
+	private final RoomPicService roomPicService;
 
 	private final CompanyService companyService;
 
@@ -39,8 +44,10 @@ public class RoomCRUDTest {
 	private CompanyMS beforeCommitCompany;
 
 	@Autowired
-	public RoomCRUDTest(RoomService roomService, CompanyService companyService, EntityManager em) {
+	public RoomImageCRUDTest(RoomService roomService, CompanyService companyService, RoomPicService roomPicService,
+		EntityManager em) {
 		this.roomService = roomService;
+		this.roomPicService = roomPicService;
 		this.companyService = companyService;
 		this.em = em;
 	}
@@ -72,14 +79,14 @@ public class RoomCRUDTest {
 	}
 
 	@Test
-	@DisplayName("객실 생성 테스트")
-	void createRoomTest() {
+	@DisplayName("객실 이미지 추가, 수정, 삭제, 테스트")
+	void createRoomImageTest() {
 
 		// given
 		/* 회사 가입 */
 		companyService.createCompany(beforeCommitCompany);
 
-		/* 객실 등록, 객실 기본 이미지 생성 */
+		/* 객실 등록 */
 		RoomMS afterCommitRoom = roomService.createRoom(beforeCommitRoomMS, beforeCommitCompany, new ArrayList<>());
 
 		em.flush();
@@ -89,68 +96,35 @@ public class RoomCRUDTest {
 		/* 객실 조회 */
 		RoomMS findRoom = roomService.getRoomById(afterCommitRoom).orElseThrow(IllegalArgumentException::new);
 
-		// then
-		assertEquals(afterCommitRoom.getId(), findRoom.getId());
-	}
+		/* 객실 사진 3개 추가 */
+		List<RoomPicMS> roomPicList = new ArrayList<>();
 
-	@Test
-	@DisplayName("객실 정보 수정 테스트")
-	void updateRoomTest() {
+		for (int i = 0; i < 3; i++) {
+			roomPicList.add(
+				RoomPicMS.builder()
+					.roomMs(findRoom)
+					.picLocation("change" + i)
+					.picSeq(i)
+					.build()
+			);
+		}
 
-		// given
-		/* 회사 가입 */
-		companyService.createCompany(beforeCommitCompany);
-
-		/* 객실 등록 */
-		RoomMS afterCommitRoom = roomService.createRoom(beforeCommitRoomMS, beforeCommitCompany, new ArrayList<>());
-
-		em.flush();
-		em.clear();
-
-		// when
-		/* 객실 조회 */
-		RoomMS findRoom = roomService.getRoomById(afterCommitRoom).orElseThrow(IllegalAccessError::new);
-		findRoom.setRoomNm("changeNm");
-
-		roomService.updateRoom(findRoom);
+		roomPicService.updateRoomPics(findRoom, roomPicList);
 
 		em.flush();
 		em.clear();
 
 		// then
+		/* 객실 사진 목록 조회 */
+		RoomMS findRoom2 = roomService.getRoomById(afterCommitRoom).orElseThrow(IllegalArgumentException::new);
 
-		/* 객실 조회 */
-		RoomMS confirmRoom = roomService.getRoomById(afterCommitRoom).orElseThrow(IllegalAccessError::new);
+		/* 기존 객실 0번 사진 삭제 확인 */
+		assertEquals(findRoom2.getRoomPicList().size(), 3);
 
-		assertEquals(afterCommitRoom.getId(), confirmRoom.getId());
-		assertNotEquals(afterCommitRoom.getRoomNm(), confirmRoom.getRoomNm());
-		assertEquals(confirmRoom.getRoomNm(), "changeNm");
-	}
-
-	@Test
-	@DisplayName("객실 삭제 테스트")
-	void deleteRoomTest() {
-
-		// given
-		/* 회사 가입 */
-		companyService.createCompany(beforeCommitCompany);
-
-		/* 객실 등록 */
-		RoomMS afterCommitRoom = roomService.createRoom(beforeCommitRoomMS, beforeCommitCompany, new ArrayList<>());
-
-		em.flush();
-		em.clear();
-
-		// when
-		/* 객실 삭제 */
-		roomService.deleteRoom(afterCommitRoom);
-
-		em.flush();
-		em.clear();
-
-		// then
-		/* 객실 삭제 확인 */
-		assertFalse(roomService.getRoomById(afterCommitRoom).isPresent());
+		/* 객실 사진 0,1번 2개 확인 */
+		assertEquals(findRoom2.getRoomPicList().get(0).getPicLocation(), "change0");
+		assertEquals(findRoom2.getRoomPicList().get(1).getPicLocation(), "change1");
+		assertEquals(findRoom2.getRoomPicList().get(2).getPicLocation(), "change2");
 	}
 
 }
