@@ -58,6 +58,9 @@ public class RoomMS {
 	@JoinColumn(name = "com_id", nullable = false)
 	private CompanyMS com;
 
+	@Column(name = "thumbnail", nullable = false)
+	private String thubNail;
+
 	@Column(name = "room_nm", nullable = false)
 	private String roomNm;
 

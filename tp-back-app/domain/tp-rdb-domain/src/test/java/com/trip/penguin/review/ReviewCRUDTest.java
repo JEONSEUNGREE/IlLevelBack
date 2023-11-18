@@ -87,6 +87,7 @@ public class ReviewCRUDTest {
 			.checkOut(LocalDateTime.now())
 			.couponYn(CommonConstant.Y.name())
 			.sellPrc(120000)
+			.thubNail("default")
 			.maxCount(5)
 			.soldOutYn(CommonConstant.N.name())
 			.roomDesc("Desc")
