@@ -1,16 +1,31 @@
 package com.trip.penguin.room.domain;
 
-import com.trip.penguin.booking.domain.BookingMS;
-import com.trip.penguin.company.domain.CompanyMS;
-import com.trip.penguin.pay.domain.PayStatusMS;
-import com.trip.penguin.review.domain.ReviewMS;
-import jakarta.persistence.*;
-import lombok.*;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import com.trip.penguin.booking.domain.BookingMS;
+import com.trip.penguin.company.domain.CompanyMS;
+import com.trip.penguin.review.domain.ReviewMS;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "ROOM_MS", schema = "tp-back-app")
@@ -21,59 +36,137 @@ import java.util.List;
 @AllArgsConstructor
 public class RoomMS {
 
-    @Id
-    @Column(name = "room_id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@Column(name = "room_id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @OneToMany(mappedBy = "roomMs", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RoomPicMS> roomPicList = new ArrayList<>();
+	@Builder.Default
+	@OneToMany(mappedBy = "roomMs", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<RoomPicMS> roomPicList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "roomMS", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ReviewMS> reviewList = new ArrayList<>();
+	@Builder.Default
+	@OneToMany(mappedBy = "roomMS", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ReviewMS> reviewList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<BookingMS> bookingList = new ArrayList<>();
+	/* 빌더 패턴의 리스트의 경우 일반 적인 필드 초기화 과정을 거치지 않아 원시형이 아닌경우 null 발생*/
+	@Builder.Default
+	@OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<BookingMS> bookingList = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "com_id", nullable = false)
-    private CompanyMS com;
+	@ManyToOne
+	@JoinColumn(name = "com_id", nullable = false)
+	private CompanyMS com;
 
-    @Column(name = "room_nm", nullable = false)
-    private String roomNm;
+	@Column(name = "room_nm", nullable = false)
+	private String roomNm;
 
-    @Column(name = "com_name", nullable = false)
-    private String comName;
+	@Column(name = "com_name", nullable = false)
+	private String comName;
 
-    @Column(name = "sell_prc", nullable = false)
-    private Integer sellPrc;
+	@Column(name = "sell_prc", nullable = false)
+	private Integer sellPrc;
 
-    @Column(name = "sold_out", nullable = false)
-    private String soldOutYn;
+	@Column(name = "sold_out", nullable = false)
+	private String soldOutYn;
 
-    @Column(name = "check_in", nullable = false)
-    private LocalDateTime checkIn;
+	@Column(name = "check_in", nullable = false)
+	private LocalDateTime checkIn;
 
-    @Column(name = "check_out", nullable = false)
-    private LocalDateTime checkOut;
+	@Column(name = "check_out", nullable = false)
+	private LocalDateTime checkOut;
 
-    @Column(name = "room_desc")
-    private String roomDesc;
+	@Column(name = "room_desc")
+	private String roomDesc;
 
-    @Column(name = "coupon_yn", nullable = false, length = 2)
-    private String couponYn;
+	@Column(name = "coupon_yn", nullable = false, length = 2)
+	private String couponYn;
 
-    @Column(name = "max_count", nullable = false)
-    private Integer maxCount;
+	@Column(name = "max_count", nullable = false)
+	private Integer maxCount;
 
-    @Column(name = "created_date", nullable = false)
-    private LocalDateTime createdDate;
+	@Column(name = "created_date", nullable = false)
+	private LocalDateTime createdDate;
 
-    @Column(name = "modified_date", nullable = false)
-    private LocalDateTime modifiedDate;
+	@Column(name = "modified_date", nullable = false)
+	private LocalDateTime modifiedDate;
 
-    public void setCompanyInfo(CompanyMS companyInfo) {
-        this.com = companyInfo;
-        this.comName = companyInfo.getCom_nm();
-    }
+	public void createRoomMs() {
+		this.setCreatedDate(LocalDateTime.now());
+		this.setModifiedDate(LocalDateTime.now());
+	}
+
+	public void setCompanyInfo(CompanyMS companyInfo) {
+		this.com = companyInfo;
+		this.comName = companyInfo.getCom_nm();
+	}
+
+	/**
+	 * 기본 이미지 생성
+	 */
+	public void addDefaultRoomPic() {
+		RoomPicMS roomPicMS = new RoomPicMS().createDefaultPic(this);
+		this.roomPicList.add(roomPicMS);
+	}
+
+	/**
+	 * 이미지 추가 - 이미지 목록
+	 * @param roomPicList - 이미지 목록
+	 */
+	public void addRoomPics(List<RoomPicMS> roomPicList) {
+		if (!roomPicList.isEmpty()) {
+			int sequence = 0;
+			roomPicList.forEach(item -> {
+				this.roomPicList.add(item);
+				item.setRoomMs(this);
+				item.setPicSeq(sequence);
+				item.setCreatedDate(LocalDateTime.now());
+				item.setModifiedDate(LocalDateTime.now());
+			});
+		} else {
+			addDefaultRoomPic();
+		}
+	}
+
+	/**
+	 * 이미지 수정
+	 * @param modifyPicList - 수정, 추가 이미지 목록
+	 * @return List<RoomPicMS> - 삭제 이미지 목록
+	 */
+	public List<RoomPicMS> addModifyRoomPics(List<RoomPicMS> modifyPicList) {
+
+		List<RoomPicMS> tmpModifedList = new ArrayList<>();
+		Map<Long, RoomPicMS> stdList = new HashMap<>();
+
+		/* 기존 사진 Key, Map 설정 */
+		this.roomPicList.forEach(item -> stdList.put(item.getId(), item));
+
+		/*
+		루프
+		1. 기존 사진의 경우 업데이트
+		2. 없는 경우 생성
+		3. 없어진 경우 삭제
+		*/
+		modifyPicList.forEach(item -> {
+
+			if (item.getId() != null && stdList.get(item.getId()) != null) {
+				RoomPicMS existRoom = stdList.get(item.getId());
+				existRoom.setRoomMs(this);
+				existRoom.setPicSeq(item.getPicSeq());
+				existRoom.setModifiedDate(item.getModifiedDate());
+
+				stdList.remove(item.getId());
+				tmpModifedList.add(existRoom);
+			} else {
+				item.setRoomMs(this);
+				item.setPicSeq(item.getPicSeq());
+				item.setModifiedDate(LocalDateTime.now());
+				item.setCreatedDate(LocalDateTime.now());
+				tmpModifedList.add(item);
+			}
+		});
+
+		this.roomPicList = tmpModifedList;
+		return stdList.values().stream().toList();
+	}
 }
