@@ -54,7 +54,7 @@ public class RoomMS {
 	@OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<BookingMS> bookingList = new ArrayList<>();
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "com_id", nullable = false)
 	private CompanyMS com;
 
