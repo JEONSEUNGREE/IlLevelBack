@@ -8,18 +8,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.test.context.ActiveProfiles;
 
+import com.trip.penguin.config.JpaDataConfig;
 import com.trip.penguin.follow.service.FollowService;
 import com.trip.penguin.user.domain.UserMS;
 import com.trip.penguin.user.service.UserService;
 
 import jakarta.persistence.EntityManager;
 
-@ActiveProfiles("local")
+@JpaDataConfig
 @DataJpaTest(properties = "classpath:application.yaml")
-@ComponentScan(value = "com.trip.penguin")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class UserCRUDTest {
 
