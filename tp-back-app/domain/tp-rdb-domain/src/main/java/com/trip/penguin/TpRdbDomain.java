@@ -1,6 +1,7 @@
 package com.trip.penguin;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
 public class TpRdbDomain {
 }

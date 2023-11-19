@@ -6,19 +6,30 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
 import com.trip.penguin.TpBackInternalApp;
 import com.trip.penguin.config.AbstractRestDocsTests;
-import com.trip.penguin.controller.TestController;
+import com.trip.penguin.recommand.room.controller.RoomRecController;
+import com.trip.penguin.recommand.room.repository.RoomCustomRepository;
+import com.trip.penguin.recommand.room.service.RoomRecServiceImpl;
 
-@WebMvcTest(TestController.class)
+@ActiveProfiles("local")
+@WebMvcTest(RoomRecController.class)
 @ContextConfiguration(classes = TpBackInternalApp.class)
-public class RecommandRoom extends AbstractRestDocsTests {
+public class RecRoomWebTest extends AbstractRestDocsTests {
+
+	@MockBean
+	private RoomCustomRepository roomCustomRepository;
+
+	@MockBean
+	private RoomRecServiceImpl roomRecService;
 
 	@Test
 	public void sample() throws Exception {
-		mockMvc.perform(get("/"))
+		mockMvc.perform(get("/rec/room/main"))
 			.andExpect(status().isOk())
 			.andDo(document("sample"));
 	}
