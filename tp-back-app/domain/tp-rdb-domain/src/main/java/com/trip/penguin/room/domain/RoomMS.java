@@ -59,7 +59,7 @@ public class RoomMS {
 	private CompanyMS com;
 
 	@Column(name = "thumbnail", nullable = false)
-	private String thubNail;
+	private String thumbNail;
 
 	@Column(name = "room_nm", nullable = false)
 	private String roomNm;

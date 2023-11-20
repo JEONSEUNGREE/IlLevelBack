@@ -13,7 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import com.trip.penguin.TpBackInternalApp;
 import com.trip.penguin.config.AbstractRestDocsTests;
 import com.trip.penguin.recommand.room.controller.RoomRecController;
-import com.trip.penguin.recommand.room.repository.RoomCustomRepository;
+import com.trip.penguin.recommand.room.repository.RoomRecCustomRepository;
 import com.trip.penguin.recommand.room.service.RoomRecServiceImpl;
 
 @ActiveProfiles("local")
@@ -22,7 +22,7 @@ import com.trip.penguin.recommand.room.service.RoomRecServiceImpl;
 public class RecRoomWebTest extends AbstractRestDocsTests {
 
 	@MockBean
-	private RoomCustomRepository roomCustomRepository;
+	private RoomRecCustomRepository roomCustomRepository;
 
 	@MockBean
 	private RoomRecServiceImpl roomRecService;

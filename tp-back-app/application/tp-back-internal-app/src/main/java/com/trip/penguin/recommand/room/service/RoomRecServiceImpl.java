@@ -5,34 +5,37 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.trip.penguin.company.service.CompanyService;
-import com.trip.penguin.recommand.room.dto.RoomRecDTO;
+import com.trip.penguin.recommand.room.dao.RoomRecDAO;
+import com.trip.penguin.recommand.room.repository.RoomRecCustomRepository;
 import com.trip.penguin.recommand.room.repository.RoomRecRepository;
-import com.trip.penguin.room.domain.RoomMS;
+import com.trip.penguin.recommand.room.view.MainRecRoomSchCdt;
 import com.trip.penguin.room.service.RoomService;
 
 @Service
-public class RoomRecServiceImpl {
+public class RoomRecServiceImpl implements RoomRecService {
 
 	private final RoomRecRepository roomRecRepository;
 
+	private final RoomRecCustomRepository roomRecCustomRepository;
+
 	private final RoomService roomService;
 
-	private final CompanyService companyService;
-
 	@Autowired
-	public RoomRecServiceImpl(RoomRecRepository roomRecRepository, RoomService roomService,
-		CompanyService companyService) {
-		this.companyService = companyService;
+	public RoomRecServiceImpl(RoomRecRepository roomRecRepository, RoomRecCustomRepository roomRecCustomRepository,
+		RoomService roomService) {
 		this.roomRecRepository = roomRecRepository;
+		this.roomRecCustomRepository = roomRecCustomRepository;
 		this.roomService = roomService;
 	}
 
-	public List<RoomRecDTO> getRoomRecMain() {
-		RoomMS roomMS = new RoomMS();
-		roomMS.setId(0L);
-
-		List<RoomMS> roomPicListByRoomId = roomService.getRoomPicListByRoomId(roomMS);
-		return null;
+	/**
+	 * 메인 추천 객실 데이터 조회
+	 * @param mainRecRoomSchCdt - 검색 조건
+	 * @return List<RoomRecDAO>
+	 */
+	@Override
+	public List<RoomRecDAO> getMainRecRoomListWithPaging(MainRecRoomSchCdt mainRecRoomSchCdt) {
+		return roomRecCustomRepository.getMainRecRoomListWithPaging(mainRecRoomSchCdt.getPageable());
 	}
+
 }
