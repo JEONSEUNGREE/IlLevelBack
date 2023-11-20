@@ -69,7 +69,7 @@ public class RoomImageCRUDTest {
 			.checkIn(LocalDateTime.now())
 			.checkOut(LocalDateTime.now())
 			.couponYn(CommonConstant.Y.name())
-			.thubNail("default")
+			.thumbNail("default")
 			.sellPrc(120000)
 			.maxCount(5)
 			.soldOutYn(CommonConstant.N.name())

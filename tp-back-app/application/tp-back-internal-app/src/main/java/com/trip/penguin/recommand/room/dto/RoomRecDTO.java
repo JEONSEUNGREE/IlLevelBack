@@ -11,16 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RoomRecDTO {
 
-	private String roomNm;
+	private Object mainData;
 
-	private String comNm;
-
-	private Long sellPrc;
-
-	private String couponYn;
-
-	private String thumbNail;
-
-	private Long rating;
+	private Object subData;
 
 }

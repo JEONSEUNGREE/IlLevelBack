@@ -1,5 +1,6 @@
 package com.trip.penguin.recommand.room.repository;
 
+import static com.trip.penguin.review.domain.QReviewMS.*;
 import static com.trip.penguin.room.domain.QRoomMS.*;
 
 import java.util.List;
@@ -8,24 +9,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.trip.penguin.room.domain.RoomMS;
+import com.trip.penguin.constant.CommonConstant;
+import com.trip.penguin.recommand.room.dao.RoomRecDAO;
 
 @Repository
-public class RoomCustomRepositoryImpl implements RoomCustomRepository {
+public class RoomCustomRepositoryImpl implements RoomRecCustomRepository {
 
-	private final JPAQueryFactory jpaQueryFactory;
+	private final JPAQueryFactory queryFactory;
 
 	@Autowired
 	public RoomCustomRepositoryImpl(JPAQueryFactory jpaQueryFactory) {
-		this.jpaQueryFactory = jpaQueryFactory;
+		this.queryFactory = jpaQueryFactory;
 	}
 
 	@Override
-	public List<RoomMS> getMainRecRoom(Pageable pageable) {
+	public List<RoomRecDAO> getMainRecRoomListWithPaging(Pageable pageable) {
 
-		List<RoomMS> fetch = jpaQueryFactory.selectFrom(roomMS).fetch();
-
-		return null;
+		return queryFactory.selectDistinct(Projections.fields(RoomRecDAO.class,
+				roomMS.roomNm, roomMS.comName, roomMS.sellPrc,
+				roomMS.couponYn, roomMS.thumbNail, reviewMS.rating.avg().as("ratingAvg")))
+			.from(roomMS)
+			.where(roomMS.soldOutYn.eq(CommonConstant.N.name()))
+			.leftJoin(roomMS.reviewList, reviewMS)
+			.groupBy(roomMS.id)
+			.limit(pageable.getPageSize())
+			.offset(pageable.getOffset())
+			.fetch();
 	}
+
 }
