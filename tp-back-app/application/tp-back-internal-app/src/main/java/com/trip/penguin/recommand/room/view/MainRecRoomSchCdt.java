@@ -1,7 +1,5 @@
 package com.trip.penguin.recommand.room.view;
 
-import org.springframework.data.domain.Pageable;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,7 +13,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class MainRecRoomSchCdt {
 
-	private Pageable pageable;
+	private Integer pageNumber;
+
+	private Integer pageSize;
 
 	private Object mainViewData;
 

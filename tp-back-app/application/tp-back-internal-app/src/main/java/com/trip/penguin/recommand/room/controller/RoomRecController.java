@@ -1,23 +1,34 @@
 package com.trip.penguin.recommand.room.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.trip.penguin.constant.CommonConstant;
+import com.trip.penguin.recommand.room.dao.RoomRecDAO;
+import com.trip.penguin.recommand.room.service.RoomRecService;
+import com.trip.penguin.recommand.room.view.MainRecRoomSchCdt;
 import com.trip.penguin.response.JsonResponse;
 
 @RestController
 @RequestMapping(value = "/rec/room")
 public class RoomRecController {
 
-	@GetMapping("/main")
-	public JsonResponse recommandRoomMain() {
+	private final RoomRecService roomRecService;
 
-		return JsonResponse.builder()
-			.message(CommonConstant.SUCCESS.name())
-			.result(CommonConstant.SUCCESS)
-			.data("String")
-			.build();
+	@Autowired
+	public RoomRecController(RoomRecService roomRecService) {
+		this.roomRecService = roomRecService;
+	}
+
+	@PostMapping("/mainList")
+	public JsonResponse<List<RoomRecDAO>> mainRecRoomList(@RequestBody MainRecRoomSchCdt mainRecRoomSchCdt) {
+
+		List<RoomRecDAO> mainRecRoomList = roomRecService.getMainRecRoomListWithPaging(mainRecRoomSchCdt);
+
+		return JsonResponse.success(mainRecRoomList);
 	}
 }
