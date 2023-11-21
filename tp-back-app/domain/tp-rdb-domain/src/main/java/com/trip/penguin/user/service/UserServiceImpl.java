@@ -28,12 +28,22 @@ public class UserServiceImpl implements UserService {
 
 	/**
 	 * 회원 정보 조회
-	 * @param userMS - 회티원 엔티티
+	 * @param userMS - 회원 엔티티
 	 * @return Optional<UserMS>
 	 */
 	@Override
 	public Optional<UserMS> getUser(UserMS userMS) {
 		return userMSRepository.findById(userMS.getId());
+	}
+
+	/**
+	 * 회원 정보 조회
+	 * @param userEmail - 회원 이메일
+	 * @return Optional<UserMS>
+	 */
+	@Override
+	public UserMS getUserByUserEmail(String userEmail) {
+		return userMSRepository.findByUserEmail(userEmail).orElseGet(null);
 	}
 
 	/**
