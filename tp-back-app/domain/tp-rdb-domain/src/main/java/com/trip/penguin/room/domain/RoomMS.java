@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "ROOM_MS", schema = "tp-back-app")
+@Table(name = "ROOM_MS")
 @Getter
 @Setter
 @Builder
@@ -59,7 +59,7 @@ public class RoomMS {
 	private CompanyMS com;
 
 	@Column(name = "thumbnail", nullable = false)
-	private String thubNail;
+	private String thumbNail;
 
 	@Column(name = "room_nm", nullable = false)
 	private String roomNm;

@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "USER_MS", schema = "tp-back-app")
+@Table(name = "USER_MS")
 @Getter
 @Setter
 @Builder

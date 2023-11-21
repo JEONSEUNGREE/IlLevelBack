@@ -17,7 +17,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "USER_BADGE", schema = "tp-back-app")
+@Table(name = "USER_BADGE")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor

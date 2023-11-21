@@ -17,7 +17,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "PAY_STATUS_MS", schema = "tp-back-app")
+@Table(name = "PAY_STATUS_MS")
 @Getter
 @Builder
 @AllArgsConstructor

@@ -5,4 +5,5 @@
 :toclevels: 2
 :seclinks:
 
-include::test.adoc[]
+
+include::{docfile}/../mainRecRoomList.adoc[]

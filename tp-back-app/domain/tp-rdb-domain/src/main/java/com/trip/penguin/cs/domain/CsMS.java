@@ -19,7 +19,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "CS_MS", schema = "tp-back-app")
+@Table(name = "CS_MS")
 @Getter
 @Builder
 @NoArgsConstructor

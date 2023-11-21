@@ -12,13 +12,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.test.context.ActiveProfiles;
 
 import com.trip.penguin.booking.domain.BookingMS;
 import com.trip.penguin.booking.service.BookingMsService;
 import com.trip.penguin.company.domain.CompanyMS;
 import com.trip.penguin.company.service.CompanyService;
+import com.trip.penguin.config.JpaDataConfig;
 import com.trip.penguin.constant.CommonConstant;
 import com.trip.penguin.review.domain.ReviewMS;
 import com.trip.penguin.review.service.ReviewService;
@@ -29,9 +28,8 @@ import com.trip.penguin.user.service.UserService;
 
 import jakarta.persistence.EntityManager;
 
-@ActiveProfiles("local")
+@JpaDataConfig
 @DataJpaTest(properties = "classpath:application.yaml")
-@ComponentScan(value = "com.trip.penguin")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class ReviewCRUDTest {
 
@@ -87,7 +85,7 @@ public class ReviewCRUDTest {
 			.checkOut(LocalDateTime.now())
 			.couponYn(CommonConstant.Y.name())
 			.sellPrc(120000)
-			.thubNail("default")
+			.thumbNail("default")
 			.maxCount(5)
 			.soldOutYn(CommonConstant.N.name())
 			.roomDesc("Desc")
