@@ -86,6 +86,9 @@ dependencies {
     implementation project(':core:tp-base-core')
     testCompileOnly project(':core:tp-base-core')
 
+    // 테스트용 메모리 디비
+    testRuntimeOnly 'com.h2database:h2'
+
     implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
     annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
     annotationProcessor "jakarta.annotation:jakarta.annotation-api"

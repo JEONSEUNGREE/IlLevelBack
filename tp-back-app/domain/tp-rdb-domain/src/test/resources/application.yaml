@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local
+    active: test
 
 ---
 spring:
@@ -24,4 +24,4 @@ spring:
 spring:
   config:
     activate:
-      on-profile: common
+      on-profile: test

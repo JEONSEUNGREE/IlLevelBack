@@ -1,14 +1,15 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${TP-BACK-APP-MYSQL-DEV-URI}:${TP-BACK-APP-MYSQL-DEV-PORT}/${TP-BACK-APP-MYSQL-SCHEMA}?characterEncoding=UTF-8&serverTimezone=UTC
-    username: ${TP-BACK-APP-USER-NAME}
-    password: ${TP-BACK-APP-USER-PASSWORD}
+    url: jdbc:h2:mem:testdb;MODE=MySQL;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
 
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: update
+    database-platform: org.hibernate.dialect.H2Dialect
 
     properties:
       hibernate:

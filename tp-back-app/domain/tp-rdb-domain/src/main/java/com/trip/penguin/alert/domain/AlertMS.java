@@ -19,7 +19,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "ALERT_MS", schema = "tp-back-app")
+@Table(name = "ALERT_MS")
 @Getter
 @Builder
 @AllArgsConstructor

@@ -18,7 +18,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "WISHLIST_MS", schema = "tp-back-app")
+@Table(name = "WISHLIST_MS")
 @Getter
 @Builder
 @AllArgsConstructor
