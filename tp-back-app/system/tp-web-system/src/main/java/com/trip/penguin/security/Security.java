@@ -1,7 +1,5 @@
 package com.trip.penguin.security;
 
-
-import com.trip.penguin.constant.SecurityConstant;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,51 +9,57 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.trip.penguin.constant.SecurityConstant;
+
 @Configuration
 public class Security {
 
-    /**
-     * static 파일 허용
-     */
-    @Bean
-        public WebSecurityCustomizer configure() {
-        return (web) -> web.ignoring().requestMatchers(SecurityConstant.resourceArray);
-    }
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	/**
+	 * static 파일 허용
+	 */
+	@Bean
+	public WebSecurityCustomizer configure() {
+		return (web) -> web.ignoring().requestMatchers(SecurityConstant.resourceArray);
+	}
 
-        http
-                .authorizeHttpRequests()
-                .requestMatchers("/**")
-                .permitAll();
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http
-                .cors()
-                .configurationSource(corsConfigurationSource());
+		http
+			.authorizeHttpRequests()
+			.requestMatchers("/**")
+			.permitAll();
 
-        http
-                .formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/loginProc")
-                .defaultSuccessUrl("/")
-                .permitAll();
+		http
+			.csrf().disable();
 
-        return http.build();
-    }
+		http
+			.cors()
+			.configurationSource(corsConfigurationSource());
 
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
+		http
+			.formLogin()
+			.loginPage("/login")
+			.loginProcessingUrl("/loginProc")
+			.defaultSuccessUrl("/")
+			.permitAll();
 
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOrigin("*");
-        corsConfiguration.addAllowedMethod("*");
-        corsConfiguration.addAllowedHeader("*");
-//        corsConfiguration.setAllowCredentials(true);
-        corsConfiguration.setMaxAge(3600L);
+		return http.build();
+	}
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", corsConfiguration);
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
 
-        return source;
-    }
+		CorsConfiguration corsConfiguration = new CorsConfiguration();
+		corsConfiguration.addAllowedOrigin("*");
+		corsConfiguration.addAllowedMethod("*");
+		corsConfiguration.addAllowedHeader("*");
+		//        corsConfiguration.setAllowCredentials(true);
+		corsConfiguration.setMaxAge(3600L);
+
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", corsConfiguration);
+
+		return source;
+	}
 }
