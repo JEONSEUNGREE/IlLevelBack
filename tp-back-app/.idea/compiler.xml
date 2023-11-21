@@ -10,6 +10,29 @@
         </processorPath>
         <module name="com.trip.penguin.TripPenguin.application.tp-back-internal-app.main~2" />
       </profile>
+      <profile name="Gradle Imported" enabled="true">
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.28/a2ff5da8bcd8b1b26f36b806ced63213362c6dcc/lombok-1.18.28.jar" />
+        </processorPath>
+        <module name="com.trip.penguin.TripPenguin.application.main" />
+        <module name="com.trip.penguin.TripPenguin.domain.tp-rdb-domain.main" />
+        <module name="com.trip.penguin.TripPenguin.core.tp-base-core.main" />
+        <module name="com.trip.penguin.TripPenguin.application.tp-batch-app.main" />
+        <module name="com.trip.penguin.TripPenguin.system.tp-web-system.main" />
+        <module name="com.trip.penguin.TripPenguin.core.main" />
+        <module name="com.trip.penguin.TripPenguin.domain.main" />
+        <module name="com.trip.penguin.TripPenguin.main" />
+        <module name="com.trip.penguin.TripPenguin.system.main" />
+      </profile>
+      <profile name="Gradle Imported" enabled="true">
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.28/a2ff5da8bcd8b1b26f36b806ced63213362c6dcc/lombok-1.18.28.jar" />
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-configuration-processor/3.0.12/cb32914b28b5597f6f4352c3751f55b6ce460281/spring-boot-configuration-processor-3.0.12.jar" />
+        </processorPath>
+        <module name="com.trip.penguin.TripPenguin.application.tp-back-internal-app.main" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="17" />
   </component>

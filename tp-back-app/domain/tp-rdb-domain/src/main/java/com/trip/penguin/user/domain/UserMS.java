@@ -78,7 +78,7 @@ public class UserMS {
 	@Column(name = "user_email", nullable = false)
 	private String userEmail;
 
-	@Column(name = "user_pwd", nullable = false)
+	@Column(name = "user_pwd")
 	private String userPwd;
 
 	@Column(name = "user_nick", nullable = false, length = 100)
