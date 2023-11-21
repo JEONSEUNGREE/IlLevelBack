@@ -12,7 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import com.trip.penguin.TpRdbDomainTest;
 
 @Retention(RetentionPolicy.RUNTIME)
-@ActiveProfiles("local")
+@ActiveProfiles("test")
 @ContextConfiguration(classes = TpRdbDomainTest.class)
 @EnableJpaRepositories(basePackages = {"com.trip.penguin"})
 @EntityScan(basePackages = "com.trip.penguin")

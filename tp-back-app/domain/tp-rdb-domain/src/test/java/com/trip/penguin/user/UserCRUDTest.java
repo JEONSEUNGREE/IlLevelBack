@@ -18,7 +18,7 @@ import jakarta.persistence.EntityManager;
 
 @JpaDataConfig
 @DataJpaTest(properties = "classpath:application.yaml")
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 public class UserCRUDTest {
 
 	private final UserService userService;

@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "COMPANY_MS", schema = "tp-back-app")
+@Table(name = "COMPANY_MS")
 @Getter
 @Setter
 @Builder

@@ -10,7 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -32,11 +31,10 @@ import com.trip.penguin.user.service.UserService;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
-@ActiveProfiles("local")
 // @DataJpaTest가 빈설정에서 오류 발생
 // 해결이 안되서 일단 SpringBootTest로 진행
+@ActiveProfiles("test")
 @SpringBootTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class RecRoomDataTest {
 
 	private final RoomService roomService;

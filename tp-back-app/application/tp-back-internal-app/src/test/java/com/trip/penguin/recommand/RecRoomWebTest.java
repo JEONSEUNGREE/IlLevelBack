@@ -25,7 +25,7 @@ import com.trip.penguin.recommand.room.dao.RoomRecDAO;
 import com.trip.penguin.recommand.room.service.RoomRecService;
 import com.trip.penguin.recommand.room.view.MainRecRoomSchCdt;
 
-@ActiveProfiles("local")
+@ActiveProfiles("dev")
 @WebMvcTest(RoomRecController.class)
 @ContextConfiguration(classes = TpBackInternalApp.class)
 public class RecRoomWebTest extends AbstractRestDocsTests {

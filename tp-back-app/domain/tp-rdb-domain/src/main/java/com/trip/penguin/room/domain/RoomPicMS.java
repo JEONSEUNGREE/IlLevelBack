@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "ROOM_PIC_MS", schema = "tp-back-app")
+@Table(name = "ROOM_PIC_MS")
 @Getter
 @Setter
 @Builder

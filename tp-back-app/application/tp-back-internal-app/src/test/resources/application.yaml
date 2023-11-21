@@ -1,29 +1,11 @@
 spring:
   profiles:
-    active: local
+    active: test
     include:
-      - ${spring.profiles.active}-tp-web-system
+      - local-tp-web-system
 
 ---
 spring:
   config:
     activate:
-      on-profile: local
-
----
-spring:
-  config:
-    activate:
-      on-profile: dev
-
----
-spring:
-  config:
-    activate:
-      on-profile: prod
-
----
-spring:
-  config:
-    activate:
-      on-profile: common
+      on-profile: test
