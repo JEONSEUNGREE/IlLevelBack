@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.trip.penguin.booking.domain.BookingMS;
@@ -178,7 +177,8 @@ public class RecRoomDataTest {
 		// when
 		/* 리뷰 목록 조회 */
 		MainRecRoomSchCdt recRoomSchCdt = MainRecRoomSchCdt.builder()
-			.pageable(PageRequest.of(0, 3))
+			.pageNumber(0)
+			.pageSize(3)
 			.build();
 
 		List<RoomRecDAO> mainRecRoomList = roomRecService.getMainRecRoomListWithPaging(recRoomSchCdt);

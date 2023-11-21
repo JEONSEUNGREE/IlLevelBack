@@ -1,15 +1,25 @@
 package com.trip.penguin.response;
 
-
 import com.trip.penguin.constant.CommonConstant;
-import lombok.*;
 
-@Builder
-public class JsonResponse {
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-    public String message;
+@RequiredArgsConstructor
+@Getter
+public class JsonResponse<T> {
 
-    public CommonConstant result;
+	private final String message;
 
-    public Object data;
+	private final CommonConstant result;
+
+	private final T data;
+
+	public static <T> JsonResponse<T> success(T data) {
+		return new JsonResponse<>(CommonConstant.SUCCESS.name(), CommonConstant.SUCCESS, data);
+	}
+
+	public static <T> JsonResponse<T> success() {
+		return new JsonResponse<>(CommonConstant.SUCCESS.name(), CommonConstant.SUCCESS, null);
+	}
 }

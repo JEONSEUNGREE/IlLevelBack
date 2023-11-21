@@ -35,7 +35,7 @@ public class RoomRecServiceImpl implements RoomRecService {
 	 */
 	@Override
 	public List<RoomRecDAO> getMainRecRoomListWithPaging(MainRecRoomSchCdt mainRecRoomSchCdt) {
-		return roomRecCustomRepository.getMainRecRoomListWithPaging(mainRecRoomSchCdt.getPageable());
+		return roomRecCustomRepository.getMainRecRoomListWithPaging(mainRecRoomSchCdt);
 	}
 
 }
