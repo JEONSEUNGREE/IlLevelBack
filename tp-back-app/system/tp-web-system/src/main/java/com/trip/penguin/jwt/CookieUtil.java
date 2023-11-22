@@ -1,15 +1,24 @@
 package com.trip.penguin.jwt;
 
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Component
 public class CookieUtil {
-    public Cookie getCookie(HttpServletRequest req, String name) {
+	public Cookie getCookie(HttpServletRequest req, String name) {
 
-        return Arrays.stream(req.getCookies()).filter(item -> item.getName().equals(name)).findFirst().get();
-    }
+		if (req.getCookies() == null) {
+			return null;
+		}
+
+		for (Cookie cookie : req.getCookies()) {
+			if (name.equals(cookie.getName())) {
+				return cookie;
+			}
+		}
+
+		return null;
+	}
 }
