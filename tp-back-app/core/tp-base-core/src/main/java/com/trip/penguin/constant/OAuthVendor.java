@@ -1,9 +1,9 @@
 package com.trip.penguin.constant;
 
 public enum OAuthVendor {
-	GOOGLE("GOOGLE"),
-	NAVER("NAVER"),
-	KAKAO("KAKAO"),
+	GOOGLE("google"),
+	NAVER("naver"),
+	KAKAO("kakao"),
 	;
 
 	private final String socialName;
