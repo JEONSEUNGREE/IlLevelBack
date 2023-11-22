@@ -42,8 +42,8 @@ public class UserServiceImpl implements UserService {
 	 * @return Optional<UserMS>
 	 */
 	@Override
-	public UserMS getUserByUserEmail(String userEmail) {
-		return userMSRepository.findByUserEmail(userEmail).orElseGet(null);
+	public Optional<UserMS> getUserByUserEmail(String userEmail) {
+		return userMSRepository.findByUserEmail(userEmail);
 	}
 
 	/**

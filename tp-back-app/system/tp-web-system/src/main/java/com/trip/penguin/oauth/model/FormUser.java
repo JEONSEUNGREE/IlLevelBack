@@ -40,6 +40,16 @@ public class FormUser implements ProviderUser {
 	}
 
 	@Override
+	public String getFirstName() {
+		return null;
+	}
+
+	@Override
+	public String getLastName() {
+		return null;
+	}
+
+	@Override
 	public String getPassword() {
 		return password;
 	}
@@ -56,6 +66,11 @@ public class FormUser implements ProviderUser {
 
 	@Override
 	public String getPicture() {
+		return null;
+	}
+
+	@Override
+	public String provider() {
 		return null;
 	}
 

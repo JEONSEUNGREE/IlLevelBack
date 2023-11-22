@@ -9,9 +9,13 @@ import com.trip.penguin.user.service.UserService;
 
 import lombok.NoArgsConstructor;
 
+import java.util.Optional;
+
 @Service
 @NoArgsConstructor
 public class OauthUserService {
+
+	@Autowired
 	private UserService userService;
 
 	@Autowired
@@ -21,19 +25,21 @@ public class OauthUserService {
 
 	public void signUpUser(String registrationId, ProviderUser providerUser) {
 		userService.signUpUser(UserMS.builder()
-			.offYn("N")
-			.userCity("NotSet")
-			.userImg("default")
-			.userEmail(providerUser.getId())
-			.userRole(providerUser.getAuthorities().get(0).getAuthority())
-			.userNick(registrationId)
-			.userFirst(providerUser.getUsername())
-			.userLast(providerUser.getUsername())
-			.build()
+				.offYn("N")
+				.userCity(null)
+				.userImg(providerUser.getPicture())
+				.userEmail(providerUser.getEmail())
+				.userRole(providerUser.getAuthorities().get(0).getAuthority())
+				.userNick(registrationId)
+				.socialProvider(providerUser.getProvider())
+				.socialProviderId(providerUser.getEmail())
+				.userFirst(providerUser.getFirstName() == null ? providerUser.getUsername() : providerUser.getLastName())
+				.userLast(providerUser.getLastName())
+				.build()
 		);
 	}
 
-	public UserMS getUserByUserEmail(String userEmail) {
+	public Optional<UserMS> getUserByUserEmail(String userEmail) {
 		return userService.getUserByUserEmail(userEmail);
 	}
 }

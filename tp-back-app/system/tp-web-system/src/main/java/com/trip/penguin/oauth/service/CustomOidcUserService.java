@@ -1,5 +1,7 @@
 package com.trip.penguin.oauth.service;
 
+import com.trip.penguin.oauth.converter.ProviderUserConverter;
+import lombok.NoArgsConstructor;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
@@ -13,8 +15,7 @@ import com.trip.penguin.oauth.model.PrincipalUser;
 import com.trip.penguin.oauth.model.ProviderUser;
 
 @Service
-public class CustomOidcUserService extends AbstractOAuth2UserService implements
-	OAuth2UserService<OidcUserRequest, OidcUser> {
+public class CustomOidcUserService extends AbstractOAuth2UserService implements OAuth2UserService<OidcUserRequest, OidcUser> {
 
 	@Override
 	public OidcUser loadUser(OidcUserRequest userRequest) throws OAuth2AuthenticationException {

@@ -69,10 +69,10 @@ public class UserMS {
 	@OneToMany(mappedBy = "userMS", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<ReviewMS> reviewMSList = new ArrayList<>();
 
-	@Column(name = "user_first", nullable = false)
+	@Column(name = "user_first")
 	private String userFirst;
 
-	@Column(name = "user_last", nullable = false)
+	@Column(name = "user_last")
 	private String userLast;
 
 	@Column(name = "user_email", nullable = false)

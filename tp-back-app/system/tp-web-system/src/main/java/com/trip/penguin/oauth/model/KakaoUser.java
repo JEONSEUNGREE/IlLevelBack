@@ -2,6 +2,7 @@ package com.trip.penguin.oauth.model;
 
 import java.util.Map;
 
+import com.trip.penguin.constant.OAuthVendor;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
@@ -25,8 +26,23 @@ public class KakaoUser extends OAuth2ProviderUser {
 	}
 
 	@Override
+	public String getFirstName() {
+		return null;
+	}
+
+	@Override
+	public String getLastName() {
+		return null;
+	}
+
+	@Override
 	public String getPicture() {
 		return (String)otherAttributes.get("profile_image_url");
+	}
+
+	@Override
+	public String provider() {
+		return OAuthVendor.KAKAO.getOAuthVendor();
 	}
 
 }
