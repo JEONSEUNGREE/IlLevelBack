@@ -61,6 +61,7 @@ project('system:tp-web-system') {
         // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
         implementation 'org.springframework.boot:spring-boot-starter-security:3.1.5'
         implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+        implementation group: 'com.auth0', name: 'java-jwt', version: '3.16.0'
     }
 }
 

@@ -59,3 +59,14 @@ file:
     room-path: file:///tp-penguin-app/image/room/
     user-path: file:///tp-penguin-app/image/user/
     company-path: file:///tp-penguin-app/image/company/
+
+token:
+  secret: local-secret
+
+  issuer: tp-back-app
+
+  default:
+    expiration_time: 5000
+
+  refresh:
+    expiration_time: 10000
