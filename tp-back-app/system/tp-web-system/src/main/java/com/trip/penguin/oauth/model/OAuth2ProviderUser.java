@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import com.trip.penguin.constant.CommonUserRole;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
@@ -42,9 +43,7 @@ public abstract class OAuth2ProviderUser implements ProviderUser {
 
 	@Override
 	public List<? extends GrantedAuthority> getAuthorities() {
-		return oAuth2User.getAuthorities().stream()
-			.map(authority -> new SimpleGrantedAuthority(authority.getAuthority()))
-			.collect(Collectors.toList());
+		return List.of(new SimpleGrantedAuthority(CommonUserRole.ROLE_USER.getUserRole()));
 	}
 
 	@Override

@@ -12,6 +12,10 @@ public interface ProviderUser {
 
 	String getUsername();
 
+	String getFirstName();
+
+	String getLastName();
+
 	String getPassword();
 
 	String getEmail();
@@ -19,6 +23,8 @@ public interface ProviderUser {
 	String getProvider();
 
 	String getPicture();
+
+	String provider();
 
 	List<? extends GrantedAuthority> getAuthorities();
 

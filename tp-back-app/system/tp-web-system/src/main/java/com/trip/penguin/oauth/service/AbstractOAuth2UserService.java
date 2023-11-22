@@ -1,5 +1,6 @@
 package com.trip.penguin.oauth.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.stereotype.Service;
 
@@ -11,14 +12,14 @@ import com.trip.penguin.user.domain.UserMS;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-@Service
 @Getter
-@RequiredArgsConstructor
 public class AbstractOAuth2UserService {
 
-	private final OauthUserService oauthUserService;
+	@Autowired
+	private OauthUserService oauthUserService;
 
-	private final ProviderUserConverter<ProviderUserRequest, ProviderUser> providerUserConverter;
+	@Autowired
+	private ProviderUserConverter<ProviderUserRequest, ProviderUser> providerUserConverter;
 
 	protected ProviderUser providerUser(ProviderUserRequest providerUserRequest) {
 
@@ -27,13 +28,10 @@ public class AbstractOAuth2UserService {
 
 	protected void register(ProviderUser providerUser, OAuth2UserRequest userRequest) {
 
-		UserMS userMS = oauthUserService.getUserByUserEmail(providerUser.getEmail());
-
-		if (userMS == null) {
+		if (oauthUserService.getUserByUserEmail(providerUser.getEmail()).isEmpty()) {
 			oauthUserService.signUpUser(userRequest.getClientRegistration().getRegistrationId(), providerUser);
 		} else {
-			System.out.println("user = " + userMS);
+			System.out.println("user = " + "이미 가입된 유저 ");
 		}
-
 	}
 }

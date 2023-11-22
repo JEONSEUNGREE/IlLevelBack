@@ -8,7 +8,7 @@ public interface UserService {
 
 	public UserMS signUpUser(UserMS userMS);
 
-	public UserMS getUserByUserEmail(String userEmail);
+	public Optional<UserMS> getUserByUserEmail(String userEmail);
 
 	public Optional<UserMS> getUser(UserMS userMS);
 
