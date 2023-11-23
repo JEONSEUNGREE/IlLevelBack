@@ -2,9 +2,6 @@ package com.trip.penguin.security.filter;
 
 import java.io.IOException;
 
-import com.trip.penguin.constant.CommonConstant;
-import com.trip.penguin.jwt.CookieUtil;
-import com.trip.penguin.jwt.JwtTokenUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,6 +10,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import net.minidev.json.JSONObject;
+
+import com.trip.penguin.constant.CommonConstant;
+import com.trip.penguin.jwt.CookieUtil;
+import com.trip.penguin.jwt.JwtTokenUtil;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -39,8 +40,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 		String token = null;
 
-		System.out.println("호출 횟수 체크중 ");
-
 		Cookie accountTokenCookie = cookieUtil.getCookie(request, CommonConstant.ACCOUNT_TOKEN.getName());
 
 		if (accountTokenCookie != null && CommonConstant.ACCOUNT_TOKEN.getName().equals(accountTokenCookie.getName())) {
@@ -50,8 +49,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		if (token != null && !jwtTokenUtil.isTokenExpired(token)) {
 			try {
 				Authentication authenticate = authenticationManager.
-						authenticate(new UsernamePasswordAuthenticationToken(jwtTokenUtil.getUserEmailFromToken(token), CommonConstant.ACCOUNT_TOKEN.getName()));
-				 SecurityContextHolder.getContext().setAuthentication(authenticate);
+					authenticate(new UsernamePasswordAuthenticationToken(jwtTokenUtil.getUserEmailFromToken(token),
+						CommonConstant.ACCOUNT_TOKEN.getName()));
+				SecurityContextHolder.getContext().setAuthentication(authenticate);
 			} catch (Exception e) {
 				onError(request, response);
 			}

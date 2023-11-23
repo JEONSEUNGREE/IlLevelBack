@@ -47,9 +47,6 @@ spring:
             jwk-set-uri: https://kauth.kakao.com/.well-known/jwks.json
             user-name-attribute: id
 
-  mvc:
-    static-path-pattern: /static/**
-
 file:
   resource:
     room-path: /tp-penguin-app/image/room/**

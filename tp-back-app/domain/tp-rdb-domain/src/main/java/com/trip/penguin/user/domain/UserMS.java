@@ -76,7 +76,7 @@ public class UserMS {
 	@Column(name = "user_last")
 	private String userLast;
 
-	@Column(name = "user_email", nullable = false, unique = true)
+	@Column(name = "user_email", nullable = false)
 	private String userEmail;
 
 	@Column(name = "user_pwd")
