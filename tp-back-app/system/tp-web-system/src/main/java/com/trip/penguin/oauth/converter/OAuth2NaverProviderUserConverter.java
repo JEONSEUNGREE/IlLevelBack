@@ -10,7 +10,7 @@ public class OAuth2NaverProviderUserConverter implements ProviderUserConverter<P
 	@Override
 	public ProviderUser converter(ProviderUserRequest providerUserRequest) {
 
-		if (!providerUserRequest.clientRegistration().getRegistrationId().equals(OAuthVendor.NAVER.getOAuthVendor())) {
+		if (!(OAuthVendor.NAVER.getOAuthVendor().equals(providerUserRequest.clientRegistration().getRegistrationId()))) {
 			return null;
 		}
 		return new NaverUser(

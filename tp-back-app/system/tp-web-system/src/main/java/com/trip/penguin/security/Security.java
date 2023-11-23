@@ -1,5 +1,8 @@
 package com.trip.penguin.security;
 
+import com.trip.penguin.jwt.JwtTokenUtil;
+import com.trip.penguin.security.handler.CustomAuthenticationSuccessHandler;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,15 +20,12 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.trip.penguin.constant.SecurityConstant;
 import com.trip.penguin.jwt.CookieUtil;
-import com.trip.penguin.jwt.JwtAuthenticationFilter;
+import com.trip.penguin.security.filter.JwtAuthenticationFilter;
 import com.trip.penguin.oauth.service.CustomOAuth2UserService;
 import com.trip.penguin.oauth.service.CustomOidcUserService;
 import com.trip.penguin.oauth.service.CustomUserDetailsService;
 import com.trip.penguin.security.filter.JwtLoginFilter;
-import com.trip.penguin.security.filter.JwtTokenUtil;
-import com.trip.penguin.security.handler.CustomAuthenticationSuccessHandler;
 import com.trip.penguin.security.provider.JwtAuthenticationProvider;
-import com.trip.penguin.user.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -39,21 +39,22 @@ public class Security {
 
 	private final CustomUserDetailsService customUserDetailsService;
 
-	private final UserService userService;
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-	private final JwtTokenUtil jwtTokenUtil;
+	@Value("${front.nodeServer}")
+	private String frontServer;
 
 	public JwtAuthenticationFilter jwtAuthenticationFilter(JwtTokenUtil jwtTokenUtil, CookieUtil cookieUtil) {
-		return new JwtAuthenticationFilter(jwtTokenUtil, cookieUtil);
+		return new JwtAuthenticationFilter(authenticationManager(), jwtTokenUtil, cookieUtil);
 	}
 
-	public JwtLoginFilter jwtLoginFilter(JwtTokenUtil jwtProvider, UserService userService) {
-		return new JwtLoginFilter(authenticationManager(), userService, jwtProvider);
+	public JwtLoginFilter jwtLoginFilter(JwtTokenUtil jwtProvider, CustomUserDetailsService customUserDetailsService, String frontServer) {
+		return new JwtLoginFilter(authenticationManager(), jwtProvider, frontServer);
 	}
 
 	@Bean
 	public AuthenticationManager authenticationManager() {
-		return new ProviderManager(new JwtAuthenticationProvider(customUserDetailsService, bCryptPasswordEncoder()));
+		return new ProviderManager(new JwtAuthenticationProvider(customUserDetailsService, bCryptPasswordEncoder));
 	}
 
 	/**
@@ -65,8 +66,8 @@ public class Security {
 	}
 
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtTokenUtil jwtProvider,
-		CookieUtil cookieUtil) throws Exception {
+	public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtTokenUtil jwtTokenUtil,
+		CookieUtil cookieUtil, CustomUserDetailsService customUserDetailsService) throws Exception {
 
 		http
 			.authorizeHttpRequests()
@@ -95,14 +96,14 @@ public class Security {
 					.oidcUserService(customOidcUserService))); // openid connect 방식 서비스 커스텀
 
 		http
-			.addFilterAt(jwtLoginFilter(jwtProvider, userService),
+			.addFilterAt(jwtLoginFilter(jwtTokenUtil, customUserDetailsService, frontServer),
 				UsernamePasswordAuthenticationFilter.class)
-			.addFilterBefore(jwtAuthenticationFilter(jwtProvider, cookieUtil),
+			.addFilterBefore(jwtAuthenticationFilter(jwtTokenUtil, cookieUtil),
 				UsernamePasswordAuthenticationFilter.class);
 
 		http
 			.oauth2Login()
-			.successHandler(new CustomAuthenticationSuccessHandler(jwtTokenUtil));
+			.successHandler(new CustomAuthenticationSuccessHandler(jwtTokenUtil, frontServer));
 		// .oauth2Login()
 		// .successHandler()
 		// .logout().logoutSuccessHandler(new SimpleUrlLogoutSuccessHandler()); // 로그아웃 원하는 작업시 커스텀
@@ -127,10 +128,5 @@ public class Security {
 		source.registerCorsConfiguration("/**", corsConfiguration);
 
 		return source;
-	}
-
-	@Bean
-	public BCryptPasswordEncoder bCryptPasswordEncoder() {
-		return new BCryptPasswordEncoder();
 	}
 }

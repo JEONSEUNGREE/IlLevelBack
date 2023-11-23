@@ -58,3 +58,17 @@ file:
     room-path: file:///tp-penguin-app/image/room/
     user-path: file:///tp-penguin-app/image/user/
     company-path: file:///tp-penguin-app/image/company/
+
+front:
+  nodeServer: http://dev.tp-penguin-app.site:1901/
+
+token:
+  secret: local-secret
+
+  issuer: tp-back-app
+
+  default:
+    expiration_time: 5000
+
+  refresh:
+    expiration_time: 10000

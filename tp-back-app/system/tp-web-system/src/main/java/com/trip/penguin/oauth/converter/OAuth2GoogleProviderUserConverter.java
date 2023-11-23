@@ -10,7 +10,7 @@ public class OAuth2GoogleProviderUserConverter implements ProviderUserConverter<
 	@Override
 	public ProviderUser converter(ProviderUserRequest providerUserRequest) {
 
-		if (!providerUserRequest.clientRegistration().getRegistrationId().equals(OAuthVendor.GOOGLE.getOAuthVendor())) {
+		if (!OAuthVendor.GOOGLE.getOAuthVendor().equals(providerUserRequest.clientRegistration().getRegistrationId())) {
 			return null;
 		}
 		return new GoogleUser(

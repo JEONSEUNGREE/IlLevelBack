@@ -1,5 +1,6 @@
 package com.trip.penguin.oauth.service;
 
+import com.trip.penguin.constant.CommonConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class OauthUserService {
 
 	public void signUpUser(String registrationId, ProviderUser providerUser) {
 		userService.signUpUser(UserMS.builder()
-				.offYn("N")
+				.offYn(CommonConstant.N.getName())
 				.userCity(null)
 				.userImg(providerUser.getPicture())
 				.userEmail(providerUser.getEmail())
