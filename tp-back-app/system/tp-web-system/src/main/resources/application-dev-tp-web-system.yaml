@@ -3,7 +3,7 @@ spring:
     oauth2:
       client:
         registration:
-  정          #          google:
+        #          google:
 #            client-id: 904892991881-m8gp175ds1c99iav5pq4uub6cboiu5q9.apps.googleusercontent.com
 #            client-secret: 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
 #            scope:
