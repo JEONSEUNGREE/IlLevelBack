@@ -17,11 +17,11 @@ public class DelegatingProviderUserConverter implements ProviderUserConverter<Pr
 
 	public DelegatingProviderUserConverter() {
 		List<ProviderUserConverter<ProviderUserRequest, ProviderUser>> providerUserConverters
-			= Arrays.asList(
-			new UserDetailsProviderUserConverter(),
-			new OAuth2GoogleProviderUserConverter(),
-			new OAuth2NaverProviderUserConverter(),
-			new OAuth2KakaoProviderUserConverter());
+				= Arrays.asList(
+				new DefaultUserProviderUserConvert(),
+				new OAuth2GoogleProviderUserConverter(),
+				new OAuth2NaverProviderUserConverter(),
+				new OAuth2KakaoProviderUserConverter());
 
 		this.converters = Collections.unmodifiableList(new LinkedList<>(providerUserConverters));
 	}
@@ -37,8 +37,8 @@ public class DelegatingProviderUserConverter implements ProviderUserConverter<Pr
 
 			if (providerUser != null)
 				return providerUser;
-
 		}
+
 		return null;
 	}
 }

@@ -47,9 +47,6 @@ spring:
             jwk-set-uri: https://kauth.kakao.com/.well-known/jwks.json
             user-name-attribute: id
 
-  mvc:
-    static-path-pattern: /static/**
-
 file:
   resource:
     room-path: /tp-penguin-app/image/room/**
@@ -59,6 +56,9 @@ file:
     room-path: file:///tp-penguin-app/image/room/
     user-path: file:///tp-penguin-app/image/user/
     company-path: file:///tp-penguin-app/image/company/
+
+front:
+  nodeServer: http://dev.tp-penguin-app.site:1901/
 
 token:
   secret: local-secret

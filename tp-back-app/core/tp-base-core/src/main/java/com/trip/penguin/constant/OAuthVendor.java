@@ -4,7 +4,7 @@ public enum OAuthVendor {
 	GOOGLE("google"),
 	NAVER("naver"),
 	KAKAO("kakao"),
-	;
+	DEFAULT("default");
 
 	private final String socialName;
 

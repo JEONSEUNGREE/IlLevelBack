@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.trip.penguin.constant.OAuthVendor;
+import com.trip.penguin.security.encoder.PasswordEncoder;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -81,18 +83,19 @@ public class TempData implements CommandLineRunner {
 
 			/* 회원 가입 정보 */
 			beforeCommitUser = UserMS.builder()
-				.offYn("N")
-				.userCity("Seoul")
-				.userImg("default")
-				.userEmail("test@email.com")
-				.userRole("user")
-				.userNick("default")
-				.userPwd("test")
-				.userFirst("t")
-				.userLast("est")
-				.createdDate(LocalDateTime.now())
-				.modifiedDate(LocalDateTime.now())
-				.build();
+					.offYn("N")
+					.userCity("Seoul")
+					.userImg("default")
+					.userEmail("test@email.com")
+					.userRole("user")
+					.userNick("default")
+					.userPwd("test")
+					.userFirst("t")
+					.userLast("est")
+					.socialProvider(OAuthVendor.DEFAULT.getOAuthVendor())
+					.createdDate(LocalDateTime.now())
+					.modifiedDate(LocalDateTime.now())
+					.build();
 
 			/* 예약 등록 */
 			for (int i = 0; i < 3; i++) {

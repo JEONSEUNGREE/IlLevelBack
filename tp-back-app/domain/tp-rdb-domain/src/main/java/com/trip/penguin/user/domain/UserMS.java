@@ -7,6 +7,7 @@ import java.util.List;
 import com.trip.penguin.alert.domain.AlertMS;
 import com.trip.penguin.badge.domain.UserBadge;
 import com.trip.penguin.booking.domain.BookingMS;
+import com.trip.penguin.constant.OAuthVendor;
 import com.trip.penguin.cs.domain.CsMS;
 import com.trip.penguin.follow.domain.FollowMS;
 import com.trip.penguin.review.domain.ReviewMS;
@@ -116,5 +117,9 @@ public class UserMS {
 	public void addReview(ReviewMS reviewMS) {
 		this.reviewMSList.add(reviewMS);
 		reviewMS.setUserMS(this);
+	}
+
+	public boolean isOAuthUser() {
+		return !OAuthVendor.DEFAULT.getOAuthVendor().equals(this.getSocialProvider());
 	}
 }

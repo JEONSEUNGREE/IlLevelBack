@@ -27,7 +27,7 @@ public class JwtTokenUtil {
     private long REFRESH_TOKEN_VALIDATION_TIME;
 
     @Value("${token.issuer}")
-    private String ISSUER = "user-service";
+    private String ISSUER;
 
     private Algorithm getSigningKey(String secretKey) {
         return Algorithm.HMAC256(secretKey);
@@ -37,9 +37,9 @@ public class JwtTokenUtil {
         return token.getClaims();
     }
 
-    public String getUserIdFromToken(String token) throws Exception {
+    public String getUserEmailFromToken(String token){
         DecodedJWT verifiedToken = validateToken(token);
-        return verifiedToken.getClaim("userId").asString();
+        return verifiedToken.getClaim("userEmail").asString();
     }
 
     private JWTVerifier getTokenValidator() {
@@ -61,7 +61,7 @@ public class JwtTokenUtil {
         return JWT.create()
                 .withIssuedAt(new Date(System.currentTimeMillis()))
                 .withExpiresAt(new Date(System.currentTimeMillis() + expireTime))
-                .withClaim("userId", payload.get("userId"))
+                .withClaim("userEmail", payload.get("userEmail"))
                 .withPayload(payload)
                 .withIssuer(ISSUER)
                 .sign(getSigningKey(SECRET_KEY));

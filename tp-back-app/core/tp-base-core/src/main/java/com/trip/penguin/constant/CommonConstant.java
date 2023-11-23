@@ -2,7 +2,7 @@ package com.trip.penguin.constant;
 
 public enum CommonConstant {
 
-    SUCCESS("success"), FAIL("fail"), Y("y"), N("n");
+    SUCCESS("success"), FAIL("fail"), Y("Y"), N("N"), ACCOUNT_TOKEN("AccountToken");
 
     private String name;
 

@@ -7,3 +7,5 @@
 
 
 include::{docfile}/../mainRecRoomList.adoc[]
+
+include::{docfile}/../user.adoc[]

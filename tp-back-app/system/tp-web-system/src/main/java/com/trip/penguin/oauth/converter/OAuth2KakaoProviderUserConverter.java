@@ -9,9 +9,7 @@ public class OAuth2KakaoProviderUserConverter implements ProviderUserConverter<P
 	@Override
 	public ProviderUser converter(ProviderUserRequest providerUserRequest) {
 
-		if (!providerUserRequest.clientRegistration()
-			.getRegistrationId()
-			.equals(OAuthVendor.KAKAO.getOAuthVendor())) {
+		if (!OAuthVendor.KAKAO.getOAuthVendor().equals(providerUserRequest.clientRegistration().getRegistrationId())) {
 			return null;
 		}
 		return new KakaoUser(

@@ -1,7 +1,5 @@
 package com.trip.penguin.oauth.service;
 
-import com.trip.penguin.oauth.converter.ProviderUserConverter;
-import lombok.NoArgsConstructor;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
@@ -14,8 +12,12 @@ import com.trip.penguin.oauth.converter.ProviderUserRequest;
 import com.trip.penguin.oauth.model.PrincipalUser;
 import com.trip.penguin.oauth.model.ProviderUser;
 
+/*
+	Oidc타입으로 구현시 사용 일단은 OAuth2User방식으로 사용할 예정
+ */
 @Service
-public class CustomOidcUserService extends AbstractOAuth2UserService implements OAuth2UserService<OidcUserRequest, OidcUser> {
+public class CustomOidcUserService extends AbstractOAuth2UserService
+	implements OAuth2UserService<OidcUserRequest, OidcUser> {
 
 	@Override
 	public OidcUser loadUser(OidcUserRequest userRequest) throws OAuth2AuthenticationException {
@@ -31,7 +33,6 @@ public class CustomOidcUserService extends AbstractOAuth2UserService implements 
 		ProviderUser providerUser = providerUser(providerUserRequest);
 
 		// 회원가입
-
 		super.register(providerUser, userRequest);
 
 		return new PrincipalUser(providerUser);
