@@ -47,6 +47,7 @@ public class RecRoomWebTest extends AbstractRestDocsTests {
 					.comName("comTest")
 					.couponYn("Y")
 					.ratingAvg(5D)
+					.reviewCount(2500L)
 					.sellPrc(5000)
 					.thumbNail("default")
 					.build()
@@ -82,7 +83,8 @@ public class RecRoomWebTest extends AbstractRestDocsTests {
 					fieldWithPath("data[].sellPrc").type(JsonFieldType.NUMBER).description("판매가"),
 					fieldWithPath("data[].couponYn").type(JsonFieldType.STRING).description("쿠폰 사용 가능 여부"),
 					fieldWithPath("data[].thumbNail").type(JsonFieldType.STRING).description("썸네일"),
-					fieldWithPath("data[].ratingAvg").type(JsonFieldType.NUMBER).description("평점")
+					fieldWithPath("data[].ratingAvg").type(JsonFieldType.NUMBER).description("평점"),
+					fieldWithPath("data[].reviewCount").type(JsonFieldType.NUMBER).description("리뷰자 수")
 				)));
 
 	}

@@ -22,4 +22,6 @@ public class RoomRecDAO {
 	private String thumbNail;
 
 	private Double ratingAvg;
+
+	private Long reviewCount;
 }
