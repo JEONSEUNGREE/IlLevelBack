@@ -33,7 +33,7 @@ public class RoomCustomRepositoryImpl implements RoomRecCustomRepository {
 
 		return queryFactory.selectDistinct(Projections.fields(RoomRecDAO.class,
 				roomMS.roomNm, roomMS.comName, roomMS.sellPrc,
-				roomMS.couponYn, roomMS.thumbNail, reviewMS.rating.avg().as("ratingAvg")))
+				roomMS.couponYn, roomMS.thumbNail, reviewMS.rating.avg().as("ratingAvg"), reviewMS.count().as("reviewCount")))
 			.from(roomMS)
 			.where(roomMS.soldOutYn.eq(CommonConstant.N.name()))
 			.leftJoin(roomMS.reviewList, reviewMS)

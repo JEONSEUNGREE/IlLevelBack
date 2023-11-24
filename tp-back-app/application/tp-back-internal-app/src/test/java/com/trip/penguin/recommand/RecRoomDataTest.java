@@ -6,11 +6,18 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.trip.penguin.TpBackInternalApp;
+import com.trip.penguin.config.TestContainer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.trip.penguin.booking.domain.BookingMS;
@@ -27,27 +34,40 @@ import com.trip.penguin.room.domain.RoomMS;
 import com.trip.penguin.room.service.RoomService;
 import com.trip.penguin.user.domain.UserMS;
 import com.trip.penguin.user.service.UserService;
-
-import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
-// @DataJpaTest가 빈설정에서 오류 발생
-// 해결이 안되서 일단 SpringBootTest로 진행
 @ActiveProfiles("test")
-@SpringBootTest
+@DataJpaTest(properties = "classpath:application.yaml")
+@ComponentScan(basePackages = {
+		"com.trip.penguin.room",
+		"com.trip.penguin.user",
+		"com.trip.penguin.company",
+		"com.trip.penguin.booking",
+		"com.trip.penguin.review",
+		"com.trip.penguin.recommand.room.repository",
+		"com.trip.penguin.recommand.room.service"
+})
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
+@Import(TestContainer.class)
 public class RecRoomDataTest {
 
-	private final RoomService roomService;
+	@Autowired
+	private RoomService roomService;
 
-	private final RoomRecService roomRecService;
+	@Autowired
+	private RoomRecService roomRecService;
 
-	private final UserService userService;
+	@Autowired
+	private UserService userService;
 
-	private final CompanyService companyService;
+	@Autowired
+	private CompanyService companyService;
 
-	private final ReviewService reviewService;
+	@Autowired
+	private ReviewService reviewService;
 
-	private final BookingMsService bookingMsService;
+	@Autowired
+	private BookingMsService bookingMsService;
 
 	private CompanyMS beforeCommitCompany;
 
@@ -58,17 +78,6 @@ public class RecRoomDataTest {
 	private List<RoomMS> beforeCommitRoomMSList = new ArrayList<>();
 
 	private List<ReviewMS> reviewList = new ArrayList<>();
-
-	@Autowired
-	public RecRoomDataTest(RoomService roomService, CompanyService companyService, ReviewService reviewService,
-		BookingMsService bookingMsService, UserService userService, EntityManager em, RoomRecService roomRecService) {
-		this.roomService = roomService;
-		this.companyService = companyService;
-		this.reviewService = reviewService;
-		this.bookingMsService = bookingMsService;
-		this.userService = userService;
-		this.roomRecService = roomRecService;
-	}
 
 	@BeforeEach
 	public void beforeData() {
@@ -104,7 +113,7 @@ public class RecRoomDataTest {
 			.offYn("N")
 			.userCity("Seoul")
 			.userImg("default")
-			.userEmail("test@email.com")
+			.userEmail("test@mail.com")
 			.userRole("user")
 			.userNick("default")
 			.userPwd("test")
@@ -183,9 +192,9 @@ public class RecRoomDataTest {
 
 		// then
 		assertEquals(mainRecRoomList.size(), 3);
-		// assertEquals(mainRecRoomList.get(0).getRatingAvg(), 1.5D);
-		// assertEquals(mainRecRoomList.get(1).getRatingAvg(), 3.5D);
-		// assertNull(mainRecRoomList.get(2).getRatingAvg());
+		 assertEquals(mainRecRoomList.get(0).getRatingAvg(), 1.5D);
+		 assertEquals(mainRecRoomList.get(1).getRatingAvg(), 3.5D);
+		 assertNull(mainRecRoomList.get(2).getRatingAvg());
 
 	}
 

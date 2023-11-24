@@ -73,7 +73,7 @@ public class TempData implements CommandLineRunner {
 					.checkIn(LocalDateTime.now())
 					.checkOut(LocalDateTime.now())
 					.couponYn(CommonConstant.Y.name())
-					.thumbNail("http://dev.tp-penguin-app.site:25501/image/room/default")
+					.thumbNail("http://tp-penguin-app.store/tp-penguin-app/image/user/default.jpg")
 					.sellPrc(120000)
 					.maxCount(5)
 					.soldOutYn(CommonConstant.N.name())
