@@ -104,7 +104,7 @@ public class RecRoomDataTest {
 			.offYn("N")
 			.userCity("Seoul")
 			.userImg("default")
-			.userEmail("test@email.com")
+			.userEmail("test@test.com")
 			.userRole("user")
 			.userNick("default")
 			.userPwd("test")
