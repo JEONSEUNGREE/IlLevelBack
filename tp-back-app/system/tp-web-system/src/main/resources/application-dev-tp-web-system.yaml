@@ -3,19 +3,19 @@ spring:
     oauth2:
       client:
         registration:
-          #          google:
-          #            client-id: 904892991881-m8gp175ds1c99iav5pq4uub6cboiu5q9.apps.googleusercontent.com
-          #            client-secret: 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
-          #            scope:
-          #              - profile
-          #              - email
+          google:
+            client-id: 904892991881-m8gp175ds1c99iav5pq4uub6cboiu5q9.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - profile
+              - email
 
           naver:
             client-id: 8LarolPEJucWnlsDJ3QP
             client-name: TP-PENGUIN-APP
             client-secret: jHNQNGgMnZ
             authorization-grant-type: authorization_code
-            redirect-uri: http://dev.tp-penguin-app.site:25501/login/oauth2/code/naver
+            redirect-uri: http://dev.tp-penguin-app.store/login/oauth2/code/naver
             scope:
               - profile
               - email
@@ -25,7 +25,7 @@ spring:
             client-name: TP-PENGUIN-APP
             client-secret: twVnsowHE1Bf3lYwuGZ8Z5OSWnnarvXL
             authorization-grant-type: authorization_code
-            redirect-uri: http://dev.tp-penguin-app.site:25501/login/oauth2/code/kakao
+            redirect-uri: http://dev.tp-penguin-app.store/login/oauth2/code/kakao
             scope:
               - profile_nickname
               - profile_image
@@ -57,7 +57,7 @@ file:
     company-path: file:///tp-penguin-app/image/company/
 
 front:
-  nodeServer: http://dev.tp-penguin-app.site:1901/
+  nodeServer: http://dev.tp-penguin-app.site
 
 token:
   secret: local-secret
