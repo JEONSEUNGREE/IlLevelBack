@@ -3,3 +3,7 @@
 === 회원가입
 
 operation::user-login-test/sign-up-test[snippets='http-request,request-fields,http-response,response-fields']
+
+=== 회원 정보 수정
+
+operation::user-login-test/user-modify-test[snippets='http-request,request-fields,http-response,response-fields']

@@ -34,7 +34,7 @@ public class CurrentUserArgResolver implements HandlerMethodArgumentResolver {
         Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 
         return LoginInfo.builder()
-                .userId(loggedInUser.getName())
+                .userEmail(loggedInUser.getName())
                 .jwtToken(webRequest.getHeader(CommonConstant.ACCOUNT_TOKEN.getName()))
                 .build();
     }

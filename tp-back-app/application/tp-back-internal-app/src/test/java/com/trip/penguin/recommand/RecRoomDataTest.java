@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.trip.penguin.TpBackInternalApp;
 import com.trip.penguin.config.TestContainer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -14,10 +13,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.trip.penguin.booking.domain.BookingMS;
@@ -27,7 +24,7 @@ import com.trip.penguin.company.service.CompanyService;
 import com.trip.penguin.constant.CommonConstant;
 import com.trip.penguin.recommand.room.dao.RoomRecDAO;
 import com.trip.penguin.recommand.room.service.RoomRecService;
-import com.trip.penguin.recommand.room.view.MainRecRoomSchCdt;
+import com.trip.penguin.recommand.room.view.MainRecRoomSchCdtView;
 import com.trip.penguin.review.domain.ReviewMS;
 import com.trip.penguin.review.service.ReviewService;
 import com.trip.penguin.room.domain.RoomMS;
@@ -183,7 +180,7 @@ public class RecRoomDataTest {
 
 		// when
 		/* 리뷰 목록 조회 */
-		MainRecRoomSchCdt recRoomSchCdt = MainRecRoomSchCdt.builder()
+		MainRecRoomSchCdtView recRoomSchCdt = MainRecRoomSchCdtView.builder()
 			.pageNumber(0)
 			.pageSize(3)
 			.build();
