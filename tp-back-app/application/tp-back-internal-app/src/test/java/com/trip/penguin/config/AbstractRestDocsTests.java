@@ -30,7 +30,8 @@ public abstract class AbstractRestDocsTests {
 		final WebApplicationContext context,
 		final RestDocumentationContextProvider restDocumentation) {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(context)
-			.apply(documentationConfiguration(restDocumentation))
+			.apply(documentationConfiguration(restDocumentation)
+				.uris().withScheme("http").withHost("dev.tp-penguin-app.store").withPort(80))
 			.alwaysDo(MockMvcResultHandlers.print())
 			.alwaysDo(restDocs)
 			.addFilters(new CharacterEncodingFilter("UTF-8", true))

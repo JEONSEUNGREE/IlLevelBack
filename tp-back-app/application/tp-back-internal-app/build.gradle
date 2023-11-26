@@ -7,12 +7,6 @@ plugins {
 
 /******* QueryDSL Start *******/
 
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
-
 def querydslDir = "$buildDir/generated/querydsl"
 
 sourceSets {
@@ -34,6 +28,9 @@ clean.doLast {
 configurations {
     asciidoctorExt
     compileOnly {
+        extendsFrom annotationProcessor
+    }
+    runtimeOnly {
         extendsFrom annotationProcessor
     }
 }
@@ -101,6 +98,9 @@ dependencies {
     asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
     // https://mvnrepository.com/artifact/org.springframework.restdocs/spring-restdocs-mockmvc
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+
+    // pricipal null security 테스트 관련 필요..
+    testImplementation 'org.springframework.security:spring-security-test:6.1.2'
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'

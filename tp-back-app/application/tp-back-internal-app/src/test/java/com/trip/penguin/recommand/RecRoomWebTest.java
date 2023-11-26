@@ -23,7 +23,7 @@ import com.trip.penguin.config.AbstractRestDocsTests;
 import com.trip.penguin.recommand.room.controller.RoomRecController;
 import com.trip.penguin.recommand.room.dao.RoomRecDAO;
 import com.trip.penguin.recommand.room.service.RoomRecService;
-import com.trip.penguin.recommand.room.view.MainRecRoomSchCdt;
+import com.trip.penguin.recommand.room.view.MainRecRoomSchCdtView;
 
 @ActiveProfiles("test")
 @WebMvcTest(RoomRecController.class)
@@ -53,7 +53,7 @@ public class RecRoomWebTest extends AbstractRestDocsTests {
 					.build()
 			));
 
-		MainRecRoomSchCdt mainRecRoomSchCdt = MainRecRoomSchCdt.builder()
+		MainRecRoomSchCdtView mainRecRoomSchCdt = MainRecRoomSchCdtView.builder()
 			.pageSize(2)
 			.pageNumber(0)
 			.mainSubData(new ArrayList<>())

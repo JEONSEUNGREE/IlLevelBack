@@ -1,20 +1,11 @@
 package com.trip.penguin.user;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.trip.penguin.TpBackInternalApp;
-import com.trip.penguin.config.AbstractRestDocsTests;
-import com.trip.penguin.constant.CommonConstant;
-import com.trip.penguin.interceptor.LoginCheckInterceptor;
-import com.trip.penguin.resolver.CurrentUserArgResolver;
-import com.trip.penguin.resolver.vo.LoginInfo;
-import com.trip.penguin.response.JsonResponse;
-import com.trip.penguin.security.dto.SignUpDTO;
-import com.trip.penguin.signup.SignupController;
-import com.trip.penguin.user.controller.UserMyPageController;
-import com.trip.penguin.user.dto.UserMyPageDto;
-import com.trip.penguin.user.service.UserMyPageService;
-import com.trip.penguin.user.view.UserMyPageView;
-import org.junit.jupiter.api.BeforeEach;
+import static org.mockito.BDDMockito.*;
+import static org.springframework.restdocs.headers.HeaderDocumentation.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -24,86 +15,89 @@ import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
-import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
-import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.trip.penguin.TpBackInternalApp;
+import com.trip.penguin.config.AbstractRestDocsTests;
+import com.trip.penguin.config.WithMockCustomUser;
+import com.trip.penguin.constant.CommonConstant;
+import com.trip.penguin.resolver.vo.LoginInfo;
+import com.trip.penguin.user.controller.UserMyPageController;
+import com.trip.penguin.user.dto.UserMyPageDto;
+import com.trip.penguin.user.service.UserMyPageService;
+import com.trip.penguin.user.view.UserMyPageView;
 
 @ActiveProfiles("test")
 @WebMvcTest(UserMyPageController.class)
 @ContextConfiguration(classes = TpBackInternalApp.class)
 public class UserMyPageTest extends AbstractRestDocsTests {
 
-    @Autowired
-    private ObjectMapper objectMapper;
+	@Autowired
+	private ObjectMapper objectMapper;
 
-    @MockBean
-    private UserMyPageService userMyPageService;
+	@MockBean
+	private UserMyPageService userMyPageService;
 
-//    @MockBean
-//    private CurrentUserArgResolver currentUserArgResolver;
+	@Test
+	// @WithMockUser
+	@WithMockCustomUser
+	public void userModifyTest() throws Exception {
 
-    @MockBean
-    private LoginCheckInterceptor loginCheckInterceptor;
+		// given
+		String requestJson = objectMapper.writeValueAsString(
+			new UserMyPageView(
+				"requestLast",
+				"requestFirst",
+				"requestNickPwd",
+				"requestNick",
+				"requestImg",
+				"requestCity"
+			)
+		);
 
-    @Test
-    public void userModifyTest() throws Exception {
+		given(userMyPageService.userMyPageModify(
+			any(LoginInfo.class), any(UserMyPageView.class)))
+			.willReturn(
+				UserMyPageDto.builder()
+					.userLast("modifiedLast")
+					.userFirst("modifiedFirst")
+					.userNick("modifiedUserNick")
+					.userImg("modifiedUserImg")
+					.userCity("modifiedUserCity")
+					.build()
+			);
 
-        // given
-        String requestJson = objectMapper.writeValueAsString(
-                new UserMyPageView(
-                        "modifiedLast",
-                        "modifiedFirst",
-                        "modifiedNickPwd",
-                        "modifiedNick",
-                        "modifiedImg",
-                        "modifiedCity"
-                )
-        );
+		// when
+		mockMvc.perform(post("/usr/mypage/modify")
+				.header(CommonConstant.ACCOUNT_TOKEN.getName(), "jwtToken")
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+				.content(requestJson))
+			.andExpect(status().isOk())
+			.andDo(restDocs.document(
+				requestHeaders(
+					headerWithName(CommonConstant.ACCOUNT_TOKEN.getName()).description("JWT토큰")
+				),
+				// then
+				requestFields(
+					fieldWithPath("userLast").type(JsonFieldType.STRING).description("회원 성"),
+					fieldWithPath("userFirst").type(JsonFieldType.STRING).description("회원 이름"),
+					fieldWithPath("userPwd").type(JsonFieldType.STRING).description("회원 비밀번호"),
+					fieldWithPath("userNick").type(JsonFieldType.STRING).description("닉네임"),
+					fieldWithPath("userImg").type(JsonFieldType.STRING).description("회원 프로필 이미지"),
+					fieldWithPath("userCity").type(JsonFieldType.STRING).description("회원 거주지")
+				),
+				responseFields(
+					fieldWithPath("message").type(JsonFieldType.STRING).description("메세지"),
+					fieldWithPath("result").type(JsonFieldType.STRING).description("결과"),
+					fieldWithPath("data").type(JsonFieldType.OBJECT).description("데이터"),
+					fieldWithPath("data.userLast").type(JsonFieldType.STRING).description("회원 성"),
+					fieldWithPath("data.userFirst").type(JsonFieldType.STRING).description("회원 이름"),
+					fieldWithPath("data.userNick").type(JsonFieldType.STRING).description("닉네임"),
+					fieldWithPath("data.userImg").type(JsonFieldType.STRING).description("회원 프로필 이미지"),
+					fieldWithPath("data.userCity").type(JsonFieldType.STRING).description("회원 거주지")
+				))
+			);
 
-        given(userMyPageService.userMyPageModify(
-                any(LoginInfo.class), any(UserMyPageView.class)))
-                .willReturn(
-                        UserMyPageDto.builder()
-                                .userLast("modifiedLast")
-                                .userFirst("modifiedFirst")
-                                .userNick("modifiedUserNick")
-                                .userImg("modifiedUserImg")
-                                .userCity("modifiedUserCity")
-                                .build()
-                );
-
-        // when
-        mockMvc.perform(post("/usr/mypage/modify")
-//                        .header(CommonConstant.ACCOUNT_TOKEN.getName(),"someToken")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(requestJson))
-                .andExpect(status().isOk())
-                .andDo(restDocs.document(
-//                        requestHeaders(
-//                                headerWithName(CommonConstant.ACCOUNT_TOKEN.getName()).description("JWT토큰")
-//                        ),
-                        // then
-                        requestFields(
-                                fieldWithPath("userLast").type(JsonFieldType.STRING).description("회원 성"),
-                                fieldWithPath("userFirst").type(JsonFieldType.STRING).description("회원 이름"),
-                                fieldWithPath("userPwd").type(JsonFieldType.STRING).description("회원 비밀번호"),
-                                fieldWithPath("userNick").type(JsonFieldType.STRING).description("닉네임"),
-                                fieldWithPath("userImg").type(JsonFieldType.STRING).description("회원 프로필 이미지"),
-                                fieldWithPath("userCity").type(JsonFieldType.STRING).description("회원 거주지")
-                        ),
-                        responseFields(
-                                fieldWithPath("message").type(JsonFieldType.STRING).description("메세지"),
-                                fieldWithPath("result").type(JsonFieldType.STRING).description("결과"),
-                                fieldWithPath("data").type(JsonFieldType.NULL).description("데이터")
-                        ))
-                );
-
-    }
+	}
 
 }

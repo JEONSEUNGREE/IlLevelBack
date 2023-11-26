@@ -14,7 +14,7 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.trip.penguin.constant.CommonConstant;
 import com.trip.penguin.recommand.room.dao.RoomRecDAO;
-import com.trip.penguin.recommand.room.view.MainRecRoomSchCdt;
+import com.trip.penguin.recommand.room.view.MainRecRoomSchCdtView;
 
 @Repository
 public class RoomCustomRepositoryImpl implements RoomRecCustomRepository {
@@ -27,13 +27,14 @@ public class RoomCustomRepositoryImpl implements RoomRecCustomRepository {
 	}
 
 	@Override
-	public List<RoomRecDAO> getMainRecRoomListWithPaging(MainRecRoomSchCdt mainRecRoomSchCdt) {
+	public List<RoomRecDAO> getMainRecRoomListWithPaging(MainRecRoomSchCdtView mainRecRoomSchCdt) {
 
 		Pageable pageable = PageRequest.of(mainRecRoomSchCdt.getPageNumber(), mainRecRoomSchCdt.getPageSize());
 
 		return queryFactory.selectDistinct(Projections.fields(RoomRecDAO.class,
 				roomMS.roomNm, roomMS.comName, roomMS.sellPrc,
-				roomMS.couponYn, roomMS.thumbNail, reviewMS.rating.avg().as("ratingAvg"), reviewMS.count().as("reviewCount")))
+				roomMS.couponYn, roomMS.thumbNail, reviewMS.rating.avg().as("ratingAvg"),
+				reviewMS.count().as("reviewCount")))
 			.from(roomMS)
 			.where(roomMS.soldOutYn.eq(CommonConstant.N.name()))
 			.leftJoin(roomMS.reviewList, reviewMS)

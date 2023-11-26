@@ -23,7 +23,7 @@ import com.trip.penguin.signup.SignupController;
 @ActiveProfiles("test")
 @WebMvcTest(SignupController.class)
 @ContextConfiguration(classes = TpBackInternalApp.class)
-public class UserLoginTest extends AbstractRestDocsTests {
+public class UserSignUpTest extends AbstractRestDocsTests {
 
 	@Autowired
 	private ObjectMapper objectMapper;
@@ -32,7 +32,7 @@ public class UserLoginTest extends AbstractRestDocsTests {
 	private DefaultUserService defaultUserService;
 
 	@Test
-	public void signUpTest() throws Exception {
+	public void userSignUpTest() throws Exception {
 
 		// given
 		String requestJson = objectMapper.writeValueAsString(
