@@ -1,8 +1,8 @@
 package com.trip.penguin.user;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -19,6 +19,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 import com.trip.penguin.TpBackInternalApp;
 import com.trip.penguin.config.TestContainer;
+import com.trip.penguin.cs.service.CsMsService;
 import com.trip.penguin.oauth.converter.ProviderUserConverter;
 import com.trip.penguin.oauth.service.DefaultUserService;
 import com.trip.penguin.oauth.service.OauthUserService;
@@ -26,7 +27,7 @@ import com.trip.penguin.recommand.room.repository.RoomRecCustomRepository;
 import com.trip.penguin.resolver.vo.LoginInfo;
 import com.trip.penguin.room.service.RoomService;
 import com.trip.penguin.user.domain.UserMS;
-import com.trip.penguin.user.dto.UserMyPageDto;
+import com.trip.penguin.user.dto.UserMyPageDTO;
 import com.trip.penguin.user.service.UserMyPageService;
 import com.trip.penguin.user.service.UserService;
 import com.trip.penguin.user.view.UserMyPageView;
@@ -76,6 +77,9 @@ public class UserDataTest {
 	@MockBean
 	private ImgUtils imgUtils;
 
+	@MockBean
+	private CsMsService csMsService;
+
 	private UserMS beforeCommitUser;
 
 	@BeforeEach
@@ -112,16 +116,16 @@ public class UserDataTest {
 
 	@DisplayName("회원 정보 수정 테스트")
 	@Test
-	void userModifyDataTest() throws IllegalAccessException {
+	void userModifyDataTest() throws IllegalAccessException, IOException {
 
 		//given
 		UserMS afterCommitUser = userService.signUpUser(beforeCommitUser);
 
 		//when
-		UserMyPageDto afterUpdateUser = userMyPageService.userMyPageModify(
+		UserMyPageDTO afterUpdateUser = userMyPageService.userMyPageModify(
 			LoginInfo.builder().userEmail("test@test.com").jwtToken("testToken").build(),
-			new UserMyPageView("userTest", "userTest", "userTest", "userTest"), any());
-		
+			new UserMyPageView("userTest", "userTest", "userTest", "userTest"), null);
+
 		//then
 		assertNotEquals(afterUpdateUser.getUserNick(), afterCommitUser.getUserNick());
 		assertNotEquals(afterUpdateUser.getUserCity(), afterCommitUser.getUserCity());

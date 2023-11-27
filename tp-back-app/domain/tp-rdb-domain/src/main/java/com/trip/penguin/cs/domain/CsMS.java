@@ -17,10 +17,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "CS_MS")
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -56,7 +58,14 @@ public class CsMS {
 	@Column(name = "csa_content", length = 1000)
 	private String csaContent;
 
-	@Column(name = "admin_nm", nullable = false)
+	@Column(name = "admin_nm")
 	private String adminNm;
+
+	public void createCsMs(UserMS userMS) {
+		this.createdDate = LocalDateTime.now();
+		this.modifiedDate = LocalDateTime.now();
+		this.csqStatus = 0;
+		this.userMS = userMS;
+	}
 
 }

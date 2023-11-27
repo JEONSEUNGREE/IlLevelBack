@@ -25,7 +25,7 @@ import com.trip.penguin.config.WithMockCustomUser;
 import com.trip.penguin.constant.CommonConstant;
 import com.trip.penguin.resolver.vo.LoginInfo;
 import com.trip.penguin.user.controller.UserMyPageController;
-import com.trip.penguin.user.dto.UserMyPageDto;
+import com.trip.penguin.user.dto.UserMyPageDTO;
 import com.trip.penguin.user.service.UserMyPageService;
 import com.trip.penguin.user.view.UserMyPageView;
 import com.trip.penguin.util.ImgUtils;
@@ -67,7 +67,7 @@ public class UserMyPageTest extends AbstractRestDocsTests {
 		given(userMyPageService.userMyPageModify(
 			any(LoginInfo.class), any(UserMyPageView.class), any(MultipartFile.class)))
 			.willReturn(
-				UserMyPageDto.builder()
+				UserMyPageDTO.builder()
 					.userLast("modifiedLast")
 					.userFirst("modifiedFirst")
 					.userNick("modifiedUserNick")
