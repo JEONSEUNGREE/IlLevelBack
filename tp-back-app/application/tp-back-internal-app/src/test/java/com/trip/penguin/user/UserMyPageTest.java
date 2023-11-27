@@ -38,7 +38,6 @@ public class UserMyPageTest extends AbstractRestDocsTests {
 	private UserMyPageService userMyPageService;
 
 	@Test
-	// @WithMockUser
 	@WithMockCustomUser
 	public void userModifyTest() throws Exception {
 

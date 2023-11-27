@@ -34,10 +34,6 @@ public class CurrentUserArgResolver implements HandlerMethodArgumentResolver {
 		WebDataBinderFactory binderFactory) {
 
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-		// 테스트 관련해서 자꾸 null로 나옴..
-		if (loggedInUser == null) {
-			return null;
-		}
 
 		return LoginInfo.builder()
 			.userEmail(loggedInUser.getName())
