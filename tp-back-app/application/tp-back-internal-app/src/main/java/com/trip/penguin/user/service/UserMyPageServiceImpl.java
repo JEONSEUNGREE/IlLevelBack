@@ -56,6 +56,7 @@ public class UserMyPageServiceImpl implements UserMyPageService {
 
 		} catch (Exception e) {
 			imgUtils.deleteFile(userImgUUID);
+			throw new RuntimeException("회원 정보 수정 실패");
 		}
 
 		return userMyPageDto;
