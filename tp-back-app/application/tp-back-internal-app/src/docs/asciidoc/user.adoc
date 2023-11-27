@@ -6,4 +6,4 @@ operation::user-sign-up-test/user-sign-up-test[snippets='http-request,request-fi
 
 === 회원 정보 수정
 
-operation::user-my-page-test/user-modify-test[snippets='http-request,request-headers,request-fields,http-response,response-fields']
+operation::user-my-page-test/user-modify-test[snippets='http-request,request-headers,request-parts,request-part-userMyPageView-fields,http-response,response-fields']

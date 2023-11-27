@@ -1,6 +1,7 @@
 package com.trip.penguin.user;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
 
 import java.time.LocalDateTime;
 
@@ -29,6 +30,7 @@ import com.trip.penguin.user.dto.UserMyPageDto;
 import com.trip.penguin.user.service.UserMyPageService;
 import com.trip.penguin.user.service.UserService;
 import com.trip.penguin.user.view.UserMyPageView;
+import com.trip.penguin.util.ImgUtils;
 
 import jakarta.persistence.EntityManager;
 
@@ -70,6 +72,9 @@ public class UserDataTest {
 
 	@MockBean
 	private OauthUserService oauthUserService;
+
+	@MockBean
+	private ImgUtils imgUtils;
 
 	private UserMS beforeCommitUser;
 
@@ -115,9 +120,8 @@ public class UserDataTest {
 		//when
 		UserMyPageDto afterUpdateUser = userMyPageService.userMyPageModify(
 			LoginInfo.builder().userEmail("test@test.com").jwtToken("testToken").build(),
-			new UserMyPageView("userTest", "userTest", "userTest",
-				"userTest", "userTest", "userTest"));
-
+			new UserMyPageView("userTest", "userTest", "userTest", "userTest"), any());
+		
 		//then
 		assertNotEquals(afterUpdateUser.getUserNick(), afterCommitUser.getUserNick());
 		assertNotEquals(afterUpdateUser.getUserCity(), afterCommitUser.getUserCity());

@@ -2,9 +2,10 @@ package com.trip.penguin.user.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.trip.penguin.interceptor.annotation.LoginCheck;
 import com.trip.penguin.resolver.annotation.CurrentUser;
@@ -28,9 +29,11 @@ public class UserMyPageController {
 	@LoginCheck
 	@PostMapping("/modify")
 	public JsonResponse<UserMyPageDto> userMyPageModify(@CurrentUser LoginInfo loginInfo,
-		@RequestBody UserMyPageView userMyPageView) throws IllegalAccessException {
+		@RequestPart(value = "userMyPageView") UserMyPageView userMyPageView,
+		@RequestPart(value = "multipartFile", required = false) MultipartFile multipartFile) throws
+		IllegalAccessException {
 
-		UserMyPageDto userMyPageDto = userMyPageService.userMyPageModify(loginInfo, userMyPageView);
+		UserMyPageDto userMyPageDto = userMyPageService.userMyPageModify(loginInfo, userMyPageView, multipartFile);
 
 		return JsonResponse.success(userMyPageDto);
 	}

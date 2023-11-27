@@ -19,13 +19,7 @@ public class UserMyPageView {
 	private String userFirst;
 
 	@NonNull
-	private String userPwd;
-
-	@NonNull
 	private String userNick;
-
-	@NonNull
-	private String userImg;
 
 	@NonNull
 	private String userCity;

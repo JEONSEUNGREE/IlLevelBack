@@ -39,7 +39,7 @@ public class DefaultUserService extends AbstractOAuth2UserService {
 	}
 
 	public UserMS modifyUser(UserMS userMS) {
-		userMS.setUserPwd(bCryptPasswordEncoder.encode(userMS.getUserPwd()));
+		// userMS.setUserPwd(bCryptPasswordEncoder.encode(userMS.getUserPwd()));
 		userMS.setModifiedDate(LocalDateTime.now());
 		return userService.updateUser(userMS);
 	}
