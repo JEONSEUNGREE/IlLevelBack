@@ -24,7 +24,7 @@ import com.trip.penguin.signup.SignupController;
 @ActiveProfiles("test")
 @WebMvcTest(SignupController.class)
 @ContextConfiguration(classes = TpBackInternalApp.class)
-public class UserSignUpTest extends AbstractRestDocsTests {
+public class UserSignUpWebTest extends AbstractRestDocsTests {
 
 	@Autowired
 	private ObjectMapper objectMapper;

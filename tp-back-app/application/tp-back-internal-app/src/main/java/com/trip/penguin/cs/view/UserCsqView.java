@@ -1,4 +1,4 @@
-package com.trip.penguin.user.view;
+package com.trip.penguin.cs.view;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

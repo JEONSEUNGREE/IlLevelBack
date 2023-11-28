@@ -1,0 +1,10 @@
+== 팔로우
+
+=== 팔로우 등록
+operation::app-follow-web-test/user-my-page-follow-add-test[snippets='http-request,request-cookies,path-parameters,http-response,response-fields']
+
+=== 팔로우 목록
+operation::app-follow-web-test/user-my-page-follow-list-test[snippets='http-request,request-cookies,path-parameters,http-response,response-fields']
+
+=== 팔로우 삭제
+operation::app-follow-web-test/user-my-page-follow-delete-test[snippets='http-request,request-cookies,path-parameters,http-response,response-fields']

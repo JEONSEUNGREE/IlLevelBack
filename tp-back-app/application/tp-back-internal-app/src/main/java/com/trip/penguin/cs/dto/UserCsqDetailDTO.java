@@ -1,4 +1,4 @@
-package com.trip.penguin.user.dto;
+package com.trip.penguin.cs.dto;
 
 import java.time.LocalDateTime;
 
