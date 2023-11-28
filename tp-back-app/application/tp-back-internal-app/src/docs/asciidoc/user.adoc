@@ -1,36 +1,7 @@
-== 회원 관련 API
+= 회원 관련 API
 
-=== 회원가입
-
+=== 회원 가입
 operation::user-sign-up-test/user-sign-up-test[snippets='http-request,request-fields,http-response,response-fields']
 
 === 회원 정보 수정
-
 operation::user-my-page-test/user-modify-test[snippets='http-request,request-cookies,request-parts,request-part-userMyPageView-fields,http-response,response-fields']
-
-== 마이 페이지
-
-=== 고객센터
-
-==== 고객 센터 문의 글 작성
-operation::user-my-page-test/user-my-page-csq-create-test[snippets='http-request,request-cookies,request-fields,http-response,response-fields']
-
-==== 고객 센터 문의 글 읽기
-operation::user-my-page-test/user-my-page-csq-read-test[snippets='http-request,request-cookies,path-parameters,http-response,response-fields']
-
-==== 고객 센터 문의 글 목록
-operation::user-my-page-test/user-my-page-csq-list-test[snippets='http-request,request-cookies,path-parameters,http-response,response-fields']
-
-==== 고객 센터 문의 글 삭제
-operation::user-my-page-test/user-my-page-csq-delete-test[snippets='http-request,request-cookies,path-parameters,http-response,response-fields']
-
-=== 팔로우
-
-==== 팔로우 등록
-operation::user-my-page-test/user-my-page-follow-add-test[snippets='http-request,request-cookies,path-parameters,http-response,response-fields']
-
-==== 팔로우 목록
-operation::user-my-page-test/user-my-page-follow-list-test[snippets='http-request,request-cookies,path-parameters,http-response,response-fields']
-
-==== 팔로우 삭
-operation::user-my-page-test/user-my-page-follow-delete-test[snippets='http-request,request-cookies,path-parameters,http-response,response-fields']

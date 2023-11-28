@@ -4,6 +4,7 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -32,6 +33,7 @@ public class UserSignUpTest extends AbstractRestDocsTests {
 	private DefaultUserService defaultUserService;
 
 	@Test
+	@DisplayName("회원 가입")
 	public void userSignUpTest() throws Exception {
 
 		// given

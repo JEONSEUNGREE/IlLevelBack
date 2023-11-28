@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -37,6 +38,7 @@ public class RecRoomWebTest extends AbstractRestDocsTests {
 	private RoomRecService roomRecService;
 
 	@Test
+	@DisplayName("메인 화면 객실 목록")
 	public void mainRecRoomList() throws Exception {
 
 		// given

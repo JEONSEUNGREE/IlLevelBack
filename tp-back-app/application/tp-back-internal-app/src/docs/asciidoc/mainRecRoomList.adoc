@@ -1,3 +1,4 @@
-=== 메인 화면 객실 추천 API
+= 메인 화면
 
+=== 메인 화면 객실 추천 API
 operation::rec-room-web-test/main-rec-room-list[snippets='http-request,request-fields,http-response,response-fields']
