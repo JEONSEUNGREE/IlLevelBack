@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+import com.trip.penguin.follow.service.FollowService;
+import com.trip.penguin.user.repository.UserFollowCustomRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -79,6 +81,13 @@ public class UserDataTest {
 
 	@MockBean
 	private CsMsService csMsService;
+
+	@MockBean
+	private FollowService followService;
+
+	@MockBean
+	private UserFollowCustomRepository userFollowCustomRepository;
+
 
 	private UserMS beforeCommitUser;
 

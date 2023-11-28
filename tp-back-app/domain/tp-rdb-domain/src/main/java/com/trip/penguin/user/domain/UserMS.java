@@ -119,6 +119,16 @@ public class UserMS {
 		reviewMS.setUserMS(this);
 	}
 
+	public FollowMS addFollow(UserMS followUser) {
+		FollowMS followCreate = FollowMS.builder()
+				.userMS(this)
+				.followUser(followUser)
+				.build();
+		followList.add(followCreate);
+
+		return followCreate;
+	}
+
 	public boolean isOAuthUser() {
 		return !OAuthVendor.DEFAULT.getOAuthVendor().equals(this.getSocialProvider());
 	}

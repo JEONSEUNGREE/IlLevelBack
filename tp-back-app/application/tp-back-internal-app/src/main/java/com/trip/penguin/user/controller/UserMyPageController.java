@@ -1,5 +1,6 @@
 package com.trip.penguin.user.controller;
 
+import com.trip.penguin.user.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,9 +16,6 @@ import com.trip.penguin.interceptor.annotation.LoginCheck;
 import com.trip.penguin.resolver.annotation.CurrentUser;
 import com.trip.penguin.resolver.vo.LoginInfo;
 import com.trip.penguin.response.JsonResponse;
-import com.trip.penguin.user.dto.UserCsqDetailDTO;
-import com.trip.penguin.user.dto.UserCsqPageDTO;
-import com.trip.penguin.user.dto.UserMyPageDTO;
 import com.trip.penguin.user.service.UserMyPageService;
 import com.trip.penguin.user.view.UserCsqView;
 import com.trip.penguin.user.view.UserMyPageView;
@@ -81,6 +79,34 @@ public class UserMyPageController {
 		@PathVariable(value = "csqId") Integer csqId) throws UserNotFoundException {
 
 		userMyPageService.userMyPageCsqDelete(loginInfo, csqId);
+
+		return JsonResponse.success();
+	}
+
+	@LoginCheck
+	@GetMapping("/follow/add/{followId}")
+	public JsonResponse<UserFollowDTO> userMyPageFollowAdd(@CurrentUser LoginInfo loginInfo, @PathVariable(value = "followId") Integer followId) {
+
+		UserFollowDTO userFollowDTO = userMyPageService.userMyPageFollowAdd(loginInfo, followId);
+
+		return JsonResponse.success(userFollowDTO);
+	}
+
+	@LoginCheck
+	@GetMapping("/follow/list/{curPage}")
+	public JsonResponse<UserFollowListDTO> userMyPageFollowList(@CurrentUser LoginInfo loginInfo, @PathVariable(value = "curPage") Integer curPage) {
+
+		UserFollowListDTO userFollowListDTO = userMyPageService.userMyPageFollowList(loginInfo, curPage - 1);
+
+		return JsonResponse.success(userFollowListDTO);
+	}
+
+
+	@LoginCheck
+	@GetMapping("/follow/delete/{followId}")
+	public JsonResponse<UserFollowListDTO> userMyPageDelete(@CurrentUser LoginInfo loginInfo, @PathVariable(value = "followId") Integer followId) {
+
+		userMyPageService.userMyPageFollowDelete(loginInfo, followId.longValue());
 
 		return JsonResponse.success();
 	}

@@ -88,7 +88,7 @@ public class RecRoomDataTest {
 		/* 회사 가입 */
 		beforeCommitCompany = CompanyMS.builder()
 			.com_nm("testNm")
-			.comEmail("test@test.com")
+			.comEmail("test@test.com0")
 			.comPwd("testPwd")
 			.comImg("defaultImg")
 			.comAddress("location")
