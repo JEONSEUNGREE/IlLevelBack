@@ -1,9 +1,10 @@
 package com.trip.penguin.user;
 
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -23,7 +24,7 @@ import com.trip.penguin.signup.SignupController;
 @ActiveProfiles("test")
 @WebMvcTest(SignupController.class)
 @ContextConfiguration(classes = TpBackInternalApp.class)
-public class UserLoginTest extends AbstractRestDocsTests {
+public class UserSignUpWebTest extends AbstractRestDocsTests {
 
 	@Autowired
 	private ObjectMapper objectMapper;
@@ -32,7 +33,8 @@ public class UserLoginTest extends AbstractRestDocsTests {
 	private DefaultUserService defaultUserService;
 
 	@Test
-	public void signUpTest() throws Exception {
+	@DisplayName("회원 가입")
+	public void userSignUpTest() throws Exception {
 
 		// given
 		String requestJson = objectMapper.writeValueAsString(

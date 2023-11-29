@@ -11,7 +11,7 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MainRecRoomSchCdt {
+public class MainRecRoomSchCdtView {
 
 	private Integer pageNumber;
 

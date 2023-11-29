@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.trip.penguin.recommand.room.dao.RoomRecDAO;
 import com.trip.penguin.recommand.room.repository.RoomRecCustomRepository;
 import com.trip.penguin.recommand.room.repository.RoomRecRepository;
-import com.trip.penguin.recommand.room.view.MainRecRoomSchCdt;
+import com.trip.penguin.recommand.room.view.MainRecRoomSchCdtView;
 import com.trip.penguin.room.service.RoomService;
 
 @Service
@@ -34,7 +34,7 @@ public class RoomRecServiceImpl implements RoomRecService {
 	 * @return List<RoomRecDAO>
 	 */
 	@Override
-	public List<RoomRecDAO> getMainRecRoomListWithPaging(MainRecRoomSchCdt mainRecRoomSchCdt) {
+	public List<RoomRecDAO> getMainRecRoomListWithPaging(MainRecRoomSchCdtView mainRecRoomSchCdt) {
 		return roomRecCustomRepository.getMainRecRoomListWithPaging(mainRecRoomSchCdt);
 	}
 

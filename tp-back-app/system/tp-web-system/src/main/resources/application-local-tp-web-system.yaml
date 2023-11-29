@@ -66,7 +66,7 @@ token:
   issuer: tp-back-app
 
   default:
-    expiration_time: 5000
+    expiration_time: 5000000
 
   refresh:
-    expiration_time: 10000
+    expiration_time: 10000000

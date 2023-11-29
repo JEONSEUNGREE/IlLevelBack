@@ -3,10 +3,14 @@ package com.trip.penguin.follow.service;
 import com.trip.penguin.follow.domain.FollowMS;
 import com.trip.penguin.user.domain.UserMS;
 
+import java.util.List;
+
 public interface FollowService {
 
 
-    public FollowMS setFollow(FollowMS followMS);
+    FollowMS followCreate(FollowMS followMS);
 
-    public FollowMS getFollowList(UserMS userMS);
+    FollowMS getFollowList(UserMS userMS);
+
+    void deleteFollowByUserIdAndId(Long followId, UserMS userMS);
 }

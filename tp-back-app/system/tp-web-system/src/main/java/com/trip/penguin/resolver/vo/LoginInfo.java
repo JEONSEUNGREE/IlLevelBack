@@ -6,8 +6,8 @@ import lombok.Getter;
 @Builder
 public class LoginInfo {
 
-    public String userId;
+    private String userEmail;
 
-    public String jwtToken;
+    private String jwtToken;
 
 }

@@ -26,14 +26,15 @@ public class FollowMS {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "follow_id")
+	@Column(name = "id")
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id", nullable = false)
 	private UserMS userMS;
 
-	@Column(name = "follower_id", nullable = false)
-	private Long followerId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "follow_id", nullable = false)
+	private UserMS followUser;
 
 }

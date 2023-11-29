@@ -6,6 +6,10 @@
 :seclinks:
 
 
-include::{docfile}/../mainRecRoomList.adoc[]
+include::{docfile}/../userPage.adoc[]
 
-include::{docfile}/../user.adoc[]
+include::{docfile}/../csPage.adoc[]
+
+include::{docfile}/../followPage.adoc[]
+
+include::{docfile}/../mainRecRoomList.adoc[]

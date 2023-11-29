@@ -1,0 +1,17 @@
+== 고객 센터
+
+=== 고객 센터 문의 글 작성
+
+operation::app-cs-web-test/user-my-page-csq-create-test[snippets='http-request,request-cookies,request-fields,http-response,response-fields']
+
+=== 고객 센터 문의 글 읽기
+
+operation::app-cs-web-test/user-my-page-csq-read-test[snippets='http-request,request-cookies,path-parameters,http-response,response-fields']
+
+=== 고객 센터 문의 글 목록
+
+operation::app-cs-web-test/user-my-page-csq-list-test[snippets='http-request,request-cookies,path-parameters,http-response,response-fields']
+
+=== 고객 센터 문의 글 삭제
+
+operation::app-cs-web-test/user-my-page-csq-delete-test[snippets='http-request,request-cookies,path-parameters,http-response,response-fields']

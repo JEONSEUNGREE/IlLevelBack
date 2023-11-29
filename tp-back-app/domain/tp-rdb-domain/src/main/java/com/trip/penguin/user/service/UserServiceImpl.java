@@ -36,7 +36,18 @@ public class UserServiceImpl implements UserService {
 		return userMSRepository.findById(userMS.getId());
 	}
 
+
 	/**
+	 * 회원 정보 조회
+	 * @param userId - 회원 ID
+	 * @return Optional<UserMS>
+	 */
+    @Override
+    public Optional<UserMS> getUserByUserId(Long userId) {
+		return userMSRepository.findById(userId);
+    }
+
+    /**
 	 * 회원 정보 조회
 	 * @param userEmail - 회원 이메일
 	 * @return Optional<UserMS>

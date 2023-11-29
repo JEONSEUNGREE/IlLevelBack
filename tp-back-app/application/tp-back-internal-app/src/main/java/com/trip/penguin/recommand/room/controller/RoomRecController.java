@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.trip.penguin.recommand.room.dao.RoomRecDAO;
 import com.trip.penguin.recommand.room.service.RoomRecService;
-import com.trip.penguin.recommand.room.view.MainRecRoomSchCdt;
+import com.trip.penguin.recommand.room.view.MainRecRoomSchCdtView;
 import com.trip.penguin.response.JsonResponse;
 
 @RestController
@@ -25,7 +25,7 @@ public class RoomRecController {
 	}
 
 	@PostMapping("/mainList")
-	public JsonResponse<List<RoomRecDAO>> mainRecRoomList(@RequestBody MainRecRoomSchCdt mainRecRoomSchCdt) {
+	public JsonResponse<List<RoomRecDAO>> mainRecRoomList(@RequestBody MainRecRoomSchCdtView mainRecRoomSchCdt) {
 
 		List<RoomRecDAO> mainRecRoomList = roomRecService.getMainRecRoomListWithPaging(mainRecRoomSchCdt);
 

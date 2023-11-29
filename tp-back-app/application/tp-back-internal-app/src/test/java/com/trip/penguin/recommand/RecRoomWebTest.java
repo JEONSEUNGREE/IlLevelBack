@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -23,7 +24,7 @@ import com.trip.penguin.config.AbstractRestDocsTests;
 import com.trip.penguin.recommand.room.controller.RoomRecController;
 import com.trip.penguin.recommand.room.dao.RoomRecDAO;
 import com.trip.penguin.recommand.room.service.RoomRecService;
-import com.trip.penguin.recommand.room.view.MainRecRoomSchCdt;
+import com.trip.penguin.recommand.room.view.MainRecRoomSchCdtView;
 
 @ActiveProfiles("test")
 @WebMvcTest(RoomRecController.class)
@@ -37,6 +38,7 @@ public class RecRoomWebTest extends AbstractRestDocsTests {
 	private RoomRecService roomRecService;
 
 	@Test
+	@DisplayName("메인 화면 객실 목록")
 	public void mainRecRoomList() throws Exception {
 
 		// given
@@ -53,7 +55,7 @@ public class RecRoomWebTest extends AbstractRestDocsTests {
 					.build()
 			));
 
-		MainRecRoomSchCdt mainRecRoomSchCdt = MainRecRoomSchCdt.builder()
+		MainRecRoomSchCdtView mainRecRoomSchCdt = MainRecRoomSchCdtView.builder()
 			.pageSize(2)
 			.pageNumber(0)
 			.mainSubData(new ArrayList<>())

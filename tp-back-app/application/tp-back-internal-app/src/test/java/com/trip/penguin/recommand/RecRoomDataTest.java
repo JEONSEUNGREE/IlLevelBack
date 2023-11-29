@@ -6,46 +6,46 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.trip.penguin.TpBackInternalApp;
-import com.trip.penguin.config.TestContainer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.trip.penguin.booking.domain.BookingMS;
 import com.trip.penguin.booking.service.BookingMsService;
 import com.trip.penguin.company.domain.CompanyMS;
 import com.trip.penguin.company.service.CompanyService;
+import com.trip.penguin.config.TestContainer;
 import com.trip.penguin.constant.CommonConstant;
 import com.trip.penguin.recommand.room.dao.RoomRecDAO;
 import com.trip.penguin.recommand.room.service.RoomRecService;
-import com.trip.penguin.recommand.room.view.MainRecRoomSchCdt;
+import com.trip.penguin.recommand.room.view.MainRecRoomSchCdtView;
 import com.trip.penguin.review.domain.ReviewMS;
 import com.trip.penguin.review.service.ReviewService;
 import com.trip.penguin.room.domain.RoomMS;
 import com.trip.penguin.room.service.RoomService;
 import com.trip.penguin.user.domain.UserMS;
+import com.trip.penguin.user.service.UserMyPageService;
 import com.trip.penguin.user.service.UserService;
+
 import jakarta.transaction.Transactional;
 
 @ActiveProfiles("test")
 @DataJpaTest(properties = "classpath:application.yaml")
 @ComponentScan(basePackages = {
-		"com.trip.penguin.room",
-		"com.trip.penguin.user",
-		"com.trip.penguin.company",
-		"com.trip.penguin.booking",
-		"com.trip.penguin.review",
-		"com.trip.penguin.recommand.room.repository",
-		"com.trip.penguin.recommand.room.service"
+	"com.trip.penguin.room",
+	"com.trip.penguin.user",
+	"com.trip.penguin.company",
+	"com.trip.penguin.booking",
+	"com.trip.penguin.review",
+	"com.trip.penguin.recommand.room.repository",
+	"com.trip.penguin.recommand.room.service"
 })
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 @Import(TestContainer.class)
@@ -69,6 +69,9 @@ public class RecRoomDataTest {
 	@Autowired
 	private BookingMsService bookingMsService;
 
+	@MockBean
+	private UserMyPageService userMyPageService;
+
 	private CompanyMS beforeCommitCompany;
 
 	private UserMS beforeCommitUser;
@@ -85,7 +88,7 @@ public class RecRoomDataTest {
 		/* 회사 가입 */
 		beforeCommitCompany = CompanyMS.builder()
 			.com_nm("testNm")
-			.comEmail("test@test.com")
+			.comEmail("test@test.com0")
 			.comPwd("testPwd")
 			.comImg("defaultImg")
 			.comAddress("location")
@@ -183,7 +186,7 @@ public class RecRoomDataTest {
 
 		// when
 		/* 리뷰 목록 조회 */
-		MainRecRoomSchCdt recRoomSchCdt = MainRecRoomSchCdt.builder()
+		MainRecRoomSchCdtView recRoomSchCdt = MainRecRoomSchCdtView.builder()
 			.pageNumber(0)
 			.pageSize(3)
 			.build();
@@ -192,9 +195,9 @@ public class RecRoomDataTest {
 
 		// then
 		assertEquals(mainRecRoomList.size(), 3);
-		 assertEquals(mainRecRoomList.get(0).getRatingAvg(), 1.5D);
-		 assertEquals(mainRecRoomList.get(1).getRatingAvg(), 3.5D);
-		 assertNull(mainRecRoomList.get(2).getRatingAvg());
+		assertEquals(mainRecRoomList.get(0).getRatingAvg(), 1.5D);
+		assertEquals(mainRecRoomList.get(1).getRatingAvg(), 3.5D);
+		assertNull(mainRecRoomList.get(2).getRatingAvg());
 
 	}
 

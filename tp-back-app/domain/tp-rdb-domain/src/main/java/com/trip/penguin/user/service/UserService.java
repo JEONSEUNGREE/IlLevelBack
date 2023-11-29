@@ -12,6 +12,8 @@ public interface UserService {
 
 	public Optional<UserMS> getUser(UserMS userMS);
 
+	public Optional<UserMS> getUserByUserId(Long userId);
+
 	public UserMS updateUser(UserMS userMS);
 
 	public void deleteUser(UserMS userMS);
