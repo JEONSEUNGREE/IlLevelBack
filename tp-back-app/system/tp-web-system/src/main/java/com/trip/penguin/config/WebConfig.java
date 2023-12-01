@@ -1,5 +1,7 @@
 package com.trip.penguin.config;
 
+import com.trip.penguin.interceptor.CompanyCheckInterceptor;
+import com.trip.penguin.resolver.CurrentCompanyArgResolver;
 import com.trip.penguin.resolver.CurrentUserArgResolver;
 import com.trip.penguin.interceptor.LoginCheckInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,12 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Autowired
 	private CurrentUserArgResolver currentUserArgResolver;
+
+	@Autowired
+	private CompanyCheckInterceptor companyCheckInterceptor;
+
+	@Autowired
+	private CurrentCompanyArgResolver currentCompanyArgResolver;
 
 	@Value("${file.request.room-path}")
 	private String roomResourcePath;
@@ -69,12 +77,13 @@ public class WebConfig implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(loginCheckInterceptor);
+		registry.addInterceptor(companyCheckInterceptor);
 	}
 
 	@Override
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+		resolvers.add(currentCompanyArgResolver);
 		resolvers.add(currentUserArgResolver);
 	}
-
 
 }

@@ -4,6 +4,7 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.trip.penguin.account.service.CompanyUserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,8 @@ import org.springframework.test.context.ContextConfiguration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trip.penguin.TpBackInternalApp;
 import com.trip.penguin.config.AbstractRestDocsTests;
-import com.trip.penguin.oauth.service.DefaultUserService;
-import com.trip.penguin.security.dto.SignUpDTO;
+import com.trip.penguin.account.service.DefaultUserService;
+import com.trip.penguin.account.dto.SignUpDTO;
 import com.trip.penguin.signup.SignupController;
 
 @ActiveProfiles("test")
@@ -31,6 +32,9 @@ public class UserSignUpWebTest extends AbstractRestDocsTests {
 
 	@MockBean
 	private DefaultUserService defaultUserService;
+
+	@MockBean
+	private CompanyUserService companyUserService;
 
 	@Test
 	@DisplayName("회원 가입")

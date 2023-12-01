@@ -2,10 +2,8 @@ package com.trip.penguin.user.repository;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.trip.penguin.follow.domain.QFollowMS;
-import com.trip.penguin.user.domain.QUserMS;
-import com.trip.penguin.user.dto.UserFollowDTO;
-import com.trip.penguin.user.view.UserFollowSchCdtView;
+import com.trip.penguin.follow.dto.UserFollowDTO;
+import com.trip.penguin.follow.view.UserFollowSchCdtView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

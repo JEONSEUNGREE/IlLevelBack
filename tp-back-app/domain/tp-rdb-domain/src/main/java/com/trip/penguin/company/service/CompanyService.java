@@ -8,6 +8,8 @@ public interface CompanyService {
 
     public CompanyMS createCompany(CompanyMS companyMS);
 
+    Optional<CompanyMS> getCompanyByComEmail(String comEmail);
+
     public Optional<CompanyMS> getCompanyInfo(CompanyMS companyMS);
 
     public CompanyMS updateCompanyInfo(CompanyMS companyMS);

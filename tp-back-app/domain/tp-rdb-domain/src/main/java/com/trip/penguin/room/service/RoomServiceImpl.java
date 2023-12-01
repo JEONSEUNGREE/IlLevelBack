@@ -33,16 +33,17 @@ public class RoomServiceImpl implements RoomService {
 	}
 
 	@Override
-	public RoomMS createRoom(RoomMS roomMS, CompanyMS companyMS, List<RoomPicMS> roomPicMSList) {
+	public RoomMS createRoom(RoomMS roomMS, CompanyMS companyMS, String thumbNail, List<String> roomImgFileNameList) {
 
 		roomMS.createRoomMs();
 
 		/* 객실에 해당 되는 회사 생성 */
 		roomMS.setCompanyInfo(companyMS);
+		roomMS.setThumbNailOrDefaultImg(thumbNail);
 		RoomMS createdRoom = roomMSRepository.save(roomMS);
 
 		/* 객실 이미지 생성 없는 경우 기본 이미지 생성 */
-		roomPicService.createRoomPics(roomMS, roomPicMSList);
+		roomPicService.createRoomPics(roomMS, roomImgFileNameList);
 		return createdRoom;
 	}
 

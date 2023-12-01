@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.trip.penguin.interceptor.annotation.LoginCheck;
+import com.trip.penguin.interceptor.annotation.LoginUserCheck;
 import com.trip.penguin.resolver.annotation.CurrentUser;
-import com.trip.penguin.resolver.vo.LoginInfo;
+import com.trip.penguin.resolver.vo.LoginUserInfo;
 import com.trip.penguin.response.JsonResponse;
 import com.trip.penguin.user.dto.UserMyPageDTO;
 import com.trip.penguin.user.service.UserMyPageService;
@@ -26,14 +26,14 @@ public class UserMyPageController {
 		this.userMyPageService = userMyPageService;
 	}
 
-	@LoginCheck
+	@LoginUserCheck
 	@PostMapping("/modify")
-	public JsonResponse<UserMyPageDTO> userMyPageModify(@CurrentUser LoginInfo loginInfo,
+	public JsonResponse<UserMyPageDTO> userMyPageModify(@CurrentUser LoginUserInfo loginUserInfo,
 		@RequestPart(value = "userMyPageView") UserMyPageView userMyPageView,
 		@RequestPart(value = "multipartFile", required = false) MultipartFile multipartFile) throws
 		IllegalAccessException {
 
-		UserMyPageDTO userMyPageDto = userMyPageService.userMyPageModify(loginInfo, userMyPageView, multipartFile);
+		UserMyPageDTO userMyPageDto = userMyPageService.userMyPageModify(loginUserInfo, userMyPageView, multipartFile);
 
 		return JsonResponse.success(userMyPageDto);
 	}

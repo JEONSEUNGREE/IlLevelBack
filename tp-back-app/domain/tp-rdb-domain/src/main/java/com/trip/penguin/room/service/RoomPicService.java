@@ -7,7 +7,7 @@ import com.trip.penguin.room.domain.RoomPicMS;
 
 public interface RoomPicService {
 
-	public List<RoomPicMS> createRoomPics(RoomMS roomMS, List<RoomPicMS> roomPicMSList);
+	public List<RoomPicMS> createRoomPics(RoomMS roomMS, List<String> roomPicNameList);
 
 	public List<RoomPicMS> getRoomPics(RoomMS roomMS);
 

@@ -4,17 +4,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.trip.penguin.constant.CommonUserRole;
 import com.trip.penguin.room.domain.RoomMS;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -56,8 +49,9 @@ public class CompanyMS {
 	@Column(name = "com_approval", nullable = false)
 	private String comApproval;
 
+	@Enumerated(EnumType.STRING)
 	@Column(name = "user_role", nullable = false)
-	private String userRole;
+	private CommonUserRole userRole;
 
 	@Column(name = "created_date", nullable = false)
 	private LocalDateTime createdDate;

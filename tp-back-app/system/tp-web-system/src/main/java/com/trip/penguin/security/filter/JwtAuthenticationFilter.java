@@ -1,11 +1,15 @@
 package com.trip.penguin.security.filter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -48,9 +52,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 		if (token != null && !jwtTokenUtil.isTokenExpired(token)) {
 			try {
-				Authentication authenticate = authenticationManager.
-					authenticate(new UsernamePasswordAuthenticationToken(jwtTokenUtil.getUserEmailFromToken(token),
-						CommonConstant.ACCOUNT_TOKEN.getName()));
+				// 로그인 하면 인증된 것이기 때문에 재 인증은 필요가 없다.
+				Authentication authenticate = new UsernamePasswordAuthenticationToken(jwtTokenUtil.getUserEmailFromToken(token),
+						CommonConstant.ACCOUNT_TOKEN.getName(), List.of(new SimpleGrantedAuthority(jwtTokenUtil.getUserAuthority(token))));
 				SecurityContextHolder.getContext().setAuthentication(authenticate);
 			} catch (Exception e) {
 				onError(request, response);

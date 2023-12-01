@@ -1,8 +1,8 @@
 package com.trip.penguin.user.repository;
 
 
-import com.trip.penguin.user.dto.UserFollowDTO;
-import com.trip.penguin.user.view.UserFollowSchCdtView;
+import com.trip.penguin.follow.dto.UserFollowDTO;
+import com.trip.penguin.follow.view.UserFollowSchCdtView;
 
 import java.util.List;
 

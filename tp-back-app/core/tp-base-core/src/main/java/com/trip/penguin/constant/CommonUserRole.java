@@ -3,8 +3,10 @@ package com.trip.penguin.constant;
 public enum CommonUserRole {
 
     ROLE_USER("ROLE_USER"),
+
+    ROLE_COM("ROLE_COM"),
+
     ROLE_ADMIN("ROLE_ADMIN"),
-    ROLE_KAKAO("ROLE_KAKAO"),
     ;
 
     private final String userRole;

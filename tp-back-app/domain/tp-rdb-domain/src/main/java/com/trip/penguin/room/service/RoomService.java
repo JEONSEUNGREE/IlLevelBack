@@ -9,7 +9,7 @@ import com.trip.penguin.room.domain.RoomPicMS;
 
 public interface RoomService {
 
-	public RoomMS createRoom(RoomMS roomMS, CompanyMS companyMS, List<RoomPicMS> roomPicMSList);
+	public RoomMS createRoom(RoomMS roomMS, CompanyMS companyMS, String thumbNail, List<String> roomImgFileNameList);
 
 	public Optional<RoomMS> getRoomById(RoomMS roomMS);
 

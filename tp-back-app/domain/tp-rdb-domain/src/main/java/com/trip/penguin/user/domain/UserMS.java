@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.trip.penguin.alert.domain.AlertMS;
 import com.trip.penguin.badge.domain.UserBadge;
 import com.trip.penguin.booking.domain.BookingMS;
 import com.trip.penguin.constant.OAuthVendor;
@@ -57,10 +56,6 @@ public class UserMS {
 	@Builder.Default
 	@OneToMany(mappedBy = "userMS", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<CsMS> csList = new ArrayList<>();
-
-	@Builder.Default
-	@OneToMany(mappedBy = "userMs", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<AlertMS> alertList = new ArrayList<>();
 
 	@Builder.Default
 	@OneToMany(mappedBy = "userMS", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

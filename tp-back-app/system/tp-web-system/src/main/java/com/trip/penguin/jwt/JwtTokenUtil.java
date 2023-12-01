@@ -42,6 +42,11 @@ public class JwtTokenUtil {
         return verifiedToken.getClaim("userEmail").asString();
     }
 
+    public String getUserAuthority(String token) {
+        DecodedJWT verifiedToken = validateToken(token);
+        return verifiedToken.getClaim("authority").asString();
+    }
+
     private JWTVerifier getTokenValidator() {
         return JWT.require(getSigningKey(SECRET_KEY))
                 .withIssuer(ISSUER)
@@ -62,6 +67,7 @@ public class JwtTokenUtil {
                 .withIssuedAt(new Date(System.currentTimeMillis()))
                 .withExpiresAt(new Date(System.currentTimeMillis() + expireTime))
                 .withClaim("userEmail", payload.get("userEmail"))
+                .withClaim("authority", payload.get("authority"))
                 .withPayload(payload)
                 .withIssuer(ISSUER)
                 .sign(getSigningKey(SECRET_KEY));

@@ -1,0 +1,9 @@
+== 기업 회원 관련 API
+
+=== 기업 회원 가입
+
+operation::company-sign-up-web-test/company-sign-up-test[snippets='http-request,request-fields,http-response,response-fields']
+
+=== 기업 회원 정보 수정
+
+operation::company-my-page-web-test/company-modify-test[snippets='http-request,request-cookies,request-parts,request-part-appCompanyView-fields,http-response,response-fields']

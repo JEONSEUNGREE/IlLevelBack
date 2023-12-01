@@ -2,7 +2,7 @@ package com.trip.penguin.security.handler;
 
 import com.trip.penguin.constant.CommonConstant;
 import com.trip.penguin.jwt.JwtTokenUtil;
-import com.trip.penguin.oauth.model.PrincipalUser;
+import com.trip.penguin.account.model.PrincipalUser;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;

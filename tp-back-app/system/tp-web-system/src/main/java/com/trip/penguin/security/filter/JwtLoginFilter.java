@@ -2,12 +2,10 @@ package com.trip.penguin.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trip.penguin.constant.CommonConstant;
-import com.trip.penguin.jwt.CookieUtil;
+import com.trip.penguin.constant.CommonUserRole;
+import com.trip.penguin.exception.UserNotFoundException;
 import com.trip.penguin.jwt.JwtTokenUtil;
-import com.trip.penguin.oauth.service.CustomUserDetailsService;
-import com.trip.penguin.security.dto.LoginRequestDTO;
-import com.trip.penguin.user.domain.UserMS;
-import com.trip.penguin.user.service.UserService;
+import com.trip.penguin.account.dto.LoginRequestDTO;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,12 +14,15 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import static com.trip.penguin.constant.CommonUserRole.*;
 
 @Slf4j
 public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
@@ -40,8 +41,25 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
         try {
             LoginRequestDTO loginDto = new ObjectMapper().readValue(request.getInputStream(), LoginRequestDTO.class);
 
-            return getAuthenticationManager().authenticate(
-                    new UsernamePasswordAuthenticationToken(loginDto.getUserEmail(), loginDto.getUserPwd(), new ArrayList<>()));
+            Authentication authentication = null;
+
+            switch (CommonUserRole.valueOf(loginDto.getType().toUpperCase())) {
+                case ROLE_USER -> authentication = getAuthenticationManager().authenticate(
+                        new UsernamePasswordAuthenticationToken(loginDto.getUserEmail(), loginDto.getUserPwd(),
+                                List.of(new SimpleGrantedAuthority(ROLE_USER.getUserRole()))));
+
+                case ROLE_COM -> authentication = getAuthenticationManager().authenticate(
+                        new UsernamePasswordAuthenticationToken(loginDto.getUserEmail(), loginDto.getUserPwd(),
+                                List.of(new SimpleGrantedAuthority(ROLE_COM.getUserRole()))));
+
+                case ROLE_ADMIN -> authentication = getAuthenticationManager().authenticate(
+                        new UsernamePasswordAuthenticationToken(loginDto.getUserEmail(), loginDto.getUserPwd(),
+                                List.of(new SimpleGrantedAuthority(ROLE_ADMIN.getUserRole()))));
+
+                default -> throw new UserNotFoundException();
+            }
+
+            return authentication;
 
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
@@ -54,9 +72,11 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
         Map<String, String> payload = new HashMap<>();
 
         String userEmail = (String)authentication.getPrincipal();
+        String authority = authentication.getAuthorities().stream().findFirst().orElseThrow(UserNotFoundException::new).getAuthority();
 
         // 추가 정보 claim에 넣는 부분
         payload.put("userEmail", userEmail);
+        payload.put("authority", authority);
         response.addHeader(CommonConstant.ACCOUNT_TOKEN.getName(), jwtTokenUtil.generateToken(payload));
         response.sendRedirect(frontServer);
     }

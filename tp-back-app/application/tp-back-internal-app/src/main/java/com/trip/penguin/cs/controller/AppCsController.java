@@ -13,9 +13,9 @@ import com.trip.penguin.cs.dto.UserCsqPageDTO;
 import com.trip.penguin.cs.service.AppCsService;
 import com.trip.penguin.cs.view.UserCsqView;
 import com.trip.penguin.exception.UserNotFoundException;
-import com.trip.penguin.interceptor.annotation.LoginCheck;
+import com.trip.penguin.interceptor.annotation.LoginUserCheck;
 import com.trip.penguin.resolver.annotation.CurrentUser;
-import com.trip.penguin.resolver.vo.LoginInfo;
+import com.trip.penguin.resolver.vo.LoginUserInfo;
 import com.trip.penguin.response.JsonResponse;
 
 @RestController
@@ -29,42 +29,42 @@ public class AppCsController {
 		this.appCsService = appCsService;
 	}
 
-	@LoginCheck
+	@LoginUserCheck
 	@PostMapping("/create")
-	public JsonResponse<UserCsqDetailDTO> userMyPageCsqCreate(@CurrentUser LoginInfo loginInfo,
+	public JsonResponse<UserCsqDetailDTO> userMyPageCsqCreate(@CurrentUser LoginUserInfo loginUserInfo,
 		@RequestBody UserCsqView csqView) throws UserNotFoundException {
 
-		UserCsqDetailDTO userCsqDetailDTO = appCsService.userMyPageCsqCreate(loginInfo, csqView);
+		UserCsqDetailDTO userCsqDetailDTO = appCsService.userMyPageCsqCreate(loginUserInfo, csqView);
 
 		return JsonResponse.success(userCsqDetailDTO);
 	}
 
-	@LoginCheck
+	@LoginUserCheck
 	@GetMapping("/read/{csqId}")
-	public JsonResponse<UserCsqDetailDTO> userMyPageCsqRead(@CurrentUser LoginInfo loginInfo,
+	public JsonResponse<UserCsqDetailDTO> userMyPageCsqRead(@CurrentUser LoginUserInfo loginUserInfo,
 		@PathVariable(value = "csqId") Integer csqId) throws UserNotFoundException {
 
-		UserCsqDetailDTO userCsqDetailDTO = appCsService.userMyPageCsqRead(loginInfo, csqId);
+		UserCsqDetailDTO userCsqDetailDTO = appCsService.userMyPageCsqRead(loginUserInfo, csqId);
 
 		return JsonResponse.success(userCsqDetailDTO);
 	}
 
-	@LoginCheck
+	@LoginUserCheck
 	@GetMapping("/list/{curPage}")
-	public JsonResponse<UserCsqPageDTO> userMyPageCsqList(@CurrentUser LoginInfo loginInfo,
+	public JsonResponse<UserCsqPageDTO> userMyPageCsqList(@CurrentUser LoginUserInfo loginUserInfo,
 		@PathVariable(value = "curPage") Integer curPage) throws UserNotFoundException {
 
-		UserCsqPageDTO userCsqPageDTO = appCsService.userMyPageCsqList(loginInfo, curPage - 1);
+		UserCsqPageDTO userCsqPageDTO = appCsService.userMyPageCsqList(loginUserInfo, curPage - 1);
 
 		return JsonResponse.success(userCsqPageDTO);
 	}
 
-	@LoginCheck
+	@LoginUserCheck
 	@GetMapping("/delete/{csqId}")
-	public JsonResponse userMyPageCsqDelete(@CurrentUser LoginInfo loginInfo,
+	public JsonResponse userMyPageCsqDelete(@CurrentUser LoginUserInfo loginUserInfo,
 		@PathVariable(value = "csqId") Integer csqId) throws UserNotFoundException {
 
-		appCsService.userMyPageCsqDelete(loginInfo, csqId);
+		appCsService.userMyPageCsqDelete(loginUserInfo, csqId);
 
 		return JsonResponse.success();
 	}

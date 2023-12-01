@@ -11,7 +11,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 import com.trip.penguin.constant.CommonConstant;
 import com.trip.penguin.resolver.annotation.CurrentUser;
-import com.trip.penguin.resolver.vo.LoginInfo;
+import com.trip.penguin.resolver.vo.LoginUserInfo;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -35,9 +35,9 @@ public class CurrentUserArgResolver implements HandlerMethodArgumentResolver {
 
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 
-		return LoginInfo.builder()
-			.userEmail(loggedInUser.getName())
-			.jwtToken(webRequest.getHeader(CommonConstant.ACCOUNT_TOKEN.getName()))
-			.build();
+		return LoginUserInfo.builder()
+				.userEmail(loggedInUser.getName())
+				.role(loggedInUser.getAuthorities().stream().findFirst().orElseThrow().getAuthority())
+				.build();
 	}
 }

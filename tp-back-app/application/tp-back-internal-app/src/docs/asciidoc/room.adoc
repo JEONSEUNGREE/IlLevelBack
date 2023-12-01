@@ -1,0 +1,6 @@
+== 객실 관련 API
+
+=== 객실 생성
+
+operation::room-web-test/room-modify-test[snippets='http-request,request-cookies,request-parts,request-part-appRoomView-fields,http-response,response-fields']
+
