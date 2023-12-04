@@ -1,14 +1,14 @@
 package com.trip.penguin.follow.service;
 
-import com.trip.penguin.resolver.vo.LoginInfo;
-import com.trip.penguin.user.dto.UserFollowDTO;
-import com.trip.penguin.user.dto.UserFollowListDTO;
+import com.trip.penguin.resolver.vo.LoginUserInfo;
+import com.trip.penguin.follow.dto.UserFollowDTO;
+import com.trip.penguin.follow.dto.UserFollowListDTO;
 
 public interface AppFollowService {
 
-	UserFollowDTO userMyPageFollowAdd(LoginInfo loginInfo, Integer followId);
+	UserFollowDTO userMyPageFollowAdd(LoginUserInfo loginUserInfo, Integer followId);
 
-	UserFollowListDTO userMyPageFollowList(LoginInfo loginInfo, Integer curPage);
+	UserFollowListDTO userMyPageFollowList(LoginUserInfo loginUserInfo, Integer curPage);
 
-	void userMyPageFollowDelete(LoginInfo loginInfo, Long followId);
+	void userMyPageFollowDelete(LoginUserInfo loginUserInfo, Long followId);
 }

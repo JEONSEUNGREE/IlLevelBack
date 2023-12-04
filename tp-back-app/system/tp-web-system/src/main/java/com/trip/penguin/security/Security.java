@@ -1,6 +1,7 @@
 package com.trip.penguin.security;
 
 import com.trip.penguin.jwt.JwtTokenUtil;
+import com.trip.penguin.account.service.CustomCompanyDetailsService;
 import com.trip.penguin.security.handler.CustomAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -21,9 +22,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import com.trip.penguin.constant.SecurityConstant;
 import com.trip.penguin.jwt.CookieUtil;
 import com.trip.penguin.security.filter.JwtAuthenticationFilter;
-import com.trip.penguin.oauth.service.CustomOAuth2UserService;
-import com.trip.penguin.oauth.service.CustomOidcUserService;
-import com.trip.penguin.oauth.service.CustomUserDetailsService;
+import com.trip.penguin.account.service.CustomOAuth2UserService;
+import com.trip.penguin.account.service.CustomOidcUserService;
+import com.trip.penguin.account.service.CustomUserDetailsService;
 import com.trip.penguin.security.filter.JwtLoginFilter;
 import com.trip.penguin.security.provider.JwtAuthenticationProvider;
 
@@ -38,6 +39,8 @@ public class Security {
 	private final CustomOidcUserService customOidcUserService;
 
 	private final CustomUserDetailsService customUserDetailsService;
+
+	private final CustomCompanyDetailsService customCompanyDetailsService;
 
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -54,7 +57,7 @@ public class Security {
 
 	@Bean
 	public AuthenticationManager authenticationManager() {
-		return new ProviderManager(new JwtAuthenticationProvider(customUserDetailsService, bCryptPasswordEncoder));
+		return new ProviderManager(new JwtAuthenticationProvider(customUserDetailsService, customCompanyDetailsService, bCryptPasswordEncoder));
 	}
 
 	/**

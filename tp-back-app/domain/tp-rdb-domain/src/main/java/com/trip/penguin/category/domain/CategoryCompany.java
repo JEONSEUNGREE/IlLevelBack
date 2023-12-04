@@ -1,6 +1,5 @@
-//package com.trip.penguin.domain.category;
+//package com.trip.penguin.category.domain;
 //
-//import com.trip.penguin.domain.company.CompanyMS;
 //import jakarta.persistence.*;
 //
 //@Entity
@@ -9,7 +8,7 @@
 //
 //    @Id
 //    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-//    @JoinColumn(name = "com_id", nullable = false)
+//    @JoinColumn(name = "category_id", nullable = false)
 //    private CompanyMS com;
 //
 //    @ManyToOne(fetch = FetchType.LAZY, optional = false)

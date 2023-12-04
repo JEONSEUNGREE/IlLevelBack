@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.trip.penguin.constant.CommonUserRole;
 import com.trip.penguin.constant.OAuthVendor;
 import com.trip.penguin.security.encoder.PasswordEncoder;
 import org.springframework.boot.CommandLineRunner;
@@ -63,7 +64,7 @@ public class TempData implements CommandLineRunner {
 				.comImg("defaultImg")
 				.comAddress("location")
 				.comApproval(CommonConstant.N.name())
-				.userRole("ROLE_COM")
+				.userRole(CommonUserRole.ROLE_COM)
 				.build();
 
 			/* 객실 등록 */
@@ -128,7 +129,7 @@ public class TempData implements CommandLineRunner {
 			companyService.createCompany(beforeCommitCompany);
 
 			for (int i = 0; i < beforeCommitRoomMSList.size(); i++) {
-				roomService.createRoom(beforeCommitRoomMSList.get(i), beforeCommitCompany, new ArrayList<>());
+				roomService.createRoom(beforeCommitRoomMSList.get(i), beforeCommitCompany, "", new ArrayList<>());
 			}
 
 			/* 예약 등록 */

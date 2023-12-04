@@ -21,11 +21,11 @@ import org.springframework.test.context.ContextConfiguration;
 import com.trip.penguin.TpBackInternalApp;
 import com.trip.penguin.config.TestContainer;
 import com.trip.penguin.follow.service.AppFollowService;
-import com.trip.penguin.resolver.vo.LoginInfo;
+import com.trip.penguin.resolver.vo.LoginUserInfo;
 import com.trip.penguin.user.controller.UserMyPageController;
 import com.trip.penguin.user.domain.UserMS;
-import com.trip.penguin.user.dto.UserFollowDTO;
-import com.trip.penguin.user.dto.UserFollowListDTO;
+import com.trip.penguin.follow.dto.UserFollowDTO;
+import com.trip.penguin.follow.dto.UserFollowListDTO;
 import com.trip.penguin.user.service.UserMyPageService;
 import com.trip.penguin.user.service.UserService;
 
@@ -79,13 +79,13 @@ public class AppFollowDataTest {
 	void userMyPageFollowAddTest() {
 
 		//given
-		LoginInfo loginInfo1 = LoginInfo.builder().userEmail(beforeCommitUserList.get(0).getUserEmail()).build();
+		LoginUserInfo loginUserInfo1 = LoginUserInfo.builder().userEmail(beforeCommitUserList.get(0).getUserEmail()).build();
 
 		UserMS afterCommitUser1 = userService.signUpUser(beforeCommitUserList.get(0));
 		UserMS afterCommitUser2 = userService.signUpUser(beforeCommitUserList.get(1));
 
 		//when
-		UserFollowDTO afterAddFollow = appFollowService.userMyPageFollowAdd(loginInfo1,
+		UserFollowDTO afterAddFollow = appFollowService.userMyPageFollowAdd(loginUserInfo1,
 			afterCommitUser2.getId().intValue());
 
 		//then
@@ -99,18 +99,18 @@ public class AppFollowDataTest {
 	void userMyPageFollowListTest() {
 
 		//given
-		LoginInfo loginInfo1 = LoginInfo.builder().userEmail(beforeCommitUserList.get(0).getUserEmail()).build();
+		LoginUserInfo loginUserInfo1 = LoginUserInfo.builder().userEmail(beforeCommitUserList.get(0).getUserEmail()).build();
 
 		for (int i = 0; i < beforeCommitUserList.size(); i++) {
 			afterCommitUserList.add(userService.signUpUser(beforeCommitUserList.get(i)));
 		}
 
 		for (int i = 1; i < afterCommitUserList.size(); i++) {
-			appFollowService.userMyPageFollowAdd(loginInfo1, afterCommitUserList.get(i).getId().intValue());
+			appFollowService.userMyPageFollowAdd(loginUserInfo1, afterCommitUserList.get(i).getId().intValue());
 		}
 
 		//when
-		UserFollowListDTO userFollowListDTO = appFollowService.userMyPageFollowList(loginInfo1, 0);
+		UserFollowListDTO userFollowListDTO = appFollowService.userMyPageFollowList(loginUserInfo1, 0);
 
 		//then
 		assertEquals(userFollowListDTO.getUserFollowList().size(), 5);
@@ -123,17 +123,17 @@ public class AppFollowDataTest {
 	void userMyPageFollowDeleteTest() {
 
 		//given
-		LoginInfo loginInfo1 = LoginInfo.builder().userEmail(beforeCommitUserList.get(0).getUserEmail()).build();
+		LoginUserInfo loginUserInfo1 = LoginUserInfo.builder().userEmail(beforeCommitUserList.get(0).getUserEmail()).build();
 
 		UserMS afterCommitUser1 = userService.signUpUser(beforeCommitUserList.get(0));
 		UserMS afterCommitUser2 = userService.signUpUser(beforeCommitUserList.get(1));
 
 		//when
-		UserFollowDTO afterAddFollow = appFollowService.userMyPageFollowAdd(loginInfo1,
+		UserFollowDTO afterAddFollow = appFollowService.userMyPageFollowAdd(loginUserInfo1,
 			afterCommitUser2.getId().intValue());
-		appFollowService.userMyPageFollowDelete(loginInfo1, afterAddFollow.getFollowId());
+		appFollowService.userMyPageFollowDelete(loginUserInfo1, afterAddFollow.getFollowId());
 
-		UserFollowListDTO userMyPageFollowList = appFollowService.userMyPageFollowList(loginInfo1, 0);
+		UserFollowListDTO userMyPageFollowList = appFollowService.userMyPageFollowList(loginUserInfo1, 0);
 
 		//then
 		assertEquals(userMyPageFollowList.getFollowCount(), 0);

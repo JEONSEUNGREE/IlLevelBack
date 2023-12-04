@@ -26,7 +26,7 @@ import com.trip.penguin.cs.service.AppCsService;
 import com.trip.penguin.cs.view.UserCsqView;
 import com.trip.penguin.exception.DataNotFoundException;
 import com.trip.penguin.exception.UserNotAllowedException;
-import com.trip.penguin.resolver.vo.LoginInfo;
+import com.trip.penguin.resolver.vo.LoginUserInfo;
 import com.trip.penguin.user.controller.UserMyPageController;
 import com.trip.penguin.user.domain.UserMS;
 import com.trip.penguin.user.service.UserMyPageService;
@@ -81,15 +81,15 @@ public class AppDataCsTest {
 	void userMyPageCsqCreateReadTest() {
 
 		//given
-		LoginInfo loginInfo = LoginInfo.builder().userEmail(beforeCommitUserList.get(0).getUserEmail()).build();
+		LoginUserInfo loginUserInfo = LoginUserInfo.builder().userEmail(beforeCommitUserList.get(0).getUserEmail()).build();
 		UserMS afterCommitUser = userService.signUpUser(beforeCommitUserList.get(0));
 
 		UserCsqDetailDTO afterCommitCsq = appCsService.userMyPageCsqCreate(
-			loginInfo,
+                loginUserInfo,
 			UserCsqView.builder().csqTitle("TestTitle").csqContent("TestContent").build());
 
 		//when
-		UserCsqDetailDTO foundCsq = appCsService.userMyPageCsqRead(loginInfo, afterCommitCsq.getId().intValue());
+		UserCsqDetailDTO foundCsq = appCsService.userMyPageCsqRead(loginUserInfo, afterCommitCsq.getId().intValue());
 
 		//then
 		assertEquals(beforeCommitUserList.get(0).getUserEmail(), afterCommitUser.getUserEmail());
@@ -102,17 +102,17 @@ public class AppDataCsTest {
 	void userMyPageCsqReadListTest() {
 
 		//given
-		LoginInfo loginInfo = LoginInfo.builder().userEmail(beforeCommitUserList.get(0).getUserEmail()).build();
+		LoginUserInfo loginUserInfo = LoginUserInfo.builder().userEmail(beforeCommitUserList.get(0).getUserEmail()).build();
 		UserMS afterCommitUser = userService.signUpUser(beforeCommitUserList.get(0));
 
 		for (int i = 1; i <= 3; i++) {
 			appCsService.userMyPageCsqCreate(
-				loginInfo,
+                    loginUserInfo,
 				UserCsqView.builder().csqTitle("TestTitle" + i).csqContent("TestContent" + i).build());
 		}
 
 		//when
-		UserCsqPageDTO userCsqPageDTO = appCsService.userMyPageCsqList(loginInfo, 0);
+		UserCsqPageDTO userCsqPageDTO = appCsService.userMyPageCsqList(loginUserInfo, 0);
 
 		//then
 		assertEquals(beforeCommitUserList.get(0).getUserEmail(), afterCommitUser.getUserEmail());
@@ -126,30 +126,30 @@ public class AppDataCsTest {
 	void userMyPageCsqDeleteTest() {
 
 		//given
-		LoginInfo loginInfoRealUser = LoginInfo.builder().userEmail(beforeCommitUserList.get(0).getUserEmail()).build();
-		LoginInfo loginInfoFakeUser = LoginInfo.builder().userEmail("fake@fake.com").build();
+		LoginUserInfo loginUserInfoRealUser = LoginUserInfo.builder().userEmail(beforeCommitUserList.get(0).getUserEmail()).build();
+		LoginUserInfo loginUserInfoFakeUser = LoginUserInfo.builder().userEmail("fake@fake.com").build();
 
 		UserMS afterCommitUser = userService.signUpUser(beforeCommitUserList.get(0));
 
 		appCsService.userMyPageCsqCreate(
-			loginInfoRealUser,
+                loginUserInfoRealUser,
 			UserCsqView.builder().csqTitle("TestTitle1").csqContent("TestContent1").build());
 
 		appCsService.userMyPageCsqCreate(
-			loginInfoRealUser,
+                loginUserInfoRealUser,
 			UserCsqView.builder().csqTitle("TestTitle2").csqContent("TestContent2").build());
 
 		//when
-		UserCsqPageDTO userCsqPageDTO = appCsService.userMyPageCsqList(loginInfoRealUser, 0);
-		appCsService.userMyPageCsqDelete(loginInfoRealUser, userCsqPageDTO.getCsqList().get(0).getId().intValue());
+		UserCsqPageDTO userCsqPageDTO = appCsService.userMyPageCsqList(loginUserInfoRealUser, 0);
+		appCsService.userMyPageCsqDelete(loginUserInfoRealUser, userCsqPageDTO.getCsqList().get(0).getId().intValue());
 
 		//then
 		assertEquals(beforeCommitUserList.get(0).getUserEmail(), afterCommitUser.getUserEmail());
 		// 삭제 확인
-		assertThrows(DataNotFoundException.class, () -> appCsService.userMyPageCsqDelete(loginInfoRealUser,
+		assertThrows(DataNotFoundException.class, () -> appCsService.userMyPageCsqDelete(loginUserInfoRealUser,
 			userCsqPageDTO.getCsqList().get(0).getId().intValue()));
 		// 타인 삭제 불가 확인
-		assertThrows(UserNotAllowedException.class, () -> appCsService.userMyPageCsqDelete(loginInfoFakeUser,
+		assertThrows(UserNotAllowedException.class, () -> appCsService.userMyPageCsqDelete(loginUserInfoFakeUser,
 			userCsqPageDTO.getCsqList().get(1).getId().intValue()));
 	}
 }

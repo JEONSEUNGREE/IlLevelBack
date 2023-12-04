@@ -31,7 +31,7 @@ import com.trip.penguin.cs.dto.UserCsqDetailDTO;
 import com.trip.penguin.cs.dto.UserCsqPageDTO;
 import com.trip.penguin.cs.service.AppCsService;
 import com.trip.penguin.cs.view.UserCsqView;
-import com.trip.penguin.resolver.vo.LoginInfo;
+import com.trip.penguin.resolver.vo.LoginUserInfo;
 
 import jakarta.servlet.http.Cookie;
 
@@ -60,7 +60,7 @@ public class AppCsWebTest extends AbstractRestDocsTests {
 		);
 
 		given(appCsService.userMyPageCsqCreate(
-			any(LoginInfo.class), any(UserCsqView.class)))
+			any(LoginUserInfo.class), any(UserCsqView.class)))
 			.willReturn(
 				UserCsqDetailDTO.builder()
 					.id(1L)
@@ -108,7 +108,7 @@ public class AppCsWebTest extends AbstractRestDocsTests {
 
 		// given
 		given(appCsService.userMyPageCsqRead(
-			any(LoginInfo.class), any(Integer.class)))
+			any(LoginUserInfo.class), any(Integer.class)))
 			.willReturn(
 				UserCsqDetailDTO.builder()
 					.id(1L)
@@ -153,7 +153,7 @@ public class AppCsWebTest extends AbstractRestDocsTests {
 
 		// given
 		given(appCsService.userMyPageCsqList(
-			any(LoginInfo.class), any(Integer.class)))
+			any(LoginUserInfo.class), any(Integer.class)))
 			.willReturn(
 				UserCsqPageDTO.builder()
 					.csqList(List.of(UserCsqDetailDTO.builder()

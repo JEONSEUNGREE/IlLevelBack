@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+import com.trip.penguin.company.service.CompanyService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,9 +20,9 @@ import org.springframework.test.context.ContextConfiguration;
 
 import com.trip.penguin.TpBackInternalApp;
 import com.trip.penguin.config.TestContainer;
-import com.trip.penguin.oauth.converter.ProviderUserConverter;
-import com.trip.penguin.oauth.service.OauthUserService;
-import com.trip.penguin.resolver.vo.LoginInfo;
+import com.trip.penguin.account.converter.ProviderUserConverter;
+import com.trip.penguin.account.service.OauthUserService;
+import com.trip.penguin.resolver.vo.LoginUserInfo;
 import com.trip.penguin.user.domain.UserMS;
 import com.trip.penguin.user.dto.UserMyPageDTO;
 import com.trip.penguin.user.service.UserMyPageService;
@@ -33,9 +34,9 @@ import com.trip.penguin.util.ImgUtils;
 @ContextConfiguration(classes = {TpBackInternalApp.class})
 @DataJpaTest(properties = "classpath:application.yaml")
 @ComponentScan(basePackages = {
-	"com.trip.penguin.user",
-	"com.trip.penguin.oauth.service",
-	"com.trip.penguin.security.encoder"
+		"com.trip.penguin.user",
+		"com.trip.penguin.account.service",
+		"com.trip.penguin.security.encoder"
 })
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 @Import(TestContainer.class)
@@ -56,6 +57,9 @@ public class UserMyPageDataTest {
 	@MockBean
 	private ImgUtils imgUtils;
 
+	@MockBean
+	private CompanyService companyService;
+
 	private UserMS beforeCommitUser;
 
 	@BeforeEach
@@ -63,18 +67,18 @@ public class UserMyPageDataTest {
 
 		/* 회원 가입 정보 */
 		beforeCommitUser = UserMS.builder()
-			.offYn("N")
-			.userCity("Seoul")
-			.userImg("default")
-			.userEmail("test@test.com")
-			.userRole("user")
-			.userNick("default")
-			.userPwd("test")
-			.userFirst("t")
-			.userLast("est")
-			.createdDate(LocalDateTime.now())
-			.modifiedDate(LocalDateTime.now())
-			.build();
+				.offYn("N")
+				.userCity("Seoul")
+				.userImg("default")
+				.userEmail("test@test.com")
+				.userRole("user")
+				.userNick("default")
+				.userPwd("test")
+				.userFirst("t")
+				.userLast("est")
+				.createdDate(LocalDateTime.now())
+				.modifiedDate(LocalDateTime.now())
+				.build();
 	}
 
 	@DisplayName("기본 회원 가입 테스트")
@@ -99,8 +103,8 @@ public class UserMyPageDataTest {
 
 		//when
 		UserMyPageDTO afterUpdateUser = userMyPageService.userMyPageModify(
-			LoginInfo.builder().userEmail("test@test.com").jwtToken("testToken").build(),
-			new UserMyPageView("userTest", "userTest", "userTest", "userTest"), null);
+				LoginUserInfo.builder().userEmail("test@test.com").jwtToken("testToken").build(),
+				new UserMyPageView("userTest", "userTest", "userTest", "userTest"), null);
 
 		//then
 		assertNotEquals(afterUpdateUser.getUserNick(), afterCommitUser.getUserNick());

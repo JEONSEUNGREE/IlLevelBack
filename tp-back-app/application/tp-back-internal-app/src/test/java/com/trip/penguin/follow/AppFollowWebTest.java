@@ -27,9 +27,9 @@ import com.trip.penguin.config.WithMockCustomUser;
 import com.trip.penguin.constant.CommonConstant;
 import com.trip.penguin.follow.controller.AppFollowController;
 import com.trip.penguin.follow.service.AppFollowService;
-import com.trip.penguin.resolver.vo.LoginInfo;
-import com.trip.penguin.user.dto.UserFollowDTO;
-import com.trip.penguin.user.dto.UserFollowListDTO;
+import com.trip.penguin.resolver.vo.LoginUserInfo;
+import com.trip.penguin.follow.dto.UserFollowDTO;
+import com.trip.penguin.follow.dto.UserFollowListDTO;
 
 import jakarta.servlet.http.Cookie;
 
@@ -51,7 +51,7 @@ public class AppFollowWebTest extends AbstractRestDocsTests {
 
 		// given
 		given(appFollowService.userMyPageFollowAdd(
-			any(LoginInfo.class), any(Integer.class)))
+			any(LoginUserInfo.class), any(Integer.class)))
 			.willReturn(
 				UserFollowDTO.builder()
 					.followId(1L)
@@ -92,7 +92,7 @@ public class AppFollowWebTest extends AbstractRestDocsTests {
 
 		// given
 		given(appFollowService.userMyPageFollowList(
-			any(LoginInfo.class), any(Integer.class)))
+			any(LoginUserInfo.class), any(Integer.class)))
 			.willReturn(
 				UserFollowListDTO.builder()
 					.userFollowList(List.of(

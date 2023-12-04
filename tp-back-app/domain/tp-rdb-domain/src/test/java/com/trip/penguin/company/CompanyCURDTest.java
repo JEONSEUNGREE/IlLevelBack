@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Optional;
 
+import com.trip.penguin.constant.CommonUserRole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -45,7 +46,7 @@ public class CompanyCURDTest {
 			.comImg("defaultImg")
 			.comAddress("location")
 			.comApproval(CommonConstant.N.name())
-			.userRole("ROLE_COM")
+			.userRole(CommonUserRole.ROLE_COM)
 			.build();
 	}
 

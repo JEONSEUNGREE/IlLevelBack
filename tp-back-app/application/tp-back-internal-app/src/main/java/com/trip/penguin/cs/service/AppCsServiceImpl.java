@@ -14,7 +14,7 @@ import com.trip.penguin.cs.dto.UserCsqPageDTO;
 import com.trip.penguin.cs.view.UserCsqView;
 import com.trip.penguin.exception.UserNotAllowedException;
 import com.trip.penguin.exception.UserNotFoundException;
-import com.trip.penguin.resolver.vo.LoginInfo;
+import com.trip.penguin.resolver.vo.LoginUserInfo;
 
 @Service
 public class AppCsServiceImpl implements AppCsService {
@@ -27,12 +27,12 @@ public class AppCsServiceImpl implements AppCsService {
 	}
 
 	@Override
-	public UserCsqDetailDTO userMyPageCsqCreate(LoginInfo loginInfo, UserCsqView csqView) throws UserNotFoundException {
+	public UserCsqDetailDTO userMyPageCsqCreate(LoginUserInfo loginUserInfo, UserCsqView csqView) throws UserNotFoundException {
 		CsMS csMS = new CsMS();
 		UserCsqDetailDTO userCsqDetailDTO = new UserCsqDetailDTO();
 
 		BeanUtils.copyProperties(csqView, csMS);
-		CsMS createdCsMs = csMsService.createCsMsByUserEmail(loginInfo.getUserEmail(), csMS);
+		CsMS createdCsMs = csMsService.createCsMsByUserEmail(loginUserInfo.getUserEmail(), csMS);
 
 		BeanUtils.copyProperties(createdCsMs, userCsqDetailDTO);
 
@@ -40,10 +40,10 @@ public class AppCsServiceImpl implements AppCsService {
 	}
 
 	@Override
-	public UserCsqDetailDTO userMyPageCsqRead(LoginInfo loginInfo, Integer csqId) throws UserNotFoundException {
+	public UserCsqDetailDTO userMyPageCsqRead(LoginUserInfo loginUserInfo, Integer csqId) throws UserNotFoundException {
 		UserCsqDetailDTO userCsqDetailDTO = new UserCsqDetailDTO();
 
-		CsMS getCsMsDetail = csMsService.getCsMsDetailByUserEmailAndCsMsId(loginInfo.getUserEmail(), csqId.longValue());
+		CsMS getCsMsDetail = csMsService.getCsMsDetailByUserEmailAndCsMsId(loginUserInfo.getUserEmail(), csqId.longValue());
 
 		BeanUtils.copyProperties(getCsMsDetail, userCsqDetailDTO);
 
@@ -51,8 +51,8 @@ public class AppCsServiceImpl implements AppCsService {
 	}
 
 	@Override
-	public UserCsqPageDTO userMyPageCsqList(LoginInfo loginInfo, Integer curPage) {
-		Page<CsMS> csMsList = csMsService.getCsMsDetailListByUserEmail(loginInfo.getUserEmail(),
+	public UserCsqPageDTO userMyPageCsqList(LoginUserInfo loginUserInfo, Integer curPage) {
+		Page<CsMS> csMsList = csMsService.getCsMsDetailListByUserEmail(loginUserInfo.getUserEmail(),
 			PageRequest.of(curPage, 10));
 
 		List<UserCsqDetailDTO> covertList = csMsList.stream().map(item ->
@@ -72,7 +72,7 @@ public class AppCsServiceImpl implements AppCsService {
 	}
 
 	@Override
-	public void userMyPageCsqDelete(LoginInfo loginInfo, Integer csqId) throws UserNotAllowedException {
-		csMsService.deleteCsMsByUserEmailAndCsMsId(loginInfo.getUserEmail(), csqId.longValue());
+	public void userMyPageCsqDelete(LoginUserInfo loginUserInfo, Integer csqId) throws UserNotAllowedException {
+		csMsService.deleteCsMsByUserEmailAndCsMsId(loginUserInfo.getUserEmail(), csqId.longValue());
 	}
 }

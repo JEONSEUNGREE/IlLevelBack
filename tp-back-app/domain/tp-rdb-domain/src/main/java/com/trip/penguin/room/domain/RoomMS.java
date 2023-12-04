@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import com.trip.penguin.booking.domain.BookingMS;
 import com.trip.penguin.company.domain.CompanyMS;
+import com.trip.penguin.constant.CommonConstant;
 import com.trip.penguin.review.domain.ReviewMS;
 
 import jakarta.persistence.CascadeType;
@@ -95,6 +97,7 @@ public class RoomMS {
 	private LocalDateTime modifiedDate;
 
 	public void createRoomMs() {
+		this.soldOutYn = CommonConstant.N.name();
 		this.setCreatedDate(LocalDateTime.now());
 		this.setModifiedDate(LocalDateTime.now());
 	}
@@ -102,6 +105,14 @@ public class RoomMS {
 	public void setCompanyInfo(CompanyMS companyInfo) {
 		this.com = companyInfo;
 		this.comName = companyInfo.getCom_nm();
+	}
+
+	public void setThumbNailOrDefaultImg(String thumbNailImg) {
+		if (!"".equals(thumbNailImg)) {
+			this.setThumbNail(thumbNailImg);
+		} else {
+			this.setThumbNail("defaultImg");
+		}
 	}
 
 	/**
@@ -114,21 +125,27 @@ public class RoomMS {
 
 	/**
 	 * 이미지 추가 - 이미지 목록
-	 * @param roomPicList - 이미지 목록
+	 * @param roomPicNameList - 이미지 목록
 	 */
-	public void addRoomPics(List<RoomPicMS> roomPicList) {
-		if (!roomPicList.isEmpty()) {
-			int sequence = 0;
-			roomPicList.forEach(item -> {
-				this.roomPicList.add(item);
-				item.setRoomMs(this);
-				item.setPicSeq(sequence);
-				item.setCreatedDate(LocalDateTime.now());
-				item.setModifiedDate(LocalDateTime.now());
+	public List<RoomPicMS> addRoomPics(List<String> roomPicNameList) {
+
+		if (!roomPicNameList.isEmpty()) {
+			List<RoomPicMS> tmpPicList = new ArrayList<>();
+			AtomicInteger sequence = new AtomicInteger();
+			roomPicNameList.forEach(fileName -> {
+				tmpPicList.add(RoomPicMS.builder()
+						.roomMs(this)
+						.picLocation(fileName)
+						.picSeq(sequence.getAndIncrement())
+						.createdDate(LocalDateTime.now())
+						.modifiedDate(LocalDateTime.now())
+						.build());
 			});
+			this.roomPicList = tmpPicList;
 		} else {
 			addDefaultRoomPic();
 		}
+		return this.roomPicList;
 	}
 
 	/**

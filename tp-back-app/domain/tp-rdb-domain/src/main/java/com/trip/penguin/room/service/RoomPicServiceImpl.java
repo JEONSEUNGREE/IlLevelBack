@@ -25,9 +25,13 @@ public class RoomPicServiceImpl implements RoomPicService {
 	}
 
 	@Override
-	public List<RoomPicMS> createRoomPics(RoomMS roomMS, List<RoomPicMS> roomPicMSList) {
+	public List<RoomPicMS> createRoomPics(RoomMS roomMS, List<String> roomPicNameList) {
+		/* 없는 경우 미생성 썸네일만 기본 이미지 생성 */
+		if (roomPicNameList.isEmpty()) {
+			return null;
+		}
 		/* 객실 사진 정보에 객실 정보 추가 */
-		roomMS.addRoomPics(roomPicMSList);
+		List<RoomPicMS> roomPicMSList = roomMS.addRoomPics(roomPicNameList);
 
 		return roomPicMsRepository.saveAll(roomPicMSList);
 	}
@@ -57,20 +61,20 @@ public class RoomPicServiceImpl implements RoomPicService {
 	public void deleteRoomPics(RoomMS roomMS, List<RoomPicMS> roomPicMSList) {
 
 		/* 기본 디폴트 이미지 */
-		RoomPicMS defaultImg = RoomPicMS.builder()
-			.picLocation("default")
-			.modifiedDate(LocalDateTime.now())
-			.createdDate(LocalDateTime.now())
-			.build();
-		List<RoomPicMS> defaultImgList = new ArrayList<>();
-
-		defaultImgList.add(defaultImg);
-
-		/* 객실 사진 정보에 객실 정보 추가 */
-		roomMS.addRoomPics(defaultImgList);
-
-		roomPicMsRepository.deleteAll(roomPicMSList);
-		roomPicMsRepository.save(defaultImg);
+//		RoomPicMS defaultImg = RoomPicMS.builder()
+//			.picLocation("default")
+//			.modifiedDate(LocalDateTime.now())
+//			.createdDate(LocalDateTime.now())
+//			.build();
+//		List<RoomPicMS> defaultImgList = new ArrayList<>();
+//
+//		defaultImgList.add(defaultImg);
+//
+//		/* 객실 사진 정보에 객실 정보 추가 */
+//		roomMS.addRoomPics(defaultImgList);
+//
+//		roomPicMsRepository.deleteAll(roomPicMSList);
+//		roomPicMsRepository.save(defaultImg);
 	}
 
 	@Override

@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.trip.penguin.follow.service.AppFollowService;
-import com.trip.penguin.interceptor.annotation.LoginCheck;
+import com.trip.penguin.interceptor.annotation.LoginUserCheck;
 import com.trip.penguin.resolver.annotation.CurrentUser;
-import com.trip.penguin.resolver.vo.LoginInfo;
+import com.trip.penguin.resolver.vo.LoginUserInfo;
 import com.trip.penguin.response.JsonResponse;
-import com.trip.penguin.user.dto.UserFollowDTO;
-import com.trip.penguin.user.dto.UserFollowListDTO;
+import com.trip.penguin.follow.dto.UserFollowDTO;
+import com.trip.penguin.follow.dto.UserFollowListDTO;
 
 @RestController
 @RequestMapping(value = "/follow")
@@ -25,32 +25,32 @@ public class AppFollowController {
 		this.appFollowService = appFollowService;
 	}
 
-	@LoginCheck
+	@LoginUserCheck
 	@GetMapping("/add/{followId}")
-	public JsonResponse<UserFollowDTO> userMyPageFollowAdd(@CurrentUser LoginInfo loginInfo,
+	public JsonResponse<UserFollowDTO> userMyPageFollowAdd(@CurrentUser LoginUserInfo loginUserInfo,
 		@PathVariable(value = "followId") Integer followId) {
 
-		UserFollowDTO userFollowDTO = appFollowService.userMyPageFollowAdd(loginInfo, followId);
+		UserFollowDTO userFollowDTO = appFollowService.userMyPageFollowAdd(loginUserInfo, followId);
 
 		return JsonResponse.success(userFollowDTO);
 	}
 
-	@LoginCheck
+	@LoginUserCheck
 	@GetMapping("/list/{curPage}")
-	public JsonResponse<UserFollowListDTO> userMyPageFollowList(@CurrentUser LoginInfo loginInfo,
+	public JsonResponse<UserFollowListDTO> userMyPageFollowList(@CurrentUser LoginUserInfo loginUserInfo,
 		@PathVariable(value = "curPage") Integer curPage) {
 
-		UserFollowListDTO userFollowListDTO = appFollowService.userMyPageFollowList(loginInfo, curPage - 1);
+		UserFollowListDTO userFollowListDTO = appFollowService.userMyPageFollowList(loginUserInfo, curPage - 1);
 
 		return JsonResponse.success(userFollowListDTO);
 	}
 
-	@LoginCheck
+	@LoginUserCheck
 	@GetMapping("/delete/{followId}")
-	public JsonResponse<UserFollowListDTO> userMyPageDelete(@CurrentUser LoginInfo loginInfo,
+	public JsonResponse<UserFollowListDTO> userMyPageDelete(@CurrentUser LoginUserInfo loginUserInfo,
 		@PathVariable(value = "followId") Integer followId) {
 
-		appFollowService.userMyPageFollowDelete(loginInfo, followId.longValue());
+		appFollowService.userMyPageFollowDelete(loginUserInfo, followId.longValue());
 
 		return JsonResponse.success();
 	}

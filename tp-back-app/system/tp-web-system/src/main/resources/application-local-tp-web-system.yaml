@@ -56,6 +56,10 @@ file:
     room-path: file:///tp-penguin-app/image/room/
     user-path: file:///tp-penguin-app/image/user/
     company-path: file:///tp-penguin-app/image/company/
+  save:
+    room-path: /tp-penguin-app/image/room/
+    user-path: /tp-penguin-app/image/user/
+    company-path: /tp-penguin-app/image/company/
 
 front:
   nodeServer: http://dev.tp-penguin-app.site:1901/

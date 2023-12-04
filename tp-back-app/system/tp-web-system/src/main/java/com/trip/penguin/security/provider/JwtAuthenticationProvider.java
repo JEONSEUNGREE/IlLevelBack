@@ -1,5 +1,8 @@
 package com.trip.penguin.security.provider;
 
+import com.trip.penguin.constant.CommonUserRole;
+import com.trip.penguin.exception.UserNotFoundException;
+import com.trip.penguin.account.service.CustomCompanyDetailsService;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -8,15 +11,20 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.trip.penguin.constant.CommonConstant;
-import com.trip.penguin.oauth.service.CustomUserDetailsService;
+import com.trip.penguin.account.service.CustomUserDetailsService;
 
 public class JwtAuthenticationProvider implements AuthenticationProvider {
 	private final CustomUserDetailsService customUserDetailsService;
+
+	private final CustomCompanyDetailsService customCompanyDetailsService;
+
 	private final BCryptPasswordEncoder passwordEncoder;
 
 	public JwtAuthenticationProvider(CustomUserDetailsService customUserDetailsService,
-		BCryptPasswordEncoder passwordEncoder) {
+									 CustomCompanyDetailsService customCompanyDetailsService,
+									 BCryptPasswordEncoder passwordEncoder) {
 		this.customUserDetailsService = customUserDetailsService;
+		this.customCompanyDetailsService = customCompanyDetailsService;
 		this.passwordEncoder = passwordEncoder;
 	}
 
@@ -24,8 +32,17 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		String userEmail = authentication.getName();
 		String password = (String)authentication.getCredentials();
+		String authority = authentication.getAuthorities().stream().findFirst().orElseThrow(UserNotFoundException::new).getAuthority();
 
-		UserDetails userDetails = customUserDetailsService.loadUserByUsername(userEmail);
+		UserDetails userDetails = null;
+
+		switch (CommonUserRole.valueOf(authority.toUpperCase())) {
+			case ROLE_USER ->
+					userDetails = customUserDetailsService.loadUserByUsername(userEmail);
+			case ROLE_COM ->
+					userDetails = customCompanyDetailsService.loadUserByCompanyName(userEmail);
+			default -> throw new UserNotFoundException();
+		}
 
 		if (userDetails == null) {
 			throw new RuntimeException("USERNAME IS NOT FOUND. USERNAME=" + userEmail);

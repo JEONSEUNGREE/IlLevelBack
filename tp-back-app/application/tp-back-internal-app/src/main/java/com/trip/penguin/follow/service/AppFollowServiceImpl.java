@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 
 import com.trip.penguin.exception.UserNotFoundException;
 import com.trip.penguin.follow.domain.FollowMS;
-import com.trip.penguin.resolver.vo.LoginInfo;
+import com.trip.penguin.resolver.vo.LoginUserInfo;
 import com.trip.penguin.user.domain.UserMS;
-import com.trip.penguin.user.dto.UserFollowDTO;
-import com.trip.penguin.user.dto.UserFollowListDTO;
+import com.trip.penguin.follow.dto.UserFollowDTO;
+import com.trip.penguin.follow.dto.UserFollowListDTO;
 import com.trip.penguin.user.repository.UserFollowCustomRepository;
 import com.trip.penguin.user.service.UserService;
-import com.trip.penguin.user.view.UserFollowSchCdtView;
+import com.trip.penguin.follow.view.UserFollowSchCdtView;
 
 @Service
 public class AppFollowServiceImpl implements AppFollowService {
@@ -33,8 +33,8 @@ public class AppFollowServiceImpl implements AppFollowService {
 	}
 
 	@Override
-	public UserFollowDTO userMyPageFollowAdd(LoginInfo loginInfo, Integer followId) {
-		UserMS foundUser = userService.getUserByUserEmail(loginInfo.getUserEmail())
+	public UserFollowDTO userMyPageFollowAdd(LoginUserInfo loginUserInfo, Integer followId) {
+		UserMS foundUser = userService.getUserByUserEmail(loginUserInfo.getUserEmail())
 			.orElseThrow(UserNotFoundException::new);
 		UserMS followUser = userService.getUserByUserId(followId.longValue()).orElseThrow(UserNotFoundException::new);
 
@@ -49,8 +49,8 @@ public class AppFollowServiceImpl implements AppFollowService {
 	}
 
 	@Override
-	public UserFollowListDTO userMyPageFollowList(LoginInfo loginInfo, Integer curPage) {
-		UserMS foundUser = userService.getUserByUserEmail(loginInfo.getUserEmail())
+	public UserFollowListDTO userMyPageFollowList(LoginUserInfo loginUserInfo, Integer curPage) {
+		UserMS foundUser = userService.getUserByUserEmail(loginUserInfo.getUserEmail())
 			.orElseThrow(UserNotFoundException::new);
 
 		// 가져올 크기 기본 설정
@@ -70,8 +70,8 @@ public class AppFollowServiceImpl implements AppFollowService {
 	}
 
 	@Override
-	public void userMyPageFollowDelete(LoginInfo loginInfo, Long followId) {
-		UserMS foundUser = userService.getUserByUserEmail(loginInfo.getUserEmail())
+	public void userMyPageFollowDelete(LoginUserInfo loginUserInfo, Long followId) {
+		UserMS foundUser = userService.getUserByUserEmail(loginUserInfo.getUserEmail())
 			.orElseThrow(UserNotFoundException::new);
 
 		followService.deleteFollowByUserIdAndId(followId, foundUser);

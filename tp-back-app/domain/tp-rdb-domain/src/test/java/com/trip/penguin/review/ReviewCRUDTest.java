@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.trip.penguin.constant.CommonUserRole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -75,7 +76,7 @@ public class ReviewCRUDTest {
 			.comImg("defaultImg")
 			.comAddress("location")
 			.comApproval(CommonConstant.N.name())
-			.userRole("ROLE_COM")
+			.userRole(CommonUserRole.ROLE_COM)
 			.build();
 
 		/* 객실 등록 */
@@ -146,7 +147,7 @@ public class ReviewCRUDTest {
 		companyService.createCompany(beforeCommitCompany);
 
 		/* 객실 생성 */
-		RoomMS afterCommitRoomMs = roomService.createRoom(beforeCommitRoomMS, beforeCommitCompany, new ArrayList<>());
+		RoomMS afterCommitRoomMs = roomService.createRoom(beforeCommitRoomMS, beforeCommitCompany, "thumbnail", new ArrayList<>());
 
 		/* 예약 등록 */
 		bookingMsService.createBookingMs(beforeCommitBookingMs, beforeCommitUser);

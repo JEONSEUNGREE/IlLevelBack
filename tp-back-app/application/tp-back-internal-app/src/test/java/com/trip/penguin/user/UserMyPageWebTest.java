@@ -24,7 +24,7 @@ import com.trip.penguin.TpBackInternalApp;
 import com.trip.penguin.config.AbstractRestDocsTests;
 import com.trip.penguin.config.WithMockCustomUser;
 import com.trip.penguin.constant.CommonConstant;
-import com.trip.penguin.resolver.vo.LoginInfo;
+import com.trip.penguin.resolver.vo.LoginUserInfo;
 import com.trip.penguin.user.controller.UserMyPageController;
 import com.trip.penguin.user.dto.UserMyPageDTO;
 import com.trip.penguin.user.service.UserMyPageService;
@@ -69,7 +69,7 @@ public class UserMyPageWebTest extends AbstractRestDocsTests {
 			MediaType.APPLICATION_JSON_VALUE, requestJson.getBytes());
 
 		given(userMyPageService.userMyPageModify(
-			any(LoginInfo.class), any(UserMyPageView.class), any(MultipartFile.class)))
+			any(LoginUserInfo.class), any(UserMyPageView.class), any(MultipartFile.class)))
 			.willReturn(
 				UserMyPageDTO.builder()
 					.userLast("modifiedLast")
