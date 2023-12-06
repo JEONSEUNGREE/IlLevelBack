@@ -59,6 +59,9 @@ public class BookingMS {
 	@Column(name = "book_nm", nullable = false)
 	private String bookNm;
 
+	@Column(name = "count", nullable = false)
+	private Integer count;
+
 	@Column(name = "check_in", nullable = false)
 	private LocalDateTime checkIn;
 

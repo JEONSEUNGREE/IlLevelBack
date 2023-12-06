@@ -14,6 +14,8 @@ include::{docfile}/../csPage.adoc[]
 
 include::{docfile}/../followPage.adoc[]
 
+include::{docfile}/../booking.adoc[]
+
 include::{docfile}/../room.adoc[]
 
 include::{docfile}/../mainRecRoomList.adoc[]
