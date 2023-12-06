@@ -65,7 +65,7 @@ public class BookingMS {
 	@Column(name = "check_out", nullable = false)
 	private LocalDateTime checkOut;
 
-	@Column(name = "pay_method", nullable = false)
+	@Column(name = "pay_method")
 	private String payMethod;
 
 	@Column(name = "sell_prc", nullable = false)
