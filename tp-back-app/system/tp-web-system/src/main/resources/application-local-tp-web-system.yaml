@@ -62,7 +62,7 @@ file:
     company-path: /tp-penguin-app/image/company/
 
 front:
-  nodeServer: http://dev.tp-penguin-app.site:1901/
+  nodeServer: http://dev.tp-penguin-app.site
 
 token:
   secret: local-secret
