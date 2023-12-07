@@ -59,13 +59,16 @@ public class BookingMS {
 	@Column(name = "book_nm", nullable = false)
 	private String bookNm;
 
+	@Column(name = "count", nullable = false)
+	private Integer count;
+
 	@Column(name = "check_in", nullable = false)
 	private LocalDateTime checkIn;
 
 	@Column(name = "check_out", nullable = false)
 	private LocalDateTime checkOut;
 
-	@Column(name = "pay_method", nullable = false)
+	@Column(name = "pay_method")
 	private String payMethod;
 
 	@Column(name = "sell_prc", nullable = false)

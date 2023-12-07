@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.18">
-<title>객실 관련 API</title>
+<title>예약 관련 API</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -441,46 +441,31 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_객실_관련_api">객실 관련 API</h2>
+<h2 id="_예약_관련_api">예약 관련 API</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_객실_생성">객실 생성</h3>
+<h3 id="_예약_생성">예약 생성</h3>
 <div class="sect3">
-<h4 id="_객실_생성_http_request">HTTP request</h4>
+<h4 id="_예약_생성_http_request">HTTP request</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">POST /room/create HTTP/1.1
-Content-Type: application/json;charset=UTF-8; boundary=6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">POST /booking/create HTTP/1.1
+Content-Type: application/json;charset=UTF-8
 Accept: application/json
+Content-Length: 53
 Host: dev.tp-penguin-app.store
 Cookie: account_token=jwtToken
 
---6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
-Content-Disposition: form-data; name=roomImgList; filename=0image.png
-Content-Type: multipart/form-data
-
-example
---6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
-Content-Disposition: form-data; name=roomImgList; filename=1image.png
-Content-Type: multipart/form-data
-
-example
---6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
-Content-Disposition: form-data; name=thumbNailImg; filename=image.png
-Content-Type: multipart/form-data
-
-example
---6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
-Content-Disposition: form-data; name=appRoomView
-Content-Type: application/json
-
-{"roomNm":"roomNm","comName":"comName","sellPrc":1,"checkIn":"2023-12-07T22:50:19.176389","checkOut":"2023-12-07T22:50:19.17639","roomDesc":"roomDesc","couponYn":"Y","maxCount":5}
---6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm--</code></pre>
+{
+  "roomId" : 1,
+  "couponYn" : "N",
+  "count" : 2
+}</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_객실_생성_request_cookies">Request cookies</h4>
+<h4 id="_예약_생성_request_cookies">Request cookies</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 50%;">
@@ -501,36 +486,7 @@ Content-Type: application/json
 </table>
 </div>
 <div class="sect3">
-<h4 id="_객실_생성_request_parts">Request parts</h4>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Part</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>thumbNailImg</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">객실 썸네일 파일</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>roomImgList</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">객실 이미지 파일들</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>appRoomView</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">객실 정보 수정</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect3">
-<h4 id="_객실_생성_request_part-appRoomView-fields">Request part-approomview-fields</h4>
+<h4 id="_예약_생성_request_fields">Request fields</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -546,34 +502,9 @@ Content-Type: application/json
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>roomNm</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">객실 이름</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>comName</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">회사 이름</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sellPrc</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>roomId</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">객실 가격</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>checkIn</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">체크 인 시간</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>checkOut</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">체크 아웃 시간</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>roomDesc</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">객실 설명</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">객실 ID</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>couponYn</code></p></td>
@@ -581,50 +512,44 @@ Content-Type: application/json
 <td class="tableblock halign-left valign-top"><p class="tableblock">쿠폰 사용 여부</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>count</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">총 객실 수</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">구매 수량</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_객실_생성_http_response">HTTP response</h4>
+<h4 id="_예약_생성_http_response">HTTP response</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 610
+Content-Length: 434
 
 {
   "message" : "SUCCESS",
   "result" : "SUCCESS",
   "data" : {
     "id" : 1,
-    "comName" : "toryCompany",
-    "comId" : 1,
-    "thumbNail" : "defaultThumbNail",
-    "sellPrc" : 100000,
-    "soldOutYn" : "N",
-    "roomDesc" : "roomDesc",
-    "couponYn" : "Y",
-    "maxCount" : 1,
-    "createdDate" : "2023-12-07T22:50:19.179159",
-    "modifiedDate" : "2023-12-07T22:50:19.179157",
-    "roomPicDTOList" : [ {
-      "id" : 1,
-      "picLocation" : "UUID + pictureImgName",
-      "picSeq" : 0,
-      "createdDate" : "2023-12-07T22:50:19.179143",
-      "modifiedDate" : "2023-12-07T22:50:19.179138"
-    } ]
+    "roomId" : 1,
+    "bookNm" : "객실 명",
+    "payMethod" : "Card",
+    "payAmount" : 2000,
+    "sellPrc" : 1000,
+    "count" : 2,
+    "couponYn" : "N",
+    "checkIn" : "2023-12-07T22:50:10.560146",
+    "checkOut" : "2023-12-07T22:50:10.560169",
+    "createdDate" : "2023-12-07T22:50:10.560177",
+    "modifiedDate" : "2023-12-07T22:50:10.560183"
   }
 }</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_객실_생성_response_fields">Response fields</h4>
+<h4 id="_예약_생성_response_fields">Response fields</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -657,47 +582,37 @@ Content-Length: 610
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.id</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">예약 ID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.roomId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">객실 ID</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.comId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.bookNm</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">객실 명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.payMethod</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">구매 방법</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.payAmount</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">기업 ID</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.comName</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">기업 명</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.soldOutYn</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">품절 여부</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.thumbNail</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">객실 썸네일 이미지</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.roomDesc</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">객실 설명</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.maxCount</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">총 객실 수</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.roomDesc</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">객실 설명</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">구매 수량</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.sellPrc</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">객실 가격</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">객실 기본 가격</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.count</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">구매 수량</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.couponYn</code></p></td>
@@ -705,34 +620,14 @@ Content-Length: 610
 <td class="tableblock halign-left valign-top"><p class="tableblock">쿠폰 사용 여부</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.roomPicDTOList</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">객실 사진 정보</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.roomPicDTOList[].id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">객실 사진 ID</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.roomPicDTOList[].picLocation</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.checkIn</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">객실 사진 위치 명</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">체크인 일시</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.roomPicDTOList[].picSeq</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">객실 사진 순서</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.roomPicDTOList[].modifiedDate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.checkOut</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">객실 사진 생성 일시</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.roomPicDTOList[].createdDate</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">객실 사진 수정 일시</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">체크 아웃 일시</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.modifiedDate</code></p></td>
@@ -754,7 +649,7 @@ Content-Length: 610
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2023-12-02 22:12:28 +0900
+Last updated 2023-12-06 19:57:36 +0900
 </div>
 </div>
 </body>

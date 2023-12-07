@@ -1,0 +1,6 @@
+== 예약 관련 API
+
+=== 예약 생성
+
+operation::app-booking-web-test/booking-test[snippets='http-request,request-cookies,request-fields,http-response,response-fields']
+

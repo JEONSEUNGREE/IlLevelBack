@@ -28,6 +28,9 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public ReviewMS createReviewMs(ReviewMS reviewMS, BookingMS bookingMS, UserMS userMS) {
 
+		/* 정상 점수 체크 */
+		reviewMS.checkRating();
+
 		reviewMS.createReview(bookingMS, userMS);
 
 		return reviewMsRepository.save(reviewMS);

@@ -8,11 +8,15 @@
 
 include::{docfile}/../userPage.adoc[]
 
+include::{docfile}/../mypage.adoc[]
+
 include::{docfile}/../companyPage.adoc[]
 
 include::{docfile}/../csPage.adoc[]
 
 include::{docfile}/../followPage.adoc[]
+
+include::{docfile}/../booking.adoc[]
 
 include::{docfile}/../room.adoc[]
 

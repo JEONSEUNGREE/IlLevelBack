@@ -6,10 +6,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.trip.penguin.company.controller.AppCompanyController;
-import com.trip.penguin.constant.CommonUserRole;
-import com.trip.penguin.user.controller.UserMyPageController;
-import com.trip.penguin.util.ImgUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,10 +20,12 @@ import org.springframework.test.context.ActiveProfiles;
 
 import com.trip.penguin.booking.domain.BookingMS;
 import com.trip.penguin.booking.service.BookingMsService;
+import com.trip.penguin.company.controller.AppCompanyController;
 import com.trip.penguin.company.domain.CompanyMS;
 import com.trip.penguin.company.service.CompanyService;
 import com.trip.penguin.config.TestContainer;
 import com.trip.penguin.constant.CommonConstant;
+import com.trip.penguin.constant.CommonUserRole;
 import com.trip.penguin.recommand.room.dao.RoomRecDAO;
 import com.trip.penguin.recommand.room.service.RoomRecService;
 import com.trip.penguin.recommand.room.view.MainRecRoomSchCdtView;
@@ -38,22 +36,23 @@ import com.trip.penguin.room.service.RoomService;
 import com.trip.penguin.user.domain.UserMS;
 import com.trip.penguin.user.service.UserMyPageService;
 import com.trip.penguin.user.service.UserService;
+import com.trip.penguin.util.ImgUtils;
 
 import jakarta.transaction.Transactional;
 
 @ActiveProfiles("test")
 @DataJpaTest(properties = "classpath:application.yaml")
 @ComponentScan(basePackages = {
-		"com.trip.penguin.room",
-		"com.trip.penguin.user",
-		"com.trip.penguin.company",
-		"com.trip.penguin.booking",
-		"com.trip.penguin.review",
-		"com.trip.penguin.recommand.room.repository",
-		"com.trip.penguin.recommand.room.service"
+	"com.trip.penguin.room",
+	"com.trip.penguin.user",
+	"com.trip.penguin.company",
+	"com.trip.penguin.booking",
+	"com.trip.penguin.review",
+	"com.trip.penguin.recommand.room.repository",
+	"com.trip.penguin.recommand.room.service"
 }, excludeFilters = @ComponentScan.Filter(
-		type = FilterType.ASSIGNABLE_TYPE,
-		classes = {AppCompanyController.class}))
+	type = FilterType.ASSIGNABLE_TYPE,
+	classes = {AppCompanyController.class}))
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 @Import(TestContainer.class)
 public class RecRoomDataTest {
@@ -97,69 +96,70 @@ public class RecRoomDataTest {
 
 		/* 회사 가입 */
 		beforeCommitCompany = CompanyMS.builder()
-				.com_nm("testNm")
-				.comEmail("test@test.com0")
-				.comPwd("testPwd")
-				.comImg("defaultImg")
-				.comAddress("location")
-				.comApproval(CommonConstant.N.name())
-				.userRole(CommonUserRole.ROLE_COM)
-				.build();
+			.com_nm("testNm")
+			.comEmail("test@test.com0")
+			.comPwd("testPwd")
+			.comImg("defaultImg")
+			.comAddress("location")
+			.comApproval(CommonConstant.N.name())
+			.userRole(CommonUserRole.ROLE_COM)
+			.build();
 
 		/* 객실 등록 */
 		for (int i = 1; i < 4; i++) {
 			beforeCommitRoomMSList.add(RoomMS.builder()
-					.roomNm("testNm" + i)
-					.checkIn(LocalDateTime.now())
-					.checkOut(LocalDateTime.now())
-					.couponYn(CommonConstant.Y.name())
-					.thumbNail("default")
-					.sellPrc(120000)
-					.maxCount(5)
-					.soldOutYn(CommonConstant.N.name())
-					.roomDesc("Desc")
-					.build());
+				.roomNm("testNm" + i)
+				.checkIn(LocalDateTime.now())
+				.checkOut(LocalDateTime.now())
+				.couponYn(CommonConstant.Y.name())
+				.thumbNail("default")
+				.sellPrc(120000)
+				.maxCount(5)
+				.soldOutYn(CommonConstant.N.name())
+				.roomDesc("Desc")
+				.build());
 		}
 
 		/* 회원 가입 정보 */
 		beforeCommitUser = UserMS.builder()
-				.offYn("N")
-				.userCity("Seoul")
-				.userImg("default")
-				.userEmail("test@mail.com")
-				.userRole("user")
-				.userNick("default")
-				.userPwd("test")
-				.userFirst("t")
-				.userLast("est")
-				.createdDate(LocalDateTime.now())
-				.modifiedDate(LocalDateTime.now())
-				.build();
+			.offYn("N")
+			.userCity("Seoul")
+			.userImg("default")
+			.userEmail("test@mail.com")
+			.userRole("user")
+			.userNick("default")
+			.userPwd("test")
+			.userFirst("t")
+			.userLast("est")
+			.createdDate(LocalDateTime.now())
+			.modifiedDate(LocalDateTime.now())
+			.build();
 
 		/* 예약 등록 */
 		for (int i = 0; i < 3; i++) {
 			beforeCommitBookingMs.add(BookingMS.builder()
-					.room(beforeCommitRoomMSList.get(i))
-					.bookNm("test" + i)
-					.userMS(beforeCommitUser)
-					.couponYn(CommonConstant.Y.name())
-					.sellPrc(500000)
-					.payMethod("payMethod")
-					.checkIn(LocalDateTime.now())
-					.checkOut(LocalDateTime.now())
-					.payAmount(500000)
-					.build());
+				.room(beforeCommitRoomMSList.get(i))
+				.bookNm("test" + i)
+				.userMS(beforeCommitUser)
+				.couponYn(CommonConstant.Y.name())
+				.sellPrc(500000)
+				.count(1)
+				.payMethod("payMethod")
+				.checkIn(LocalDateTime.now())
+				.checkOut(LocalDateTime.now())
+				.payAmount(500000)
+				.build());
 		}
 
 		/* 리뷰 4개 생성 */
 		for (int i = 1; i <= 4; i++) {
 			reviewList.add(ReviewMS.builder()
-					.reTitle("title" + i)
-					.reContent("content" + i)
-					.rating(i)
-					.reAccom("no reply" + i)
-					.report(CommonConstant.N.name())
-					.build());
+				.reTitle("title" + i)
+				.reContent("content" + i)
+				.rating(i)
+				.reAccom("no reply" + i)
+				.report(CommonConstant.N.name())
+				.build());
 		}
 	}
 
@@ -197,9 +197,9 @@ public class RecRoomDataTest {
 		// when
 		/* 리뷰 목록 조회 */
 		MainRecRoomSchCdtView recRoomSchCdt = MainRecRoomSchCdtView.builder()
-				.pageNumber(0)
-				.pageSize(3)
-				.build();
+			.pageNumber(0)
+			.pageSize(3)
+			.build();
 
 		List<RoomRecDAO> mainRecRoomList = roomRecService.getMainRecRoomListWithPaging(recRoomSchCdt);
 

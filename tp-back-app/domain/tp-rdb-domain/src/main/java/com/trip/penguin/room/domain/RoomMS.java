@@ -189,4 +189,16 @@ public class RoomMS {
 		this.roomPicList = tmpModifedList;
 		return stdList.values().stream().toList();
 	}
+
+	public void checkStock(int buyStock) {
+
+		if (this.maxCount < buyStock) {
+			throw new RuntimeException("잔여 객실이 없습니다.");
+		}
+	}
+
+	public void decreaseStock(int count) {
+
+		this.maxCount = this.maxCount - count;
+	}
 }

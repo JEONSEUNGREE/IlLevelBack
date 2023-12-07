@@ -1,8 +1,8 @@
 package com.trip.penguin.follow.service;
 
-import com.trip.penguin.resolver.vo.LoginUserInfo;
 import com.trip.penguin.follow.dto.UserFollowDTO;
 import com.trip.penguin.follow.dto.UserFollowListDTO;
+import com.trip.penguin.resolver.vo.LoginUserInfo;
 
 public interface AppFollowService {
 
@@ -11,4 +11,8 @@ public interface AppFollowService {
 	UserFollowListDTO userMyPageFollowList(LoginUserInfo loginUserInfo, Integer curPage);
 
 	void userMyPageFollowDelete(LoginUserInfo loginUserInfo, Long followId);
+
+	Integer getUserFollowerCnt(Long userId);
+
+	Integer getUserFollowCnt(Long userId);
 }

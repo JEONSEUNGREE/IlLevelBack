@@ -2,6 +2,7 @@ package com.trip.penguin.user.service;
 
 import java.util.Optional;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.trip.penguin.user.domain.UserMS;
