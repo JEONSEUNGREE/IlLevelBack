@@ -3,6 +3,7 @@ package com.trip.penguin.review.domain;
 import java.time.LocalDateTime;
 
 import com.trip.penguin.booking.domain.BookingMS;
+import com.trip.penguin.constant.CommonConstant;
 import com.trip.penguin.room.domain.RoomMS;
 import com.trip.penguin.user.domain.UserMS;
 
@@ -73,9 +74,16 @@ public class ReviewMS {
 		bookingMS.setReviewMS(this);
 		this.setBookingMS(bookingMS);
 		this.setRoomMS(bookingMS.getRoom());
+		this.setReport(CommonConstant.N.getName());
 
 		this.setModifiedDate(LocalDateTime.now());
 		this.setCreatedDate(LocalDateTime.now());
+	}
+
+	public void checkRating() {
+		if (this.rating > 5) {
+			throw new RuntimeException("5점이상 불가");
+		}
 	}
 
 }

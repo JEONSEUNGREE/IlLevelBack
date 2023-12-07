@@ -1,5 +1,7 @@
 package com.trip.penguin.booking.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,5 +28,10 @@ public class BookingMsServiceImpl implements BookingMsService {
 		bookingMS.createBookingMs();
 
 		return bookingMSRepository.save(bookingMS);
+	}
+
+	@Override
+	public Optional<BookingMS> getBookingByIdAndUserMs(Long bookingId, UserMS userMS) {
+		return bookingMSRepository.findByUserMSAndId(userMS, bookingId);
 	}
 }

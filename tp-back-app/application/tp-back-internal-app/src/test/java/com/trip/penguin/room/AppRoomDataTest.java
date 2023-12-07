@@ -20,12 +20,11 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.TransactionTemplate;
 
 import com.trip.penguin.TpBackInternalApp;
+import com.trip.penguin.booking.dto.AppBookingDTO;
 import com.trip.penguin.booking.repository.BookingMSRepository;
 import com.trip.penguin.booking.service.AppBookingService;
 import com.trip.penguin.booking.view.AppBookingView;
@@ -37,6 +36,9 @@ import com.trip.penguin.constant.CommonUserRole;
 import com.trip.penguin.exception.UserNotFoundException;
 import com.trip.penguin.resolver.vo.LoginCompanyInfo;
 import com.trip.penguin.resolver.vo.LoginUserInfo;
+import com.trip.penguin.review.dto.AppReviewDTO;
+import com.trip.penguin.review.service.AppReviewService;
+import com.trip.penguin.review.view.AppReviewView;
 import com.trip.penguin.room.domain.RoomMS;
 import com.trip.penguin.room.dto.AppRoomDTO;
 import com.trip.penguin.room.repository.RoomMSRepository;
@@ -57,6 +59,7 @@ import jakarta.persistence.PersistenceContext;
 @ComponentScan(basePackages = {
 	"com.trip.penguin.user",
 	"com.trip.penguin.room",
+	"com.trip.penguin.review",
 	"com.trip.penguin.booking",
 	"com.trip.penguin.company.service",
 	"com.trip.penguin.company.repository",
@@ -97,9 +100,7 @@ public class AppRoomDataTest {
 	private BookingMSRepository bookingMSRepository;
 
 	@Autowired
-	private PlatformTransactionManager tm;
-
-	private TransactionTemplate transaction;
+	private AppReviewService appReviewService;
 
 	@BeforeEach
 	public void beforeData() {
@@ -223,6 +224,50 @@ public class AppRoomDataTest {
 		RoomMS foundRoom = roomMSRepository.findById(appBookingView.getRoomId())
 			.orElseThrow(UserNotFoundException::new);
 		assertEquals(0, foundRoom.getMaxCount());
+	}
+
+	@DisplayName("리뷰 테스트")
+	@Test
+	void ReviewCreateTest() throws InterruptedException {
+
+		//given
+		LoginCompanyInfo loginComInfo = LoginCompanyInfo.builder()
+			.comEmail(beforeCommitUserList.get(0).getUserEmail())
+			.role(CommonUserRole.ROLE_COM.getUserRole())
+			.build();
+
+		LoginUserInfo loginUserInfo = LoginUserInfo.builder()
+			.userEmail(beforeCommitUserList.get(0).getUserEmail())
+			.role(CommonUserRole.ROLE_USER.getUserRole())
+			.build();
+
+		AppRoomView appRoomView = AppRoomView.builder()
+			.roomDesc("roomdesc")
+			.maxCount(100)
+			.checkIn(LocalDateTime.now())
+			.checkOut(LocalDateTime.now())
+			.couponYn(CommonConstant.Y.getName())
+			.roomNm("roomNm")
+			.comName("comName")
+			.sellPrc(100000)
+			.build();
+
+		userService.signUpUser(beforeCommitUserList.get(0));
+
+		companyService.createCompany(beforeCommitCompany);
+
+		AppRoomDTO appRoomDTO = appRoomService.companyRoomCreate(loginComInfo, appRoomView, null, null);
+
+		AppBookingView appBookingView = new AppBookingView(appRoomDTO.getId(), "N", 1);
+
+		AppBookingDTO appBookingDTO = appBookingService.bookingCreate(appBookingView, loginUserInfo);
+
+		AppReviewDTO appReviewDTO = appReviewService.reviewCreate(
+			new AppReviewView(appBookingDTO.getId(), "title", "contents", 5), loginUserInfo);
+
+		assertEquals("title", appReviewDTO.getReTitle());
+		assertEquals("contents", appReviewDTO.getReContent());
+		assertEquals(5, appReviewDTO.getRating());
 	}
 
 }

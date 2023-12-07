@@ -63,8 +63,8 @@ public class AppBookingServiceImpl implements AppBookingService {
 			.build();
 
 		roomMSRepository.save(foundRoom);
-		bookingMSRepository.save(booking);
+		BookingMS bookingInfo = bookingMSRepository.save(booking);
 
-		return null;
+		return new AppBookingDTO().changeDTO(bookingInfo);
 	}
 }

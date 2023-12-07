@@ -92,6 +92,9 @@ public class UserMS {
 	@Column(name = "social_provider_id")
 	private String socialProviderId;
 
+	@Column(name = "introduce")
+	private String introduce;
+
 	@Column(name = "user_role", nullable = false)
 	private String userRole;
 
@@ -116,9 +119,9 @@ public class UserMS {
 
 	public FollowMS addFollow(UserMS followUser) {
 		FollowMS followCreate = FollowMS.builder()
-				.userMS(this)
-				.followUser(followUser)
-				.build();
+			.userMS(this)
+			.followUser(followUser)
+			.build();
 		followList.add(followCreate);
 
 		return followCreate;

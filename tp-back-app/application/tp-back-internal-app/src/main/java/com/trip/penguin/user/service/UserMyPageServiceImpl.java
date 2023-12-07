@@ -7,9 +7,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.trip.penguin.account.service.DefaultUserService;
+import com.trip.penguin.exception.UserNotFoundException;
+import com.trip.penguin.follow.service.AppFollowService;
 import com.trip.penguin.resolver.vo.LoginUserInfo;
 import com.trip.penguin.user.domain.UserMS;
 import com.trip.penguin.user.dto.UserMyPageDTO;
+import com.trip.penguin.user.view.UserMyPageProfileDTO;
 import com.trip.penguin.user.view.UserMyPageView;
 import com.trip.penguin.util.ImgUtils;
 
@@ -21,20 +24,24 @@ public class UserMyPageServiceImpl implements UserMyPageService {
 
 	private UserService userService;
 
+	private AppFollowService appFollowService;
+
 	private DefaultUserService defaultUserService;
 
 	private ImgUtils imgUtils;
 
 	@Autowired
-	public UserMyPageServiceImpl(UserService userService, DefaultUserService defaultUserService, ImgUtils imgUtils) {
+	public UserMyPageServiceImpl(UserService userService, AppFollowService appFollowService,
+		DefaultUserService defaultUserService, ImgUtils imgUtils) {
 		this.userService = userService;
+		this.appFollowService = appFollowService;
 		this.defaultUserService = defaultUserService;
 		this.imgUtils = imgUtils;
 	}
 
 	@Override
 	public UserMyPageDTO userMyPageModify(LoginUserInfo loginUserInfo, UserMyPageView userMyPageView,
-										  MultipartFile multipartFile) throws
+		MultipartFile multipartFile) throws
 		RuntimeException {
 
 		String userImgUUID = "";
@@ -45,7 +52,7 @@ public class UserMyPageServiceImpl implements UserMyPageService {
 
 			// 도메인 모듈에서 조회
 			UserMS userMS = userService.getUserByUserEmail(loginUserInfo.getUserEmail())
-				.orElseThrow(IllegalAccessException::new);
+				.orElseThrow(UserNotFoundException::new);
 
 			// 이미지 저장
 			userImgUUID = imgUtils.saveAndChangeFile(multipartFile, userMS, defaultUserImgRoute);
@@ -63,5 +70,19 @@ public class UserMyPageServiceImpl implements UserMyPageService {
 		}
 
 		return userMyPageDto;
+	}
+
+	@Override
+	public UserMyPageProfileDTO getUserMyPageProfile(LoginUserInfo loginUserInfo) {
+
+		// 도메인 모듈에서 조회
+		UserMS foundUser = userService.getUserByUserEmail(loginUserInfo.getUserEmail())
+			.orElseThrow(UserNotFoundException::new);
+
+		Integer followCnt = appFollowService.getUserFollowCnt(foundUser.getId());
+
+		Integer followerCnt = appFollowService.getUserFollowerCnt(foundUser.getId());
+
+		return new UserMyPageProfileDTO().changeDTO(foundUser, followCnt, followerCnt);
 	}
 }

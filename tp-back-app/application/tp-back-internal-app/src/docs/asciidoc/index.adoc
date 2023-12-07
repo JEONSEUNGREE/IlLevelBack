@@ -8,6 +8,8 @@
 
 include::{docfile}/../userPage.adoc[]
 
+include::{docfile}/../mypage.adoc[]
+
 include::{docfile}/../companyPage.adoc[]
 
 include::{docfile}/../csPage.adoc[]

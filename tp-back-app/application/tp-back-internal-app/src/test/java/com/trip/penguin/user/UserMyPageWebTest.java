@@ -7,6 +7,8 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,7 @@ import com.trip.penguin.resolver.vo.LoginUserInfo;
 import com.trip.penguin.user.controller.UserMyPageController;
 import com.trip.penguin.user.dto.UserMyPageDTO;
 import com.trip.penguin.user.service.UserMyPageService;
+import com.trip.penguin.user.view.UserMyPageProfileDTO;
 import com.trip.penguin.user.view.UserMyPageView;
 import com.trip.penguin.util.ImgUtils;
 
@@ -113,6 +116,60 @@ public class UserMyPageWebTest extends AbstractRestDocsTests {
 					fieldWithPath("data.userNick").type(JsonFieldType.STRING).description("닉네임"),
 					fieldWithPath("data.userImg").type(JsonFieldType.STRING).description("회원 프로필 이미지"),
 					fieldWithPath("data.userCity").type(JsonFieldType.STRING).description("회원 거주지")
+				))
+			);
+	}
+
+	@Test
+	@DisplayName("회원 프로필 정보")
+	@WithMockCustomUser
+	public void getUserMyPageProfile() throws Exception {
+
+		// given
+		given(userMyPageService.getUserMyPageProfile(
+			any(LoginUserInfo.class)))
+			.willReturn(
+				UserMyPageProfileDTO.builder()
+					.userEmail("userEmail")
+					.userNick("userNick")
+					.userImg("userImg")
+					.city("city")
+					.socialProvider("socialProvider")
+					.createdDate(LocalDateTime.now())
+					.userFirst("firstName")
+					.userLast("lastName")
+					.followCnt(1)
+					.followerCnt(2)
+					.introduce("userIntroduce")
+					.build()
+			);
+
+		// when
+		mockMvc.perform(post("/usr/mypage/profile")
+				.cookie(new Cookie(CommonConstant.ACCOUNT_TOKEN.getName(), "jwtToken"))
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+			// then
+			.andExpect(status().isOk())
+			.andDo(restDocs.document(
+				requestCookies(
+					cookieWithName(CommonConstant.ACCOUNT_TOKEN.getName()).description("JWT 토큰")
+				),
+				responseFields(
+					fieldWithPath("message").type(JsonFieldType.STRING).description("메세지"),
+					fieldWithPath("result").type(JsonFieldType.STRING).description("결과"),
+					fieldWithPath("data").type(JsonFieldType.OBJECT).description("데이터"),
+					fieldWithPath("data.userEmail").type(JsonFieldType.STRING).description("회원 이메일"),
+					fieldWithPath("data.userNick").type(JsonFieldType.STRING).description("회원 닉네임"),
+					fieldWithPath("data.userImg").type(JsonFieldType.STRING).description("회원 프로필 이미지"),
+					fieldWithPath("data.city").type(JsonFieldType.STRING).description("회원 거주지"),
+					fieldWithPath("data.socialProvider").type(JsonFieldType.STRING).description("회원 가입 유형"),
+					fieldWithPath("data.createdDate").type(JsonFieldType.STRING).description("회원 가입 일시"),
+					fieldWithPath("data.userFirst").type(JsonFieldType.STRING).description("회원 이름"),
+					fieldWithPath("data.userLast").type(JsonFieldType.STRING).description("회원 성"),
+					fieldWithPath("data.followCnt").type(JsonFieldType.NUMBER).description("회원 팔로우 수"),
+					fieldWithPath("data.followerCnt").type(JsonFieldType.NUMBER).description("회원 팔로워 수"),
+					fieldWithPath("data.introduce").type(JsonFieldType.STRING).description("회원 소개")
 				))
 			);
 	}

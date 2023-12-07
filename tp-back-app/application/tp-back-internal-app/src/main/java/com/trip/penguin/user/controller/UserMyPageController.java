@@ -13,6 +13,7 @@ import com.trip.penguin.resolver.vo.LoginUserInfo;
 import com.trip.penguin.response.JsonResponse;
 import com.trip.penguin.user.dto.UserMyPageDTO;
 import com.trip.penguin.user.service.UserMyPageService;
+import com.trip.penguin.user.view.UserMyPageProfileDTO;
 import com.trip.penguin.user.view.UserMyPageView;
 
 @RestController
@@ -36,5 +37,15 @@ public class UserMyPageController {
 		UserMyPageDTO userMyPageDto = userMyPageService.userMyPageModify(loginUserInfo, userMyPageView, multipartFile);
 
 		return JsonResponse.success(userMyPageDto);
+	}
+
+	@LoginUserCheck
+	@PostMapping("/profile")
+	public JsonResponse<UserMyPageProfileDTO> userMyPageProfile(@CurrentUser LoginUserInfo loginUserInfo) throws
+		IllegalAccessException {
+
+		UserMyPageProfileDTO userMyPageProfile = userMyPageService.getUserMyPageProfile(loginUserInfo);
+
+		return JsonResponse.success(userMyPageProfile);
 	}
 }

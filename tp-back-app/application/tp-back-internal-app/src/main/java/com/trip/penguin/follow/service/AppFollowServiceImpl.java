@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 
 import com.trip.penguin.exception.UserNotFoundException;
 import com.trip.penguin.follow.domain.FollowMS;
-import com.trip.penguin.resolver.vo.LoginUserInfo;
-import com.trip.penguin.user.domain.UserMS;
 import com.trip.penguin.follow.dto.UserFollowDTO;
 import com.trip.penguin.follow.dto.UserFollowListDTO;
+import com.trip.penguin.follow.view.UserFollowSchCdtView;
+import com.trip.penguin.resolver.vo.LoginUserInfo;
+import com.trip.penguin.user.domain.UserMS;
 import com.trip.penguin.user.repository.UserFollowCustomRepository;
 import com.trip.penguin.user.service.UserService;
-import com.trip.penguin.follow.view.UserFollowSchCdtView;
 
 @Service
 public class AppFollowServiceImpl implements AppFollowService {
@@ -75,5 +75,15 @@ public class AppFollowServiceImpl implements AppFollowService {
 			.orElseThrow(UserNotFoundException::new);
 
 		followService.deleteFollowByUserIdAndId(followId, foundUser);
+	}
+
+	@Override
+	public Integer getUserFollowerCnt(Long userId) {
+		return userFollowCustomRepository.getUserFollowerCount(userId);
+	}
+
+	@Override
+	public Integer getUserFollowCnt(Long userId) {
+		return userFollowCustomRepository.getUserFollowCount(userId);
 	}
 }
