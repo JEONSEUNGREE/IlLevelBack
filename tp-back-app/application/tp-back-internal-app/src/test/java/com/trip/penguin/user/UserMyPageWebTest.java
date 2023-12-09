@@ -145,7 +145,7 @@ public class UserMyPageWebTest extends AbstractRestDocsTests {
 			);
 
 		// when
-		mockMvc.perform(post("/usr/mypage/profile")
+		mockMvc.perform(get("/usr/mypage/profile")
 				.cookie(new Cookie(CommonConstant.ACCOUNT_TOKEN.getName(), "jwtToken"))
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
