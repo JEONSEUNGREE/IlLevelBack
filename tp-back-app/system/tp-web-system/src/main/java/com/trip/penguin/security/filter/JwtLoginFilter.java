@@ -85,7 +85,7 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
 		payload.put("userEmail", userEmail);
 		payload.put("authority", authority);
 		response.sendRedirect(
-			frontServer + "login?" + CommonConstant.ACCOUNT_TOKEN.getName() + "=" + jwtTokenUtil.generateToken(
+			frontServer + "/login?" + CommonConstant.ACCOUNT_TOKEN.getName() + "=" + jwtTokenUtil.generateToken(
 				payload));
 	}
 }
