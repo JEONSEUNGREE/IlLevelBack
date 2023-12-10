@@ -14,6 +14,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import net.minidev.json.JSONObject;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trip.penguin.account.dto.LoginRequestDTO;
 import com.trip.penguin.constant.CommonConstant;
@@ -84,8 +86,10 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
 		// 추가 정보 claim에 넣는 부분
 		payload.put("userEmail", userEmail);
 		payload.put("authority", authority);
-		response.sendRedirect(
-			frontServer + "/login?" + CommonConstant.ACCOUNT_TOKEN.getName() + "=" + jwtTokenUtil.generateToken(
-				payload));
+
+		JSONObject resJson = new JSONObject();
+		resJson.put(CommonConstant.ACCOUNT_TOKEN.getName(), jwtTokenUtil.generateToken(payload));
+
+		response.getWriter().write(resJson.toJSONString());
 	}
 }
