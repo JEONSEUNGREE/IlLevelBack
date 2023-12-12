@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import com.trip.penguin.company.domain.CompanyMS;
 import com.trip.penguin.room.domain.RoomMS;
-import com.trip.penguin.room.domain.RoomPicMS;
 
 public interface RoomService {
 
@@ -16,6 +15,8 @@ public interface RoomService {
 	public List<RoomMS> getRoomPicListByRoomId(RoomMS roomMS);
 
 	public List<RoomMS> getReviewListByRoomId(RoomMS roomMS);
+
+	public RoomMS getRoomMsAndRoomPicByRoomId(Long roomId);
 
 	public Optional<RoomMS> getRoomBookingList(RoomMS roomMS);
 

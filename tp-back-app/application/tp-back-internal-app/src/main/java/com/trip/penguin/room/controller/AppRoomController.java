@@ -3,6 +3,8 @@ package com.trip.penguin.room.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -31,7 +33,7 @@ public class AppRoomController {
 
 	@LoginCompanyCheck
 	@PostMapping("/create")
-	public JsonResponse<AppRoomDTO> appCompanyCreate(@CurrentCompany LoginCompanyInfo loginCompanyInfo,
+	public JsonResponse<AppRoomDTO> appRoomCreate(@CurrentCompany LoginCompanyInfo loginCompanyInfo,
 		@RequestPart(value = "appRoomView") AppRoomView appRoomView,
 		@RequestPart(value = "thumbNailImg", required = false) MultipartFile thumbNailImg,
 		@RequestPart(value = "roomImgList", required = false) List<MultipartFile> roomImgList)
@@ -41,5 +43,13 @@ public class AppRoomController {
 			roomImgList);
 
 		return JsonResponse.success(appRoomDTO);
+	}
+
+	@GetMapping("/detail/{roomId}")
+	public JsonResponse<AppRoomDTO> getAppRoomDetail(@PathVariable("roomId") Long roomId) {
+
+		AppRoomDTO roomDetail = appRoomService.getRoomDetail(roomId);
+
+		return JsonResponse.success(roomDetail);
 	}
 }

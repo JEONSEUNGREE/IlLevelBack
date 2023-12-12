@@ -270,4 +270,39 @@ public class AppRoomDataTest {
 		assertEquals(5, appReviewDTO.getRating());
 	}
 
+	@DisplayName("리뷰 테스트")
+	@Test
+	void getAppRoomDetail() {
+
+		//given
+		LoginCompanyInfo loginComInfo = LoginCompanyInfo.builder()
+			.comEmail(beforeCommitUserList.get(0).getUserEmail())
+			.role(CommonUserRole.ROLE_COM.getUserRole())
+			.build();
+
+		AppRoomView appRoomView = AppRoomView.builder()
+			.roomDesc("roomdesc")
+			.maxCount(100)
+			.checkIn(LocalDateTime.now())
+			.checkOut(LocalDateTime.now())
+			.couponYn(CommonConstant.Y.getName())
+			.roomNm("roomNm")
+			.comName("comName")
+			.sellPrc(100000)
+			.build();
+
+		userService.signUpUser(beforeCommitUserList.get(0));
+
+		companyService.createCompany(beforeCommitCompany);
+
+		AppRoomDTO appRoomDTO = appRoomService.companyRoomCreate(loginComInfo, appRoomView, null, null);
+
+		AppRoomDTO roomDetail = appRoomService.getRoomDetail(appRoomDTO.getId());
+
+		assertEquals(roomDetail.getId(), appRoomDTO.getId());
+		assertEquals(roomDetail.getComId(), appRoomDTO.getComId());
+		assertEquals(roomDetail.getModifiedDate(), appRoomDTO.getModifiedDate());
+
+	}
+
 }

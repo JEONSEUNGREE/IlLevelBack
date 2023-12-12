@@ -96,4 +96,16 @@ public class AppRoomServiceImpl implements AppRoomService {
 
 		return appRoomDTO;
 	}
+
+	@Override
+	public AppRoomDTO getRoomDetail(Long roomId) {
+		AppRoomDTO appRoomDTO = new AppRoomDTO();
+		RoomMS roomMSAndRoomPics = roomService.getRoomMsAndRoomPicByRoomId(roomId);
+
+		BeanUtils.copyProperties(roomMSAndRoomPics, appRoomDTO);
+		appRoomDTO.setComId(roomMSAndRoomPics.getCom().getId());
+		appRoomDTO.addRoomPicList(roomMSAndRoomPics.getRoomPicList());
+
+		return appRoomDTO;
+	}
 }

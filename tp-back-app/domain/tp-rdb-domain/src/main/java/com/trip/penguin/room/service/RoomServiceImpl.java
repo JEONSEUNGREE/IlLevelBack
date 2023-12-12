@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.trip.penguin.company.domain.CompanyMS;
 import com.trip.penguin.room.domain.RoomMS;
-import com.trip.penguin.room.domain.RoomPicMS;
 import com.trip.penguin.room.repository.RoomMSRepository;
 import com.trip.penguin.room.repository.RoomPicMsRepository;
 
@@ -65,6 +64,11 @@ public class RoomServiceImpl implements RoomService {
 	@Override
 	public List<RoomMS> getReviewListByRoomId(RoomMS roomMS) {
 		return roomMSRepository.getReviewListByRoomId(roomMS.getId());
+	}
+
+	@Override
+	public RoomMS getRoomMsAndRoomPicByRoomId(Long roomId) {
+		return roomMSRepository.getRoomMsAndRoomPicByRoomId(roomId);
 	}
 
 	@Override

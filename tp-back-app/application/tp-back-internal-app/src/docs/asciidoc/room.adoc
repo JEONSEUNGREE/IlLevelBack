@@ -4,3 +4,7 @@
 
 operation::room-web-test/room-modify-test[snippets='http-request,request-cookies,request-parts,request-part-appRoomView-fields,http-response,response-fields']
 
+=== 객실 상세 페이지
+
+operation::room-web-test/get-app-room-detail[snippets='http-request,path-parameters,http-response,response-fields']
+
