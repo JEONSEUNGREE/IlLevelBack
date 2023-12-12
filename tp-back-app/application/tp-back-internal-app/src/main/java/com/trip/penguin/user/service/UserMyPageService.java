@@ -13,4 +13,6 @@ public interface UserMyPageService {
 		MultipartFile multipartFile) throws IllegalAccessException;
 
 	UserMyPageProfileDTO getUserMyPageProfile(LoginUserInfo loginUserInfo) throws IllegalAccessException;
+
+	String checkEmailValidate(String email);
 }

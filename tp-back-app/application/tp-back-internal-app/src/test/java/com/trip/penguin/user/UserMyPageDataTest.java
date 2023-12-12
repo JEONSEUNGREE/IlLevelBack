@@ -22,6 +22,7 @@ import com.trip.penguin.account.converter.ProviderUserConverter;
 import com.trip.penguin.account.service.OauthUserService;
 import com.trip.penguin.company.service.CompanyService;
 import com.trip.penguin.config.TestContainer;
+import com.trip.penguin.constant.CommonMessage;
 import com.trip.penguin.follow.service.AppFollowService;
 import com.trip.penguin.resolver.vo.LoginUserInfo;
 import com.trip.penguin.user.domain.UserMS;
@@ -154,5 +155,24 @@ public class UserMyPageDataTest {
 		assertEquals(0, userFollowerCnt1);
 		assertEquals(1, userFollowerCnt2);
 
+	}
+
+	@DisplayName("회원 이메일 중복 체크")
+	@Test
+	void userEmailValid() {
+
+		//given
+		UserMS afterCommitUser = userService.signUpUser(beforeCommitUser);
+		UserMS afterCommitUser2 = userService.signUpUser(beforeCommitUser2);
+
+		//when
+		String alreadyExistEmail = userMyPageService.checkEmailValidate(beforeCommitUser.getUserEmail());
+		String notEmailFormat = userMyPageService.checkEmailValidate("test");
+		String availableEmail = userMyPageService.checkEmailValidate("test@test.com");
+
+		//then
+		assertEquals(alreadyExistEmail, CommonMessage.DUPLICATE_EMAIL.getMessage());
+		assertEquals(notEmailFormat, CommonMessage.NOT_ALLOWED_FORMAT_EMAIL.getMessage());
+		assertEquals(availableEmail, CommonMessage.AVAILABLE_EMAIL.getMessage());
 	}
 }

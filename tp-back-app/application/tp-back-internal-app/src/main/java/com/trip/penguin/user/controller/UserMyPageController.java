@@ -1,6 +1,7 @@
 package com.trip.penguin.user.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,5 +49,13 @@ public class UserMyPageController {
 		UserMyPageProfileDTO userMyPageProfile = userMyPageService.getUserMyPageProfile(loginUserInfo);
 
 		return JsonResponse.success(userMyPageProfile);
+	}
+
+	@GetMapping("/valid/email")
+	public JsonResponse<String> userEmailValid(@Param("email") String email) {
+
+		String msg = userMyPageService.checkEmailValidate(email);
+
+		return JsonResponse.success(msg);
 	}
 }
