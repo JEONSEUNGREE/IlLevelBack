@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.trip.penguin.account.service.DefaultUserService;
+import com.trip.penguin.constant.CommonMessage;
 import com.trip.penguin.exception.UserNotFoundException;
 import com.trip.penguin.follow.service.AppFollowService;
 import com.trip.penguin.resolver.vo.LoginUserInfo;
@@ -29,6 +30,7 @@ public class UserMyPageServiceImpl implements UserMyPageService {
 	private DefaultUserService defaultUserService;
 
 	private ImgUtils imgUtils;
+	private UserMS userMS;
 
 	@Autowired
 	public UserMyPageServiceImpl(UserService userService, AppFollowService appFollowService,
@@ -85,4 +87,22 @@ public class UserMyPageServiceImpl implements UserMyPageService {
 
 		return new UserMyPageProfileDTO().changeDTO(foundUser, followCnt, followerCnt);
 	}
+
+	@Override
+	public String checkEmailValidate(String email) {
+		String msg = "";
+
+		msg = UserMS.isValidEmail(email);
+
+		if (!msg.isEmpty()) {
+			return msg;
+		}
+
+		msg = userService.getUserByUserEmail(email).isEmpty() ?
+			CommonMessage.AVAILABLE_EMAIL.getMessage() :
+			CommonMessage.DUPLICATE_EMAIL.getMessage();
+
+		return msg;
+	}
+
 }

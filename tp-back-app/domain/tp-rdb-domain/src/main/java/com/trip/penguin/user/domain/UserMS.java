@@ -3,9 +3,12 @@ package com.trip.penguin.user.domain;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.trip.penguin.badge.domain.UserBadge;
 import com.trip.penguin.booking.domain.BookingMS;
+import com.trip.penguin.constant.CommonMessage;
 import com.trip.penguin.constant.OAuthVendor;
 import com.trip.penguin.cs.domain.CsMS;
 import com.trip.penguin.follow.domain.FollowMS;
@@ -129,5 +132,15 @@ public class UserMS {
 
 	public boolean isOAuthUser() {
 		return !OAuthVendor.DEFAULT.getOAuthVendor().equals(this.getSocialProvider());
+	}
+
+	public static String isValidEmail(String email) {
+		String regex = "^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$";
+		Pattern p = Pattern.compile(regex);
+		Matcher m = p.matcher(email);
+		if (!m.matches()) {
+			return CommonMessage.NOT_ALLOWED_FORMAT_EMAIL.getMessage();
+		}
+		return "";
 	}
 }

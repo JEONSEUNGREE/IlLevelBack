@@ -26,6 +26,7 @@ import com.trip.penguin.TpBackInternalApp;
 import com.trip.penguin.config.AbstractRestDocsTests;
 import com.trip.penguin.config.WithMockCustomUser;
 import com.trip.penguin.constant.CommonConstant;
+import com.trip.penguin.constant.CommonMessage;
 import com.trip.penguin.resolver.vo.LoginUserInfo;
 import com.trip.penguin.user.controller.UserMyPageController;
 import com.trip.penguin.user.dto.UserMyPageDTO;
@@ -170,6 +171,38 @@ public class UserMyPageWebTest extends AbstractRestDocsTests {
 					fieldWithPath("data.followCnt").type(JsonFieldType.NUMBER).description("회원 팔로우 수"),
 					fieldWithPath("data.followerCnt").type(JsonFieldType.NUMBER).description("회원 팔로워 수"),
 					fieldWithPath("data.introduce").type(JsonFieldType.STRING).description("회원 소개")
+				))
+			);
+	}
+
+	@Test
+	@DisplayName("회원 이메일 체크")
+	public void userEmailValid() throws Exception {
+
+		// given
+		given(userMyPageService.checkEmailValidate(
+			any(String.class)))
+			.willReturn(
+				CommonMessage.DUPLICATE_EMAIL.getMessage()
+			);
+
+		// when
+		mockMvc.perform(get("/usr/mypage/valid/email")
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+				.param("email", "test@test.com"))
+			// then
+			.andExpect(status().isOk())
+			.andDo(restDocs.document(
+				queryParameters(
+					parameterWithName("email").description("이메일")
+				),
+				responseFields(
+					fieldWithPath("message").type(JsonFieldType.STRING)
+						.description("이미 가입된 이메일 형식 입니다,"
+							+ "가입 가능한 이메일 형식 입니다, 올바른 이메일 형식이 아닙니다"),
+					fieldWithPath("result").type(JsonFieldType.STRING).description("결과"),
+					fieldWithPath("data").type(JsonFieldType.NULL).description("데이터")
 				))
 			);
 	}

@@ -22,4 +22,8 @@ public class JsonResponse<T> {
 	public static <T> JsonResponse<T> success() {
 		return new JsonResponse<>(CommonConstant.SUCCESS.name(), CommonConstant.SUCCESS, null);
 	}
+
+	public static <T> JsonResponse<T> success(String msg) {
+		return new JsonResponse<>(msg, CommonConstant.SUCCESS, null);
+	}
 }
