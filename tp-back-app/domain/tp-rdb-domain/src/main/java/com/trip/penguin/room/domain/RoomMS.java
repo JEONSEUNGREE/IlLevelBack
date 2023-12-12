@@ -47,6 +47,7 @@ public class RoomMS {
 	@OneToMany(mappedBy = "roomMs", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<RoomPicMS> roomPicList = new ArrayList<>();
 
+	/* 테이블이랑 상이하게 구성 했음 초반 설계 실수 */
 	@Builder.Default
 	@OneToMany(mappedBy = "roomMS", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ReviewMS> reviewList = new ArrayList<>();
@@ -134,12 +135,12 @@ public class RoomMS {
 			AtomicInteger sequence = new AtomicInteger();
 			roomPicNameList.forEach(fileName -> {
 				tmpPicList.add(RoomPicMS.builder()
-						.roomMs(this)
-						.picLocation(fileName)
-						.picSeq(sequence.getAndIncrement())
-						.createdDate(LocalDateTime.now())
-						.modifiedDate(LocalDateTime.now())
-						.build());
+					.roomMs(this)
+					.picLocation(fileName)
+					.picSeq(sequence.getAndIncrement())
+					.createdDate(LocalDateTime.now())
+					.modifiedDate(LocalDateTime.now())
+					.build());
 			});
 			this.roomPicList = tmpPicList;
 		} else {

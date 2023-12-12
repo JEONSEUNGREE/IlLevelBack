@@ -44,6 +44,7 @@ public class ReviewMS {
 	@OneToOne(mappedBy = "reviewMS", fetch = FetchType.LAZY)
 	private BookingMS bookingMS;
 
+	/* 테이블이랑 상이하게 구성 했음 초반 설계 실수 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "room_id", nullable = false)
 	private RoomMS roomMS;
